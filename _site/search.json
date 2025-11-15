@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Marilene-website",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Marilene KOUGOUM",
+    "section": "",
+    "text": "Je suis Marilene KOUGOUM, récemment diplômée de l’ENSAI Rennes en tant qu’ingénieure en data science et gestion des risques. Cette formation m’a permis d’acquérir une base solide en modélisation des risques financiers - notamment les risques de marché et de crédit - ainsi qu’une bonne compréhension des cadres comptables et réglementaires structurants du secteur bancaire (Bâle III, IFRS 9, etc.).\nJe poursuis actuellement mes études à l’Université Paris Cité au sein du master M2MO, spécialisé en modélisation aléatoire, finance quantitative et data science.\nJ’ai créé ce site pour partager ce que j’apprends au fil de mon parcours : d’une part, pour aider mes cadets académiques à comprendre les notions enseignées en école d’ingénieur et en master quantitatif ; d’autre part, pour rendre accessibles certains concepts parfois techniques en finance quantitative, en data science ou en gestion des risques.\nLes contenus présents sur ce site proviennent de mes travaux académiques, de projets personnels ou d’enseignements réalisés sous la supervision de professeurs et de professionnels experts dans leurs domaines. Je ne prétends pas que ces contenus soient exhaustifs : ils reflètent mon apprentissage continu et ma volonté de partager.\nMerci de votre visite, et bonne exploration !"
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "Marilene KOUGOUM",
+    "section": "Education",
+    "text": "Education\nUniversity of California, San Diego | San Diego, CA PhD in Mathematics | Sept 2011 - June 2015\nMacalester College | St. Paul, MN B.A in Economics | Sept 2007 - June 2011"
+  },
+  {
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "Marilene KOUGOUM",
+    "section": "Experience",
+    "text": "Experience\nWengo Analytics | Head Data Scientist | April 2018 - present\nGeoScynce | Chief Analyst | Spet 2012 - April 2018"
+  }
+]

@@ -1,0 +1,36 @@
+---
+title: "Marilene KOUGOUM"
+about:
+  template: jolla
+  image: ma_photo.jpeg
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/TON-LINKEDIN
+    - icon: github
+      text: GitHub
+      href: https://github.com/TON-GITHUB
+    - icon: envelope
+      text: Email
+      href: mailto:TON_EMAIL
+    - icon: file-person
+      text: CV (Français)
+      href: cv_fr.pdf
+    - icon: file-person
+      text: CV (English)
+      href: cv_en.pdf
+---
+
+Je suis Marilene KOUGOUM, récemment diplômée de l’ENSAI Rennes en tant qu’ingénieure en data science et gestion des risques.
+Cette formation m’a permis d’acquérir une base solide en modélisation des risques financiers - notamment les risques de marché et de crédit - ainsi qu’une bonne compréhension des cadres comptables et réglementaires structurants du secteur bancaire (Bâle III, IFRS 9, etc.).
+
+Je poursuis actuellement mes études à l’Université Paris Cité au sein du master M2MO, spécialisé en modélisation aléatoire, finance quantitative et data science.
+
+J’ai créé ce site pour partager ce que j’apprends au fil de mon parcours :
+d’une part, pour aider mes cadets académiques à comprendre les notions enseignées en école d’ingénieur et en master quantitatif ;
+d’autre part, pour rendre accessibles certains concepts parfois techniques en finance quantitative, en data science ou en gestion des risques.
+
+Les contenus présents sur ce site proviennent de mes travaux académiques, de projets personnels ou d’enseignements réalisés sous la supervision de professeurs et de professionnels experts dans leurs domaines.
+Je ne prétends pas que ces contenus soient exhaustifs : ils reflètent mon apprentissage continu et ma volonté de partager.
+
+Merci de votre visite, et bonne exploration !
