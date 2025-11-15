@@ -6,13 +6,13 @@ about:
   links:
     - icon: linkedin
       text: LinkedIn
-      href: https://www.linkedin.com/TON-LINKEDIN
+      href: https://www.linkedin.com/in/marilene-kougoum/
     - icon: github
       text: GitHub
       href: https://github.com/TON-GITHUB
     - icon: envelope
       text: Email
-      href: mailto:TON_EMAIL
+      href: mailto:marilenemoko@gmail.com
     - icon: file-person
       text: CV (Français)
       href: cv_fr.pdf

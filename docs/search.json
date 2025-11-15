@@ -9,8 +9,29 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Marilene-website",
+    "title": "Apprendre, comprendre, partager.",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "Modèles stochastiques, pricing, produits dérivés.\n\n→ Explorer\n\n\n\n\nRisque de marché, risque de crédit, conformité bancaire.\n\n→ Explorer\n\n\n\n\nModèles prédictifs, séries temporelles, applications financières.\n\n→ Explorer\n\n\n\n\n\n\n\n\n\n\n\nSimulation stochastique, variance reduction, convergence.\n\nLire\n\n\n\n\n\nPD, LGD, IFRS 9 et modèles statistiques appliqués.\n\nLire\n\n\n\n\n\nARIMA, Prophet, LSTM : comparaison et analyse.\n\nLire"
+  },
+  {
+    "objectID": "index.html#les-grands-axes-du-site",
+    "href": "index.html#les-grands-axes-du-site",
+    "title": " ",
+    "section": "Les grands axes du site",
+    "text": "Les grands axes du site\n\n\n\nFinance quantitative\n\n\nCalibration de processus stochastiques, Modèles de courbe de taux, Pricing…\n\n→ Explorer\n\n\n\nRisque & Régulation\n\n\nRisque de marché, risque de crédit, conformité bancaire…\n\n→ Explorer\n\n\n\nModélisation stat\n\n\nAnalyse des séries financières, Théorie des valeurs extrêmes, Modèles de durée…\n\n→ Explorer"
+  },
+  {
+    "objectID": "index.html#derniers-projets",
+    "href": "index.html#derniers-projets",
+    "title": " ",
+    "section": "Derniers projets",
+    "text": "Derniers projets\n\n\n\n\nPricing d’options via Monte-Carlo\n\n\nSimulation stochastique, variance reduction, convergence.\n\nLire\n\n\n\n\nModélisation du risque de crédit\n\n\nPD, LGD, IFRS 9 et modèles statistiques appliqués.\n\nLire\n\n\n\n\nPrévision de séries temporelles\n\n\nARIMA, Prophet, LSTM : comparaison et analyse.\n\nLire"
+  },
+  {
+    "objectID": "index.html#publications-récentes",
+    "href": "index.html#publications-récentes",
+    "title": " ",
+    "section": "Publications récentes",
+    "text": "Publications récentes\n\n\n\n\nCourbe de taux & modèle de Hull–White\n\n\nBootstrapping, valorisation caplets/swap­tion, calibration Hull–White\n\nLire\n\n\n\n\nModélisation du risque de crédit\n\n\nPD, LGD, IFRS 9 et modèles statistiques appliqués.\n\nLire\n\n\n\n\nPrévision de séries temporelles\n\n\nARIMA, Prophet, LSTM : comparaison et analyse.\n\nLire"
   }
 ]

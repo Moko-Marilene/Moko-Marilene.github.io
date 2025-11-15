@@ -4,5 +4,20 @@
   },
   "index.qmd": {
     "index.html": "690d3a89"
+  },
+  "finance.qmd": {
+    "finance.html": "8bed3b5e"
+  },
+  "modelisation-stat.qmd": {
+    "modelisation-stat.html": "d214ae6b"
+  },
+  "risque-regulation.qmd": {
+    "risque-regulation.html": "af4b0b94"
+  },
+  "modelisation stat.qmd": {
+    "modelisation stat.html": "1d90be66"
+  },
+  "data-science.qmd": {
+    "data-science.html": "4a6e93da"
   }
 }

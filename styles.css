@@ -19,7 +19,143 @@
 
 /* section about */
 /* Justifier le texte dans les pages À propos */
-.about-body {
-  text-align: justify !important;
+/* Réduction des marges sur la page À propos */
+.quarto-about-trestles .about-content {
+  max-width: 900px !important;   /* augmente la largeur */
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
+/* Réduction de la marge globale du container */
+.page-content {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+
+/*  Page d'accueil */
+
+/* ===== HERO SECTION ===== */
+
+.hero-banner {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.hero-img {
+  width: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+}
+
+/* ===== AXES SECTION ===== */
+/* ---- TITRES SECTIONS : Barre élégante à gauche ---- */
+.section-title {
+  border-left: 5px solid #4783aa;   /* bleu cohérent */
+  padding-left: 12px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #265f85;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.axes-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.axis-card {
+  background: #f6fbff;
+  border: 1px solid #dbe8f2;
+  padding: 18px 20px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.axis-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.axis-card h3 {
+  color: #265f85;
+  margin-bottom: 10px;
+}
+
+.axis-btn {
+  color: #265f85;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.axis-btn:hover {
+  text-decoration: underline;
+}
+
+/* ===== PROJECT SECTION ===== */
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.project-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e6e9;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  padding-bottom: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+.project-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+}
+
+.project-card h3 {
+  margin: 15px;
+  color: #265f85;
+}
+
+.project-card p {
+  margin: 0 15px 15px 15px;
+}
+
+.btn {
+  display: inline-block;
+  margin-left: 15px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: #265f85;
+  color: white;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.btn:hover {
+  opacity: 0.85;
+}
+
+/* ===== GENERAL BACKGROUND FOR HOMEPAGE ===== */
+
+body {
+  background: #f3f8fc;
+}

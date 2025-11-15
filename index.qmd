@@ -1,8 +1,66 @@
 ---
-title: "Marilene-website "
-subtitle: "Quantitative finance / Stochastic modelling/ Risk management / Data science"
+title: ""
+format:
+  html:
+    toc: false
 ---
 
-This is a Quarto website.
+<!-- HERO IMAGE -->
+<div class="hero-banner">
+  <img src="banniere.png" class="hero-img">
+</div>
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+---
+
+## <span class="section-title">Les grands axes du site</span>
+
+<div class="axes-section">
+
+<div class="axis-card">
+  <h3>Finance quantitative</h3>
+  <p>Calibration de processus stochastiques, Modèles de courbe de taux, Pricing...</p>
+  <a href="finance.qmd" class="axis-btn">→ Explorer</a>
+</div>
+
+<div class="axis-card">
+  <h3>Risque & Régulation</h3>
+  <p>Risque de marché, risque de crédit, conformité bancaire...</p>
+  <a href="risque.qmd" class="axis-btn">→ Explorer</a>
+</div>
+
+<div class="axis-card">
+  <h3>Modélisation stat</h3>
+  <p>Analyse des séries financières, Théorie des valeurs extrêmes, Modèles de durée...</p>
+  <a href="modelisation stat.qmd" class="axis-btn">→ Explorer</a>
+</div>
+
+</div>
+
+---
+
+## <span class="section-title">Publications récentes</span>
+
+<div class="project-grid">
+
+<div class="project-card">
+  <img src="courbe de taux.png" class="project-img">
+  <h3>Courbe de taux & modèle de Hull–White</h3>
+  <p>Bootstrapping, valorisation caplets/swap­tion, calibration Hull–White</p>
+  <a href="projets/projet1.qmd" class="btn">Lire</a>
+</div>
+
+<div class="project-card">
+  <img src="..." class="project-img">
+  <h3>Modélisation du risque de crédit</h3>
+  <p>PD, LGD, IFRS 9 et modèles statistiques appliqués.</p>
+  <a href="projets/projet2.qmd" class="btn">Lire</a>
+</div>
+
+<div class="project-card">
+  <img src="images/projet3.jpg" class="project-img">
+  <h3>Prévision de séries temporelles</h3>
+  <p>ARIMA, Prophet, LSTM : comparaison et analyse.</p>
+  <a href="projets/projet3.qmd" class="btn">Lire</a>
+</div>
+
+</div>
