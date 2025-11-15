@@ -1,0 +1,25 @@
+/*******************************************************
+ * 1. NAVBAR (Couleurs, liens, hover)
+ *******************************************************/
+/* Couleur de la navbar */
+.navbar {
+  background-color: #4783aaff !important;
+}
+
+/* Couleur des liens dans la navbar */
+.navbar .nav-link,
+.navbar-brand {
+  color: white !important;
+}
+
+/* Couleur lorsque la souris passe sur un lien */
+.navbar .nav-link:hover {
+  color: #d1e6e6ff !important;
+}
+
+/* section about */
+/* Justifier le texte dans les pages À propos */
+.about-body {
+  text-align: justify !important;
+}
+
