@@ -14,7 +14,7 @@ website:
       - href: risque-regulation.qmd
         text: Risque & Régulation
       - href: data-science-ml.qmd
-        text: Data Science & ML
+        text: Data Science
       - href: articles-ressources.qmd
         text: Ressources
       - href: about.qmd
