@@ -13,7 +13,7 @@ website:
         text: Finance Quantitative
       - href: risque-regulation.qmd
         text: Risque & Régulation
-      - href: modelisation stat.qmd
+      - href: modelisation-stat.qmd
         text: Modélisation stat
       - href: articles-ressources.qmd
         text: Ressources
