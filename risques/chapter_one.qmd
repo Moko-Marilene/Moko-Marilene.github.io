@@ -147,4 +147,4 @@ L’évolution de la régulation prudentielle suit l’objectif de renforcer la 
 - **Bâle I (1988)** : introduction du ratio Cooke (capital/RWA ≥ 8%).  
 - **Bâle II (2004)** : architecture en trois piliers, reconnaissance des modèles internes.  
 - **Bâle III (2010–2011)** : amélioration de la qualité du capital, coussins de conservation, ratios LCR et NSFR.  
-- **Bâle IV (2017)** : ado
+- **Bâle IV (2017)** : remplacement de la VaR par l’ES pour le risque de marché, refonte de l’approche opérationnelle, encadrement accru des modèles internes.
