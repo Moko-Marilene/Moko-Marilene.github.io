@@ -1,0 +1,234 @@
+---
+title: "Chapitre 3 : Le Risque de Crédit"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+[⬅ Retour à Risque & Régulation](index.qmd)
+
+
+## Comprendre le Risque de Crédit
+
+Le risque de crédit correspond à la possibilité qu’un emprunteur ou une contrepartie ne respecte pas ses obligations financières. Pour la plupart des institutions bancaires, il constitue la composante la plus importante du risque global, car il concerne directement la capacité des clients à rembourser leurs dettes.
+
+Contrairement au risque de marché, qui résulte de la fluctuation des prix financiers, le risque de crédit se focalise sur la **solvabilité**. Sa gestion repose sur l’évaluation de la qualité des contreparties, la modélisation des comportements de défaut et l’estimation des pertes potentielles.
+
+---
+
+## Les Concepts Clés du Risque de Crédit
+
+Les modèles réglementaires et internes reposent sur quatre paramètres fondamentaux.
+
+### Probabilité de Défaut (PD)
+
+La probabilité de défaut (PD) mesure la probabilité qu’une contrepartie fasse défaut sur un horizon donné, le plus souvent un an :
+
+$$
+PD = \mathbb{P}(\text{Défaut})
+$$
+
+### Perte en Cas de Défaut (LGD)
+
+La LGD (Loss Given Default) représente la proportion de l’exposition qui serait perdue en cas de défaut après prise en compte des recouvrements :
+
+$$
+LGD = 1 - \text{Taux de Recouvrement}
+$$
+
+### Exposition au Moment du Défaut (EAD)
+
+L’exposition au défaut (EAD) correspond au montant effectivement engagé au moment du défaut.  
+Pour les engagements conditionnels, elle inclut un facteur de conversion :
+
+$$
+EAD = \text{Encours Courant} + \text{Engagements Non Utilisés} \times CCF
+$$
+
+### Perte Attendue (EL)
+
+Les trois paramètres précédents permettent de définir la **perte attendue**, composante centrale de la gestion du risque de crédit :
+
+$$
+EL = PD \times LGD \times EAD
+$$
+
+---
+
+## Les Marchés du Crédit
+
+### Marché des Prêts Bancaires
+
+Le marché du crédit bancaire se divise principalement en :
+
+- **Banque de détail** : crédits aux particuliers et aux petites entreprises  
+- **Banque corporate** : financements aux grandes entreprises  
+- **Processus de scoring** : modèles automatisés d’évaluation du risque
+
+### Marché Obligataire
+
+Les entreprises et États peuvent se financer via l’émission d’obligations :
+
+- **Obligations souveraines** : exposition au risque de crédit de l’État  
+- **Obligations corporate** : risque propre aux entreprises  
+- **Spread de crédit** : prime de risque exigée pour compenser un risque de défaut
+
+### Titrisation et Dérivés de Crédit
+
+#### Titrisation
+
+La titrisation permet de transformer des actifs illiquides en titres négociables :
+
+- **ABS** : Asset-Backed Securities  
+- **MBS** : Mortgage-Backed Securities  
+- **CDO** : Collateralized Debt Obligations  
+
+#### Dérivés de Crédit
+
+Le CDS (Credit Default Swap) est l’instrument de référence pour transférer le risque de crédit :
+
+- l’acheteur de protection paie une prime périodique,  
+- le vendeur de protection indemnise en cas de défaut.
+
+---
+
+## Le Cadre Réglementaire Bâle II / III
+
+### Approche Standardisée
+
+Les pondérations de risque sont déterminées à partir des notations externes. Exemple simplifié :
+
+| Notation | Pondération |
+|----------|-------------|
+| AAA–AA   | 20%         |
+| A+       | 50%         |
+| BBB      | 100%        |
+| BB       | 150%        |
+
+### Approche Fondation (FIRB)
+
+Dans l’approche FIRB :
+
+- La banque estime la PD  
+- La LGD et l’EAD sont standardisées  
+- Le capital est calculé via la formule réglementaire
+
+### Approche Avancée (AIRB)
+
+L’approche AIRB permet à la banque d’estimer :
+
+- PD  
+- LGD  
+- EAD  
+- maturité effective (M)  
+
+Ces approches offrent plus de précision mais exigent une validation stricte des modèles.
+
+---
+
+## Modélisation des Paramètres de Crédit
+
+### Modélisation de la PD
+
+#### Approche par Cohortes
+
+La méthode des cohortes repose sur l’historique de défauts :
+
+$$
+PD_c = \frac{\sum D^c_T}{\sum N^c_T}
+$$
+
+#### Approche Statistique
+
+Les modèles statistiques, comme la régression logistique, relient la PD aux caractéristiques des emprunteurs :
+
+$$
+PD = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_1 + \cdots + \beta_n x_n)}}
+$$
+
+### Modélisation de la LGD
+
+#### LGD de Marché
+
+Estimée à partir des prix observés après défaut :
+
+$$
+LGD_{\text{Marché}} = 1 - \frac{\text{Prix Après Défaut}}{\text{Nominal}}
+$$
+
+#### LGD de Recouvrement
+
+Basée sur les flux de recouvrement actualisés :
+
+$$
+LGD_{\text{Recouvrement}} = \frac{EAD - \text{Recouvrements Actualisés}}{EAD}
+$$
+
+### Modélisation de l’EAD
+
+Pour les engagements conditionnels :
+
+$$
+EAD = \text{Encours} + \text{Non Utilisé} \times CCF
+$$
+
+---
+
+## Le Capital Économique pour le Risque de Crédit
+
+### Value-at-Risk Crédit
+
+Le capital économique est défini comme la différence entre la VaR et la perte attendue :
+
+$$
+EC_{\alpha} = VaR_{\alpha} - EL
+$$
+
+### Modèle de Vasicek
+
+Dans le cadre du modèle à un facteur systémique :
+
+$$
+VaR_{\alpha}
+= \Phi\!\left(
+\frac{\Phi^{-1}(PD) + \sqrt{\rho}\,\Phi^{-1}(\alpha)}
+     {\sqrt{1-\rho}}
+\right)
+$$
+
+Ce modèle constitue la base de la formule réglementaire IRB.
+
+---
+
+## Évolutions Règlementaires Récentes
+
+### Bâle III
+
+Parmi les renforcements :
+
+- exigences plus strictes pour les expositions financières,
+- coussin de conservation du capital,
+- exigences spécifiques pour les portefeuilles de trading.
+
+### Bâle IV
+
+Les réformes introduisent :
+
+- des planchers limitant la réduction des RWA via modèles internes,
+- une révision des pondérations standardisées,
+- un traitement plus prudent des expositions actions et immobilières.
+
+---
+
+## Perspectives et Défis
+
+La gestion du risque de crédit doit s’adapter à plusieurs tendances majeures :
+
+- intégration des risques climatiques,  
+- montée en puissance des techniques de machine learning,  
+- cycles économiques plus incertains,  
+- exploitation de données massives.  
+
+Ces évolutions nécessitent une amélioration continue des méthodes d’évaluation et des cadres prudentiels.
+

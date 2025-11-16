@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Chapitre 1 : Introduction à la Gestion des Risques Bancaires –</title>
+<title>Chapitre 4 : Le Risque de Contrepartie et le CVA –</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -167,28 +167,44 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#chapitre-1-introduction-à-la-gestion-des-risques-bancaires" id="toc-chapitre-1-introduction-à-la-gestion-des-risques-bancaires" class="nav-link active" data-scroll-target="#chapitre-1-introduction-à-la-gestion-des-risques-bancaires">Chapitre 1 : Introduction à la Gestion des Risques Bancaires</a>
+  <li><a href="#comprendre-le-risque-de-contrepartie" id="toc-comprendre-le-risque-de-contrepartie" class="nav-link active" data-scroll-target="#comprendre-le-risque-de-contrepartie">Comprendre le Risque de Contrepartie</a></li>
+  <li><a href="#les-spécificités-du-risque-de-contrepartie" id="toc-les-spécificités-du-risque-de-contrepartie" class="nav-link" data-scroll-target="#les-spécificités-du-risque-de-contrepartie">Les Spécificités du Risque de Contrepartie</a>
   <ul class="collapse">
-  <li><a href="#la-gestion-des-risques-une-fonction-stratégique" id="toc-la-gestion-des-risques-une-fonction-stratégique" class="nav-link" data-scroll-target="#la-gestion-des-risques-une-fonction-stratégique">La Gestion des Risques : une Fonction Stratégique</a></li>
-  <li><a href="#les-principaux-risques-bancaires" id="toc-les-principaux-risques-bancaires" class="nav-link" data-scroll-target="#les-principaux-risques-bancaires">Les Principaux Risques Bancaires</a>
+  <li><a href="#risque-bilatéral" id="toc-risque-bilatéral" class="nav-link" data-scroll-target="#risque-bilatéral">Risque Bilatéral</a></li>
+  <li><a href="#valeur-incertaine-des-expositions" id="toc-valeur-incertaine-des-expositions" class="nav-link" data-scroll-target="#valeur-incertaine-des-expositions">Valeur Incertaine des Expositions</a></li>
+  </ul></li>
+  <li><a href="#mesure-de-lexposition" id="toc-mesure-de-lexposition" class="nav-link" data-scroll-target="#mesure-de-lexposition">Mesure de l’Exposition</a>
   <ul class="collapse">
-  <li><a href="#risque-de-marché" id="toc-risque-de-marché" class="nav-link" data-scroll-target="#risque-de-marché">Risque de Marché</a></li>
-  <li><a href="#risque-de-crédit" id="toc-risque-de-crédit" class="nav-link" data-scroll-target="#risque-de-crédit">Risque de Crédit</a></li>
-  <li><a href="#risque-de-liquidité" id="toc-risque-de-liquidité" class="nav-link" data-scroll-target="#risque-de-liquidité">Risque de Liquidité</a></li>
-  <li><a href="#risque-opérationnel" id="toc-risque-opérationnel" class="nav-link" data-scroll-target="#risque-opérationnel">Risque Opérationnel</a></li>
-  <li><a href="#autres-risques" id="toc-autres-risques" class="nav-link" data-scroll-target="#autres-risques">Autres Risques</a></li>
+  <li><a href="#exposition-potentielle-future-pfe" id="toc-exposition-potentielle-future-pfe" class="nav-link" data-scroll-target="#exposition-potentielle-future-pfe">Exposition Potentielle Future (PFE)</a></li>
+  <li><a href="#exposition-attendue-ee" id="toc-exposition-attendue-ee" class="nav-link" data-scroll-target="#exposition-attendue-ee">Exposition Attendue (EE)</a></li>
+  <li><a href="#exposition-attendue-positive-epe" id="toc-exposition-attendue-positive-epe" class="nav-link" data-scroll-target="#exposition-attendue-positive-epe">Exposition Attendue Positive (EPE)</a></li>
   </ul></li>
-  <li><a href="#les-mesures-de-risque" id="toc-les-mesures-de-risque" class="nav-link" data-scroll-target="#les-mesures-de-risque">Les Mesures de Risque</a>
+  <li><a href="#techniques-de-réduction-du-risque" id="toc-techniques-de-réduction-du-risque" class="nav-link" data-scroll-target="#techniques-de-réduction-du-risque">Techniques de Réduction du Risque</a>
   <ul class="collapse">
-  <li><a href="#mesures-de-risque-cohérentes" id="toc-mesures-de-risque-cohérentes" class="nav-link" data-scroll-target="#mesures-de-risque-cohérentes">Mesures de Risque Cohérentes</a></li>
+  <li><a href="#compensation-netting" id="toc-compensation-netting" class="nav-link" data-scroll-target="#compensation-netting">Compensation (Netting)</a></li>
+  <li><a href="#collatéralisation" id="toc-collatéralisation" class="nav-link" data-scroll-target="#collatéralisation">Collatéralisation</a></li>
+  <li><a href="#appels-de-marge" id="toc-appels-de-marge" class="nav-link" data-scroll-target="#appels-de-marge">Appels de Marge</a></li>
   </ul></li>
-  <li><a href="#var-et-expected-shortfall" id="toc-var-et-expected-shortfall" class="nav-link" data-scroll-target="#var-et-expected-shortfall">VaR et Expected Shortfall</a>
+  <li><a href="#le-cva-valorisation-du-risque-de-contrepartie" id="toc-le-cva-valorisation-du-risque-de-contrepartie" class="nav-link" data-scroll-target="#le-cva-valorisation-du-risque-de-contrepartie">Le CVA : Valorisation du Risque de Contrepartie</a>
   <ul class="collapse">
-  <li><a href="#value-at-risk-var" id="toc-value-at-risk-var" class="nav-link" data-scroll-target="#value-at-risk-var">Value-at-Risk (VaR)</a></li>
-  <li><a href="#expected-shortfall-es" id="toc-expected-shortfall-es" class="nav-link" data-scroll-target="#expected-shortfall-es">Expected Shortfall (ES)</a></li>
+  <li><a href="#définition" id="toc-définition" class="nav-link" data-scroll-target="#définition">Définition</a></li>
+  <li><a href="#importance-du-cva" id="toc-importance-du-cva" class="nav-link" data-scroll-target="#importance-du-cva">Importance du CVA</a></li>
+  <li><a href="#formule-simplifiée" id="toc-formule-simplifiée" class="nav-link" data-scroll-target="#formule-simplifiée">Formule Simplifiée</a></li>
   </ul></li>
-  <li><a href="#le-cadre-réglementaire-de-bâle-i-à-bâle-iv" id="toc-le-cadre-réglementaire-de-bâle-i-à-bâle-iv" class="nav-link" data-scroll-target="#le-cadre-réglementaire-de-bâle-i-à-bâle-iv">Le Cadre Réglementaire : de Bâle I à Bâle IV</a></li>
+  <li><a href="#le-cadre-réglementaire" id="toc-le-cadre-réglementaire" class="nav-link" data-scroll-target="#le-cadre-réglementaire">Le Cadre Réglementaire</a>
+  <ul class="collapse">
+  <li><a href="#bâle-iii-capital-cva" id="toc-bâle-iii-capital-cva" class="nav-link" data-scroll-target="#bâle-iii-capital-cva">Bâle III — Capital CVA</a></li>
+  <li><a href="#approche-standardisée" id="toc-approche-standardisée" class="nav-link" data-scroll-target="#approche-standardisée">Approche Standardisée</a></li>
+  <li><a href="#approche-avancée" id="toc-approche-avancée" class="nav-link" data-scroll-target="#approche-avancée">Approche Avancée</a></li>
   </ul></li>
+  <li><a href="#défis-de-la-modélisation" id="toc-défis-de-la-modélisation" class="nav-link" data-scroll-target="#défis-de-la-modélisation">Défis de la Modélisation</a>
+  <ul class="collapse">
+  <li><a href="#risque-de-wrong-way" id="toc-risque-de-wrong-way" class="nav-link" data-scroll-target="#risque-de-wrong-way">Risque de Wrong-Way</a></li>
+  <li><a href="#qualité-des-données" id="toc-qualité-des-données" class="nav-link" data-scroll-target="#qualité-des-données">Qualité des Données</a></li>
+  <li><a href="#complexité-des-modèles" id="toc-complexité-des-modèles" class="nav-link" data-scroll-target="#complexité-des-modèles">Complexité des Modèles</a></li>
+  </ul></li>
+  <li><a href="#bonnes-pratiques-pour-la-gestion-du-risque-de-contrepartie" id="toc-bonnes-pratiques-pour-la-gestion-du-risque-de-contrepartie" class="nav-link" data-scroll-target="#bonnes-pratiques-pour-la-gestion-du-risque-de-contrepartie">Bonnes Pratiques pour la Gestion du Risque de Contrepartie</a></li>
+  <li><a href="#perspectives-et-défis" id="toc-perspectives-et-défis" class="nav-link" data-scroll-target="#perspectives-et-défis">Perspectives et Défis</a></li>
   </ul>
 </nav>
     </div>
@@ -197,7 +213,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Chapitre 1 : Introduction à la Gestion des Risques Bancaires</h1>
+<h1 class="title">Chapitre 4 : Le Risque de Contrepartie et le CVA</h1>
 </div>
 
 
@@ -215,145 +231,186 @@ window.Quarto = {
 
 
 <p><a href="../risques/index.html">⬅ Retour à Risque &amp; Régulation</a></p>
-<section id="chapitre-1-introduction-à-la-gestion-des-risques-bancaires" class="level1">
-<h1>Chapitre 1 : Introduction à la Gestion des Risques Bancaires</h1>
-<section id="la-gestion-des-risques-une-fonction-stratégique" class="level2">
-<h2 class="anchored" data-anchor-id="la-gestion-des-risques-une-fonction-stratégique">La Gestion des Risques : une Fonction Stratégique</h2>
-<p>Au cœur du système économique, les banques jouent un rôle fondamental d’intermédiation en orientant les capitaux entre agents en excédent et agents en besoin de financement. Cette position centrale les expose naturellement à une variété de risques financiers qu’il est essentiel de comprendre et de maîtriser.</p>
-<p>Avec le temps, la fonction de gestion des risques s’est profondément transformée. Jadis perçue comme un simple dispositif de contrôle, elle constitue aujourd’hui un <strong>levier stratégique</strong>, permettant :</p>
-<ul>
-<li>une allocation optimale du capital,</li>
-<li>une tarification plus fine des produits,</li>
-<li>une meilleure anticipation des chocs,</li>
-<li>un pilotage éclairé des décisions stratégiques.</li>
-</ul>
+<section id="comprendre-le-risque-de-contrepartie" class="level2">
+<h2 class="anchored" data-anchor-id="comprendre-le-risque-de-contrepartie">Comprendre le Risque de Contrepartie</h2>
+<p>Le risque de contrepartie correspond à la possibilité qu’une partie engagée dans une transaction financière ne respecte pas ses obligations contractuelles. Il est particulièrement important pour les produits dérivés (options, swaps, forwards) et certaines opérations de financement (prêts de titres, pensions livrées).</p>
+<p>Contrairement au risque de crédit traditionnel, où le montant dû est connu à l’avance, le risque de contrepartie porte sur des <strong>expositions futures incertaines</strong>, dépendant de l’évolution des marchés. La valeur d’un contrat peut devenir positive ou négative selon les mouvements du sous-jacent, ce qui rend la mesure du risque plus complexe.</p>
 <hr>
 </section>
-<section id="les-principaux-risques-bancaires" class="level2">
-<h2 class="anchored" data-anchor-id="les-principaux-risques-bancaires">Les Principaux Risques Bancaires</h2>
-<p>La première étape du risk management consiste à identifier les sources d’incertitude susceptibles d’affecter la situation financière de la banque. On distingue traditionnellement plusieurs grandes catégories de risques.</p>
-<section id="risque-de-marché" class="level3">
-<h3 class="anchored" data-anchor-id="risque-de-marché">Risque de Marché</h3>
-<p>Le risque de marché se manifeste lorsque la valeur des positions détenues par une banque évolue défavorablement sous l’effet des variations des facteurs de marché :</p>
-<ul>
-<li>taux d’intérêt,</li>
-<li>taux de change,</li>
-<li>cours des actions,</li>
-<li>prix des matières premières,</li>
-<li>spreads de crédit,</li>
-<li>conditions macroéconomiques générales.</li>
-</ul>
-<p>Ce risque reflète la <strong>sensibilité globale du portefeuille</strong> à l’environnement financier. Certains actifs réagissent fortement à de petites variations de marché, tandis que d’autres sont davantage sensibles aux mouvements amples ou aux périodes d’instabilité durant lesquelles les dépendances entre actifs deviennent moins prévisibles.</p>
+<section id="les-spécificités-du-risque-de-contrepartie" class="level2">
+<h2 class="anchored" data-anchor-id="les-spécificités-du-risque-de-contrepartie">Les Spécificités du Risque de Contrepartie</h2>
+<section id="risque-bilatéral" class="level3">
+<h3 class="anchored" data-anchor-id="risque-bilatéral">Risque Bilatéral</h3>
+<p>Dans la majorité des dérivés, chaque partie peut tour à tour être créancière ou débitrice selon l’évolution du marché. L’exposition est donc <strong>bilatérale</strong> et dépend du sens des variations du sous-jacent.</p>
 </section>
-<section id="risque-de-crédit" class="level3">
-<h3 class="anchored" data-anchor-id="risque-de-crédit">Risque de Crédit</h3>
-<p>Le risque de crédit correspond à la possibilité qu’une contrepartie ne respecte pas ses obligations financières. Il constitue généralement la composante la plus importante du risque bancaire.</p>
-</section>
-<section id="risque-de-liquidité" class="level3">
-<h3 class="anchored" data-anchor-id="risque-de-liquidité">Risque de Liquidité</h3>
-<p>Ce risque présente deux dimensions :</p>
-<ul>
-<li><strong>liquidité de marché</strong> : capacité à vendre un actif sans perte de valeur excessive,</li>
-<li><strong>liquidité de financement</strong> : capacité à se refinancer à un coût raisonnable.</li>
-</ul>
-</section>
-<section id="risque-opérationnel" class="level3">
-<h3 class="anchored" data-anchor-id="risque-opérationnel">Risque Opérationnel</h3>
-<p>Il résulte de défaillances internes (processus, systèmes, erreurs humaines) ou d’événements externes, et englobe notamment le risque juridique.</p>
-</section>
-<section id="autres-risques" class="level3">
-<h3 class="anchored" data-anchor-id="autres-risques">Autres Risques</h3>
-<p>Parmi les risques complémentaires :</p>
-<ul>
-<li><strong>risque de réputation</strong>,<br>
-</li>
-<li><strong>risque de modèle</strong>,<br>
-</li>
-<li><strong>risque systémique</strong>.</li>
-</ul>
-<blockquote class="blockquote">
-<p>Les risques bancaires sont fortement interconnectés : une approche fragmentée peut conduire à sous-estimer les vulnérabilités globales.</p>
-</blockquote>
+<section id="valeur-incertaine-des-expositions" class="level3">
+<h3 class="anchored" data-anchor-id="valeur-incertaine-des-expositions">Valeur Incertaine des Expositions</h3>
+<p>La perte potentielle en cas de défaut n’est pas fixe : elle dépend du mark-to-market du contrat au moment où le défaut survient. Ainsi, le risque de contrepartie est intimement lié à la dynamique du marché et peut varier considérablement dans le temps.</p>
 <hr>
 </section>
 </section>
-<section id="les-mesures-de-risque" class="level2">
-<h2 class="anchored" data-anchor-id="les-mesures-de-risque">Les Mesures de Risque</h2>
-<p>La mesure du risque repose sur des outils statistiques permettant de quantifier les pertes potentielles associées à une position ou un portefeuille.<br>
-Une <strong>mesure de risque</strong>, notée <span class="math inline">\(\mathcal{R}(L)\)</span> pour une perte aléatoire <span class="math inline">\(L\)</span>, représente généralement le capital économique nécessaire pour couvrir cette perte dans un scénario défavorable.</p>
-<section id="mesures-de-risque-cohérentes" class="level3">
-<h3 class="anchored" data-anchor-id="mesures-de-risque-cohérentes">Mesures de Risque Cohérentes</h3>
-<p>Artzner et al.&nbsp;ont défini quatre propriétés fondamentales caractérisant une mesure de risque <strong>cohérente</strong> :</p>
+<section id="mesure-de-lexposition" class="level2">
+<h2 class="anchored" data-anchor-id="mesure-de-lexposition">Mesure de l’Exposition</h2>
+<p>La gestion du risque de contrepartie repose sur la définition de plusieurs mesures d’exposition potentielle ou attendue.</p>
+<section id="exposition-potentielle-future-pfe" class="level3">
+<h3 class="anchored" data-anchor-id="exposition-potentielle-future-pfe">Exposition Potentielle Future (PFE)</h3>
+<p>La PFE représente une borne supérieure de l’exposition future pour un niveau de confiance donné. Elle joue un rôle analogue à une Value-at-Risk appliquée aux expositions positives :</p>
+<p><span class="math display">\[
+PFE_{\alpha}(t) = \text{Quantile}_{\alpha}\big( \max(V_t, 0) \big)
+\]</span></p>
+<p>où ( V_t ) est la valeur future du contrat.</p>
+</section>
+<section id="exposition-attendue-ee" class="level3">
+<h3 class="anchored" data-anchor-id="exposition-attendue-ee">Exposition Attendue (EE)</h3>
+<p>L’exposition attendue à une date future correspond à la moyenne des expositions positives possibles :</p>
+<p><span class="math display">\[
+EE(t) = \mathbb{E}\big[ \max(V_t, 0) \big]
+\]</span></p>
+</section>
+<section id="exposition-attendue-positive-epe" class="level3">
+<h3 class="anchored" data-anchor-id="exposition-attendue-positive-epe">Exposition Attendue Positive (EPE)</h3>
+<p>L’EPE est la moyenne pondérée de l’EE sur l’horizon considéré. C’est une mesure synthétique largement utilisée dans les approches réglementaires :</p>
+<p><span class="math display">\[
+EPE = \frac{1}{T} \int_0^T EE(t)\,dt
+\]</span></p>
+<hr>
+</section>
+</section>
+<section id="techniques-de-réduction-du-risque" class="level2">
+<h2 class="anchored" data-anchor-id="techniques-de-réduction-du-risque">Techniques de Réduction du Risque</h2>
+<section id="compensation-netting" class="level3">
+<h3 class="anchored" data-anchor-id="compensation-netting">Compensation (Netting)</h3>
+<p>Les contrats conclus avec une même contrepartie peuvent être regroupés dans une <strong>convention de compensation</strong>, permettant de compenser les valeurs positives et négatives :</p>
+<ul>
+<li>Sans netting : les expositions s’additionnent<br>
+</li>
+<li>Avec netting : seule l’exposition nette est considérée</li>
+</ul>
+<p>Cela réduit mécaniquement la perte potentielle en cas de défaut.</p>
+</section>
+<section id="collatéralisation" class="level3">
+<h3 class="anchored" data-anchor-id="collatéralisation">Collatéralisation</h3>
+<p>Les accords de collatéral (CSA) prévoient l’échange de garanties pour couvrir l’exposition courante. Les montants sont ajustés régulièrement pour refléter l’évolution de la valeur des positions.</p>
+<p>Le processus comprend généralement :</p>
 <ol type="1">
-<li><p><strong>Invariance par translation</strong> <span class="math display">\[
-\mathcal{R}(L + c) = \mathcal{R}(L) + c
-\]</span></p></li>
-<li><p><strong>Homogénéité positive</strong> <span class="math display">\[
-\mathcal{R}(\lambda L) = \lambda \mathcal{R}(L)
-\]</span></p></li>
-<li><p><strong>Monotonie</strong> <span class="math display">\[
-L_1 \le L_2 \;\Rightarrow\; \mathcal{R}(L_1) \le \mathcal{R}(L_2)
-\]</span></p></li>
-<li><p><strong>Sous-additivité</strong> <span class="math display">\[
-\mathcal{R}(L_1 + L_2) \le \mathcal{R}(L_1) + \mathcal{R}(L_2)
-\]</span></p></li>
+<li>Calcul quotidien du mark-to-market<br>
+</li>
+<li>Détermination de l’exposition nette<br>
+</li>
+<li>Dépôt ou restitution de collatéral selon les seuils contractuels</li>
 </ol>
-<p>Ces propriétés assurent un comportement économique raisonnable de la mesure du risque.<br>
-Dans ce cadre, la <strong>Value-at-Risk (VaR)</strong> est devenue l’outil le plus couramment utilisé en pratique, notamment dans les réglementations prudentielles.</p>
+</section>
+<section id="appels-de-marge" class="level3">
+<h3 class="anchored" data-anchor-id="appels-de-marge">Appels de Marge</h3>
+<p>Lorsque la valeur du contrat varie défavorablement pour une partie, celle-ci peut être tenue de fournir des garanties additionnelles. Les appels de marge constituent un mécanisme essentiel pour limiter l’accumulation d’expositions.</p>
 <hr>
 </section>
 </section>
-<section id="var-et-expected-shortfall" class="level2">
-<h2 class="anchored" data-anchor-id="var-et-expected-shortfall">VaR et Expected Shortfall</h2>
-<section id="value-at-risk-var" class="level3">
-<h3 class="anchored" data-anchor-id="value-at-risk-var">Value-at-Risk (VaR)</h3>
-<p>La VaR à un niveau de confiance <span class="math inline">\(\alpha\)</span> et sur un horizon donné représente la perte maximale qui ne sera dépassée qu’avec une probabilité <span class="math inline">\(1 - \alpha\)</span> :</p>
+<section id="le-cva-valorisation-du-risque-de-contrepartie" class="level2">
+<h2 class="anchored" data-anchor-id="le-cva-valorisation-du-risque-de-contrepartie">Le CVA : Valorisation du Risque de Contrepartie</h2>
+<section id="définition" class="level3">
+<h3 class="anchored" data-anchor-id="définition">Définition</h3>
+<p>Le <strong>Credit Valuation Adjustment (CVA)</strong> correspond à la diminution de la valeur théorique d’un contrat dérivé liée au risque de défaut de la contrepartie. Il s’agit de l’écart entre la valeur du contrat dans un monde sans défaut et sa valeur ajustée du risque de crédit.</p>
+<p>Formellement :</p>
 <p><span class="math display">\[
-\text{VaR}_{\alpha}(L)
-= \inf \{\, x : \mathbb{P}(L \le x) \ge \alpha \,\}.
+CVA = V_{\text{sans risque}} - V_{\text{avec risque}}
 \]</span></p>
-<p>Bien qu’intuitive et largement adoptée, elle présente deux limites importantes :</p>
-<ul>
-<li>elle peut violer la sous-additivité (donc n’est pas cohérente),</li>
-<li>elle ne dit rien de l’ampleur des pertes extrêmes situées au-delà du quantile.</li>
-</ul>
-<p>Ces limitations ont conduit à privilégier une mesure plus robuste : l’<strong>Expected Shortfall</strong>.</p>
-<hr>
 </section>
-<section id="expected-shortfall-es" class="level3">
-<h3 class="anchored" data-anchor-id="expected-shortfall-es">Expected Shortfall (ES)</h3>
-<p>L’Expected Shortfall correspond à la perte moyenne observée dans les pires scénarios, c’est-à-dire au-delà de la VaR :</p>
+<section id="importance-du-cva" class="level3">
+<h3 class="anchored" data-anchor-id="importance-du-cva">Importance du CVA</h3>
+<p>Lors de la crise de 2008, une grande partie des pertes liées aux dérivés provenait de la variation du CVA plutôt que de défauts avérés. Le CVA est devenu un déterminant central de la valorisation et du capital réglementaire.</p>
+</section>
+<section id="formule-simplifiée" class="level3">
+<h3 class="anchored" data-anchor-id="formule-simplifiée">Formule Simplifiée</h3>
+<p>Une approximation classique du CVA est :</p>
 <p><span class="math display">\[
-\text{ES}_{\alpha}(L)
-= \mathbb{E}\big[\, L \mid L \ge \text{VaR}_{\alpha}(L) \,\big].
+CVA = (1 - R)\, \sum_{t} EE(t)\, PD(t)
 \]</span></p>
-<p>Contrairement à la VaR, l’ES :</p>
+<p>où :</p>
 <ul>
-<li>tient compte de la sévérité des pertes extrêmes,<br>
+<li>( R ) : taux de recouvrement<br>
 </li>
-<li>respecte les quatre axiomes de cohérence,<br>
+<li>( EE(t) ) : exposition attendue<br>
 </li>
-<li>offre une meilleure mesure du risque en conditions de stress.</li>
+<li>( PD(t) ) : probabilité de défaut marginale</li>
 </ul>
-<p>C’est pour ces raisons qu’elle a été adoptée dans les cadres réglementaires récents.</p>
+<p>Cette formule met en lumière les trois composantes essentielles du CVA : <strong>exposition</strong>, <strong>risque de défaut</strong>, <strong>sévérité de la perte</strong>.</p>
 <hr>
 </section>
 </section>
-<section id="le-cadre-réglementaire-de-bâle-i-à-bâle-iv" class="level2">
-<h2 class="anchored" data-anchor-id="le-cadre-réglementaire-de-bâle-i-à-bâle-iv">Le Cadre Réglementaire : de Bâle I à Bâle IV</h2>
-<p>L’évolution de la régulation prudentielle suit l’objectif de renforcer la résilience du système bancaire face aux chocs.</p>
+<section id="le-cadre-réglementaire" class="level2">
+<h2 class="anchored" data-anchor-id="le-cadre-réglementaire">Le Cadre Réglementaire</h2>
+<section id="bâle-iii-capital-cva" class="level3">
+<h3 class="anchored" data-anchor-id="bâle-iii-capital-cva">Bâle III — Capital CVA</h3>
+<p>Bâle III introduit un <strong>capital CVA</strong> destiné à couvrir non seulement le défaut mais aussi la dégradation de la qualité de crédit des contreparties. Deux approches coexistent :</p>
+</section>
+<section id="approche-standardisée" class="level3">
+<h3 class="anchored" data-anchor-id="approche-standardisée">Approche Standardisée</h3>
+<p>Basée sur des coefficients réglementaires et les notations externes des contreparties.</p>
+</section>
+<section id="approche-avancée" class="level3">
+<h3 class="anchored" data-anchor-id="approche-avancée">Approche Avancée</h3>
+<p>Les banques peuvent utiliser leurs propres modèles internes pour le calcul du CVA et du capital associé, sous conditions de validation prudentielle stricte.</p>
+<hr>
+</section>
+</section>
+<section id="défis-de-la-modélisation" class="level2">
+<h2 class="anchored" data-anchor-id="défis-de-la-modélisation">Défis de la Modélisation</h2>
+<section id="risque-de-wrong-way" class="level3">
+<h3 class="anchored" data-anchor-id="risque-de-wrong-way">Risque de Wrong-Way</h3>
+<p>Le risque de wrong-way survient lorsque l’exposition augmente précisément lorsque la contrepartie devient plus susceptible de faire défaut.<br>
+Exemple typique : contrepartie très exposée au prix d’une matière première qui s’effondre.</p>
+</section>
+<section id="qualité-des-données" class="level3">
+<h3 class="anchored" data-anchor-id="qualité-des-données">Qualité des Données</h3>
+<p>La mesure du CVA repose sur :</p>
 <ul>
-<li><strong>Bâle I (1988)</strong> : introduction du ratio Cooke (capital/RWA ≥ 8%).<br>
-</li>
-<li><strong>Bâle II (2004)</strong> : architecture en trois piliers, reconnaissance des modèles internes.<br>
-</li>
-<li><strong>Bâle III (2010–2011)</strong> : amélioration de la qualité du capital, coussins de conservation, ratios LCR et NSFR.<br>
-</li>
-<li><strong>Bâle IV (2017)</strong> : remplacement de la VaR par l’ES pour le risque de marché, refonte de l’approche opérationnelle, encadrement accru des modèles internes.</li>
+<li>des données de marché (courbes de taux, volatilités, CDS),</li>
+<li>des données contractuelles (CSA, netting),</li>
+<li>une modélisation du défaut.</li>
 </ul>
+<p>L’agrégation et la cohérence de ces données constituent un défi opérationnel majeur.</p>
+</section>
+<section id="complexité-des-modèles" class="level3">
+<h3 class="anchored" data-anchor-id="complexité-des-modèles">Complexité des Modèles</h3>
+<p>Les modèles doivent intégrer :</p>
+<ul>
+<li>dépendance entre exposition et défaut,</li>
+<li>effets de la compensation,</li>
+<li>dynamique du collatéral,</li>
+<li>migrations de crédit.</li>
+</ul>
+<p>La sophistication croissante des instruments accroît les exigences de modélisation.</p>
+<hr>
+</section>
+</section>
+<section id="bonnes-pratiques-pour-la-gestion-du-risque-de-contrepartie" class="level2">
+<h2 class="anchored" data-anchor-id="bonnes-pratiques-pour-la-gestion-du-risque-de-contrepartie">Bonnes Pratiques pour la Gestion du Risque de Contrepartie</h2>
+<ul>
+<li><strong>Suivi continu</strong> des expositions et de la qualité de crédit<br>
+</li>
+<li><strong>Limites d’exposition</strong> par contrepartie, secteur, notation<br>
+</li>
+<li><strong>Diversification</strong> des partenaires contractuels<br>
+</li>
+<li><strong>Communication claire</strong> entre équipes (front office, risque, opérations)<br>
+</li>
+<li><strong>Tests de stress</strong> centrés sur les expositions futures</li>
+</ul>
+<hr>
+</section>
+<section id="perspectives-et-défis" class="level2">
+<h2 class="anchored" data-anchor-id="perspectives-et-défis">Perspectives et Défis</h2>
+<p>Le risque de contrepartie évolue face à plusieurs enjeux stratégiques :</p>
+<ul>
+<li>intégration des risques climatiques dans les modèles,</li>
+<li>rôle croissant de la compensation centrale,</li>
+<li>développement de la blockchain et des smart contracts,</li>
+<li>évolution des standards comptables et prudentiels.</li>
+</ul>
+<p>La gestion rigoureuse du risque de contrepartie demeure essentielle pour la résilience du système financier.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

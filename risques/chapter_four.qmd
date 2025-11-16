@@ -1,0 +1,190 @@
+---
+title: "Chapitre 4 : Le Risque de Contrepartie et le CVA"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+[⬅ Retour à Risque & Régulation](index.qmd)
+
+## Comprendre le Risque de Contrepartie
+
+Le risque de contrepartie correspond à la possibilité qu’une partie engagée dans une transaction financière ne respecte pas ses obligations contractuelles. Il est particulièrement important pour les produits dérivés (options, swaps, forwards) et certaines opérations de financement (prêts de titres, pensions livrées).
+
+Contrairement au risque de crédit traditionnel, où le montant dû est connu à l’avance, le risque de contrepartie porte sur des **expositions futures incertaines**, dépendant de l’évolution des marchés. La valeur d’un contrat peut devenir positive ou négative selon les mouvements du sous-jacent, ce qui rend la mesure du risque plus complexe.
+
+---
+
+## Les Spécificités du Risque de Contrepartie
+
+### Risque Bilatéral
+
+Dans la majorité des dérivés, chaque partie peut tour à tour être créancière ou débitrice selon l’évolution du marché. L’exposition est donc **bilatérale** et dépend du sens des variations du sous-jacent.
+
+### Valeur Incertaine des Expositions
+
+La perte potentielle en cas de défaut n’est pas fixe : elle dépend du mark-to-market du contrat au moment où le défaut survient. Ainsi, le risque de contrepartie est intimement lié à la dynamique du marché et peut varier considérablement dans le temps.
+
+---
+
+## Mesure de l’Exposition
+
+La gestion du risque de contrepartie repose sur la définition de plusieurs mesures d’exposition potentielle ou attendue.
+
+### Exposition Potentielle Future (PFE)
+
+La PFE représente une borne supérieure de l’exposition future pour un niveau de confiance donné. Elle joue un rôle analogue à une Value-at-Risk appliquée aux expositions positives :
+
+$$
+PFE_{\alpha}(t) = \text{Quantile}_{\alpha}\big( \max(V_t, 0) \big)
+$$
+
+où \( V_t \) est la valeur future du contrat.
+
+### Exposition Attendue (EE)
+
+L’exposition attendue à une date future correspond à la moyenne des expositions positives possibles :
+
+$$
+EE(t) = \mathbb{E}\big[ \max(V_t, 0) \big]
+$$
+
+### Exposition Attendue Positive (EPE)
+
+L’EPE est la moyenne pondérée de l’EE sur l’horizon considéré. C’est une mesure synthétique largement utilisée dans les approches réglementaires :
+
+$$
+EPE = \frac{1}{T} \int_0^T EE(t)\,dt
+$$
+
+---
+
+## Techniques de Réduction du Risque
+
+### Compensation (Netting)
+
+Les contrats conclus avec une même contrepartie peuvent être regroupés dans une **convention de compensation**, permettant de compenser les valeurs positives et négatives :
+
+- Sans netting : les expositions s’additionnent  
+- Avec netting : seule l’exposition nette est considérée
+
+Cela réduit mécaniquement la perte potentielle en cas de défaut.
+
+### Collatéralisation
+
+Les accords de collatéral (CSA) prévoient l’échange de garanties pour couvrir l’exposition courante. Les montants sont ajustés régulièrement pour refléter l’évolution de la valeur des positions.
+
+Le processus comprend généralement :
+
+1. Calcul quotidien du mark-to-market  
+2. Détermination de l’exposition nette  
+3. Dépôt ou restitution de collatéral selon les seuils contractuels  
+
+### Appels de Marge
+
+Lorsque la valeur du contrat varie défavorablement pour une partie, celle-ci peut être tenue de fournir des garanties additionnelles. Les appels de marge constituent un mécanisme essentiel pour limiter l’accumulation d’expositions.
+
+---
+
+## Le CVA : Valorisation du Risque de Contrepartie
+
+### Définition
+
+Le **Credit Valuation Adjustment (CVA)** correspond à la diminution de la valeur théorique d’un contrat dérivé liée au risque de défaut de la contrepartie. Il s’agit de l’écart entre la valeur du contrat dans un monde sans défaut et sa valeur ajustée du risque de crédit.
+
+Formellement :
+
+$$
+CVA = V_{\text{sans risque}} - V_{\text{avec risque}}
+$$
+
+### Importance du CVA
+
+Lors de la crise de 2008, une grande partie des pertes liées aux dérivés provenait de la variation du CVA plutôt que de défauts avérés. Le CVA est devenu un déterminant central de la valorisation et du capital réglementaire.
+
+### Formule Simplifiée
+
+Une approximation classique du CVA est :
+
+$$
+CVA = (1 - R)\, \sum_{t} EE(t)\, PD(t)
+$$
+
+où :
+
+- \( R \) : taux de recouvrement  
+- \( EE(t) \) : exposition attendue  
+- \( PD(t) \) : probabilité de défaut marginale  
+
+Cette formule met en lumière les trois composantes essentielles du CVA : **exposition**, **risque de défaut**, **sévérité de la perte**.
+
+---
+
+## Le Cadre Réglementaire
+
+### Bâle III — Capital CVA
+
+Bâle III introduit un **capital CVA** destiné à couvrir non seulement le défaut mais aussi la dégradation de la qualité de crédit des contreparties. Deux approches coexistent :
+
+### Approche Standardisée
+
+Basée sur des coefficients réglementaires et les notations externes des contreparties.
+
+### Approche Avancée
+
+Les banques peuvent utiliser leurs propres modèles internes pour le calcul du CVA et du capital associé, sous conditions de validation prudentielle stricte.
+
+---
+
+## Défis de la Modélisation
+
+### Risque de Wrong-Way
+
+Le risque de wrong-way survient lorsque l’exposition augmente précisément lorsque la contrepartie devient plus susceptible de faire défaut.  
+Exemple typique : contrepartie très exposée au prix d’une matière première qui s’effondre.
+
+### Qualité des Données
+
+La mesure du CVA repose sur :
+
+- des données de marché (courbes de taux, volatilités, CDS),
+- des données contractuelles (CSA, netting),
+- une modélisation du défaut.
+
+L’agrégation et la cohérence de ces données constituent un défi opérationnel majeur.
+
+### Complexité des Modèles
+
+Les modèles doivent intégrer :
+
+- dépendance entre exposition et défaut,
+- effets de la compensation,
+- dynamique du collatéral,
+- migrations de crédit.
+
+La sophistication croissante des instruments accroît les exigences de modélisation.
+
+---
+
+## Bonnes Pratiques pour la Gestion du Risque de Contrepartie
+
+- **Suivi continu** des expositions et de la qualité de crédit  
+- **Limites d’exposition** par contrepartie, secteur, notation  
+- **Diversification** des partenaires contractuels  
+- **Communication claire** entre équipes (front office, risque, opérations)  
+- **Tests de stress** centrés sur les expositions futures  
+
+---
+
+## Perspectives et Défis
+
+Le risque de contrepartie évolue face à plusieurs enjeux stratégiques :
+
+- intégration des risques climatiques dans les modèles,
+- rôle croissant de la compensation centrale,
+- développement de la blockchain et des smart contracts,
+- évolution des standards comptables et prudentiels.
+
+La gestion rigoureuse du risque de contrepartie demeure essentielle pour la résilience du système financier.
+

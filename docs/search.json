@@ -116,14 +116,14 @@
     "href": "risques/chapter_one.html#le-cadre-réglementaire-de-bâle-i-à-bâle-iv",
     "title": "Chapitre 1 : Introduction à la Gestion des Risques Bancaires",
     "section": "Le Cadre Réglementaire : de Bâle I à Bâle IV",
-    "text": "Le Cadre Réglementaire : de Bâle I à Bâle IV\nL’évolution de la régulation prudentielle suit l’objectif de renforcer la résilience du système bancaire face aux chocs.\n\nBâle I (1988) : introduction du ratio Cooke (capital/RWA ≥ 8%).\n\nBâle II (2004) : architecture en trois piliers, reconnaissance des modèles internes.\n\nBâle III (2010–2011) : amélioration de la qualité du capital, coussins de conservation, ratios LCR et NSFR.\n\nBâle IV (2017) : ado"
+    "text": "Le Cadre Réglementaire : de Bâle I à Bâle IV\nL’évolution de la régulation prudentielle suit l’objectif de renforcer la résilience du système bancaire face aux chocs.\n\nBâle I (1988) : introduction du ratio Cooke (capital/RWA ≥ 8%).\n\nBâle II (2004) : architecture en trois piliers, reconnaissance des modèles internes.\n\nBâle III (2010–2011) : amélioration de la qualité du capital, coussins de conservation, ratios LCR et NSFR.\n\nBâle IV (2017) : remplacement de la VaR par l’ES pour le risque de marché, refonte de l’approche opérationnelle, encadrement accru des modèles internes."
   },
   {
     "objectID": "risques/index.html",
     "href": "risques/index.html",
     "title": "Risque & Régulation",
     "section": "",
-    "text": "Partie I — Cadre Théorique du Banking Risk Management\nDans cette première partie, nous présentons les fondements théoriques de la gestion des risques bancaires. Elle rassemble les concepts, définitions et éléments méthodologiques essentiels pour comprendre le fonctionnement global du risk management au sein des institutions financières.\nCette synthèse n’a pas vocation à constituer un cours exhaustif : elle offre un cadre de référence minimal, destiné à faciliter la compréhension des analyses, modèles et travaux présentés dans les sections suivantes.\n\n\n📘 Chapitres disponibles\n\nChapitre 1 : Introduction à la Gestion des Risques Bancaires\n\n\nChapitre 2 : Le risque de marché\n\n\n\n\nPartie II — Travaux, Applications et Études\nCette seconde partie regroupera vos analyses, études de cas, simulations ou projets appliqués."
+    "text": "Partie I — Cadre Théorique du Banking Risk Management\nDans cette première partie, nous présentons les bases de la gestion des risques bancaires. Elle rassemble les concepts, définitions et éléments méthodologiques de base.\nCette synthèse n’a pas vocation à être exhaustive : elle propose un cadre de référence minimal destiné à faciliter la compréhension des analyses, modèles et travaux présentés dans les sections suivantes.\n\n\n📘 Chapitres disponibles\n\nChapitre 1 : Introduction à la Gestion des Risques Bancaires\n\n\nChapitre 2 : Le risque de marché\n\n\nChapitre 3 : Le risque de crédit\n\n\nChapitre 4 : Le risque de contrepartie et le CVA\n\n\n\n\nPartie II — Travaux, Applications et Études\nCette seconde partie regroupera vos analyses, études de cas, simulations ou projets appliqués."
   },
   {
     "objectID": "risques/chapter_one.html#la-gestion-des-risques-une-fonction-stratégique-1",
@@ -201,5 +201,138 @@
     "title": "Chapitre 1 : Introduction à la Gestion des Risques Bancaires",
     "section": "Les Mesures de Risque",
     "text": "Les Mesures de Risque\nLa mesure du risque repose sur des outils statistiques permettant de quantifier les pertes potentielles associées à une position ou un portefeuille.\nUne mesure de risque, notée \\(\\mathcal{R}(L)\\) pour une perte aléatoire \\(L\\), représente généralement le capital économique nécessaire pour couvrir cette perte dans un scénario défavorable.\n\nMesures de Risque Cohérentes\nArtzner et al. ont défini quatre propriétés fondamentales caractérisant une mesure de risque cohérente :\n\nInvariance par translation \\[\n\\mathcal{R}(L + c) = \\mathcal{R}(L) + c\n\\]\nHomogénéité positive \\[\n\\mathcal{R}(\\lambda L) = \\lambda \\mathcal{R}(L)\n\\]\nMonotonie \\[\nL_1 \\le L_2 \\;\\Rightarrow\\; \\mathcal{R}(L_1) \\le \\mathcal{R}(L_2)\n\\]\nSous-additivité \\[\n\\mathcal{R}(L_1 + L_2) \\le \\mathcal{R}(L_1) + \\mathcal{R}(L_2)\n\\]\n\nCes propriétés assurent un comportement économique raisonnable de la mesure du risque.\nDans ce cadre, la Value-at-Risk (VaR) est devenue l’outil le plus couramment utilisé en pratique, notamment dans les réglementations prudentielles."
+  },
+  {
+    "objectID": "risques/chapter_three.html",
+    "href": "risques/chapter_three.html",
+    "title": "Chapitre 3 : Le Risque de Crédit",
+    "section": "",
+    "text": "⬅ Retour à Risque & Régulation"
+  },
+  {
+    "objectID": "risques/chapter_three.html#comprendre-le-risque-de-crédit",
+    "href": "risques/chapter_three.html#comprendre-le-risque-de-crédit",
+    "title": "Chapitre 3 : Le Risque de Crédit",
+    "section": "Comprendre le Risque de Crédit",
+    "text": "Comprendre le Risque de Crédit\nLe risque de crédit correspond à la possibilité qu’un emprunteur ou une contrepartie ne respecte pas ses obligations financières. Pour la plupart des institutions bancaires, il constitue la composante la plus importante du risque global, car il concerne directement la capacité des clients à rembourser leurs dettes.\nContrairement au risque de marché, qui résulte de la fluctuation des prix financiers, le risque de crédit se focalise sur la solvabilité. Sa gestion repose sur l’évaluation de la qualité des contreparties, la modélisation des comportements de défaut et l’estimation des pertes potentielles."
+  },
+  {
+    "objectID": "risques/chapter_three.html#les-concepts-clés-du-risque-de-crédit",
+    "href": "risques/chapter_three.html#les-concepts-clés-du-risque-de-crédit",
+    "title": "Chapitre 3 : Le Risque de Crédit",
+    "section": "Les Concepts Clés du Risque de Crédit",
+    "text": "Les Concepts Clés du Risque de Crédit\nLes modèles réglementaires et internes reposent sur quatre paramètres fondamentaux.\n\nProbabilité de Défaut (PD)\nLa probabilité de défaut (PD) mesure la probabilité qu’une contrepartie fasse défaut sur un horizon donné, le plus souvent un an :\n\\[\nPD = \\mathbb{P}(\\text{Défaut})\n\\]\n\n\nPerte en Cas de Défaut (LGD)\nLa LGD (Loss Given Default) représente la proportion de l’exposition qui serait perdue en cas de défaut après prise en compte des recouvrements :\n\\[\nLGD = 1 - \\text{Taux de Recouvrement}\n\\]\n\n\nExposition au Moment du Défaut (EAD)\nL’exposition au défaut (EAD) correspond au montant effectivement engagé au moment du défaut.\nPour les engagements conditionnels, elle inclut un facteur de conversion :\n\\[\nEAD = \\text{Encours Courant} + \\text{Engagements Non Utilisés} \\times CCF\n\\]\n\n\nPerte Attendue (EL)\nLes trois paramètres précédents permettent de définir la perte attendue, composante centrale de la gestion du risque de crédit :\n\\[\nEL = PD \\times LGD \\times EAD\n\\]"
+  },
+  {
+    "objectID": "risques/chapter_three.html#les-marchés-du-crédit",
+    "href": "risques/chapter_three.html#les-marchés-du-crédit",
+    "title": "Chapitre 3 : Le Risque de Crédit",
+    "section": "Les Marchés du Crédit",
+    "text": "Les Marchés du Crédit\n\nMarché des Prêts Bancaires\nLe marché du crédit bancaire se divise principalement en :\n\nBanque de détail : crédits aux particuliers et aux petites entreprises\n\nBanque corporate : financements aux grandes entreprises\n\nProcessus de scoring : modèles automatisés d’évaluation du risque\n\n\n\nMarché Obligataire\nLes entreprises et États peuvent se financer via l’émission d’obligations :\n\nObligations souveraines : exposition au risque de crédit de l’État\n\nObligations corporate : risque propre aux entreprises\n\nSpread de crédit : prime de risque exigée pour compenser un risque de défaut\n\n\n\nTitrisation et Dérivés de Crédit\n\nTitrisation\nLa titrisation permet de transformer des actifs illiquides en titres négociables :\n\nABS : Asset-Backed Securities\n\nMBS : Mortgage-Backed Securities\n\nCDO : Collateralized Debt Obligations\n\n\n\nDérivés de Crédit\nLe CDS (Credit Default Swap) est l’instrument de référence pour transférer le risque de crédit :\n\nl’acheteur de protection paie une prime périodique,\n\nle vendeur de protection indemnise en cas de défaut."
+  },
+  {
+    "objectID": "risques/chapter_three.html#le-cadre-réglementaire-bâle-ii-iii",
+    "href": "risques/chapter_three.html#le-cadre-réglementaire-bâle-ii-iii",
+    "title": "Chapitre 3 : Le Risque de Crédit",
+    "section": "Le Cadre Réglementaire Bâle II / III",
+    "text": "Le Cadre Réglementaire Bâle II / III\n\nApproche Standardisée\nLes pondérations de risque sont déterminées à partir des notations externes. Exemple simplifié :\n\n\n\nNotation\nPondération\n\n\n\n\nAAA–AA\n20%\n\n\nA+\n50%\n\n\nBBB\n100%\n\n\nBB\n150%\n\n\n\n\n\nApproche Fondation (FIRB)\nDans l’approche FIRB :\n\nLa banque estime la PD\n\nLa LGD et l’EAD sont standardisées\n\nLe capital est calculé via la formule réglementaire\n\n\n\nApproche Avancée (AIRB)\nL’approche AIRB permet à la banque d’estimer :\n\nPD\n\nLGD\n\nEAD\n\nmaturité effective (M)\n\nCes approches offrent plus de précision mais exigent une validation stricte des modèles."
+  },
+  {
+    "objectID": "risques/chapter_three.html#modélisation-des-paramètres-de-crédit",
+    "href": "risques/chapter_three.html#modélisation-des-paramètres-de-crédit",
+    "title": "Chapitre 3 : Le Risque de Crédit",
+    "section": "Modélisation des Paramètres de Crédit",
+    "text": "Modélisation des Paramètres de Crédit\n\nModélisation de la PD\n\nApproche par Cohortes\nLa méthode des cohortes repose sur l’historique de défauts :\n\\[\nPD_c = \\frac{\\sum D^c_T}{\\sum N^c_T}\n\\]\n\n\nApproche Statistique\nLes modèles statistiques, comme la régression logistique, relient la PD aux caractéristiques des emprunteurs :\n\\[\nPD = \\frac{1}{1 + e^{-(\\beta_0 + \\beta_1 x_1 + \\cdots + \\beta_n x_n)}}\n\\]\n\n\n\nModélisation de la LGD\n\nLGD de Marché\nEstimée à partir des prix observés après défaut :\n\\[\nLGD_{\\text{Marché}} = 1 - \\frac{\\text{Prix Après Défaut}}{\\text{Nominal}}\n\\]\n\n\nLGD de Recouvrement\nBasée sur les flux de recouvrement actualisés :\n\\[\nLGD_{\\text{Recouvrement}} = \\frac{EAD - \\text{Recouvrements Actualisés}}{EAD}\n\\]\n\n\n\nModélisation de l’EAD\nPour les engagements conditionnels :\n\\[\nEAD = \\text{Encours} + \\text{Non Utilisé} \\times CCF\n\\]"
+  },
+  {
+    "objectID": "risques/chapter_three.html#le-capital-économique-pour-le-risque-de-crédit",
+    "href": "risques/chapter_three.html#le-capital-économique-pour-le-risque-de-crédit",
+    "title": "Chapitre 3 : Le Risque de Crédit",
+    "section": "Le Capital Économique pour le Risque de Crédit",
+    "text": "Le Capital Économique pour le Risque de Crédit\n\nValue-at-Risk Crédit\nLe capital économique est défini comme la différence entre la VaR et la perte attendue :\n\\[\nEC_{\\alpha} = VaR_{\\alpha} - EL\n\\]\n\n\nModèle de Vasicek\nDans le cadre du modèle à un facteur systémique :\n\\[\nVaR_{\\alpha}\n= \\Phi\\!\\left(\n\\frac{\\Phi^{-1}(PD) + \\sqrt{\\rho}\\,\\Phi^{-1}(\\alpha)}\n     {\\sqrt{1-\\rho}}\n\\right)\n\\]\nCe modèle constitue la base de la formule réglementaire IRB."
+  },
+  {
+    "objectID": "risques/chapter_three.html#évolutions-règlementaires-récentes",
+    "href": "risques/chapter_three.html#évolutions-règlementaires-récentes",
+    "title": "Chapitre 3 : Le Risque de Crédit",
+    "section": "Évolutions Règlementaires Récentes",
+    "text": "Évolutions Règlementaires Récentes\n\nBâle III\nParmi les renforcements :\n\nexigences plus strictes pour les expositions financières,\ncoussin de conservation du capital,\nexigences spécifiques pour les portefeuilles de trading.\n\n\n\nBâle IV\nLes réformes introduisent :\n\ndes planchers limitant la réduction des RWA via modèles internes,\nune révision des pondérations standardisées,\nun traitement plus prudent des expositions actions et immobilières."
+  },
+  {
+    "objectID": "risques/chapter_three.html#perspectives-et-défis",
+    "href": "risques/chapter_three.html#perspectives-et-défis",
+    "title": "Chapitre 3 : Le Risque de Crédit",
+    "section": "Perspectives et Défis",
+    "text": "Perspectives et Défis\nLa gestion du risque de crédit doit s’adapter à plusieurs tendances majeures :\n\nintégration des risques climatiques,\n\nmontée en puissance des techniques de machine learning,\n\ncycles économiques plus incertains,\n\nexploitation de données massives.\n\nCes évolutions nécessitent une amélioration continue des méthodes d’évaluation et des cadres prudentiels."
+  },
+  {
+    "objectID": "risques/chapter_four.html",
+    "href": "risques/chapter_four.html",
+    "title": "Chapitre 4 : Le Risque de Contrepartie et le CVA",
+    "section": "",
+    "text": "⬅ Retour à Risque & Régulation"
+  },
+  {
+    "objectID": "risques/chapter_four.html#comprendre-le-risque-de-contrepartie",
+    "href": "risques/chapter_four.html#comprendre-le-risque-de-contrepartie",
+    "title": "Chapitre 4 : Le Risque de Contrepartie et le CVA",
+    "section": "Comprendre le Risque de Contrepartie",
+    "text": "Comprendre le Risque de Contrepartie\nLe risque de contrepartie correspond à la possibilité qu’une partie engagée dans une transaction financière ne respecte pas ses obligations contractuelles. Il est particulièrement important pour les produits dérivés (options, swaps, forwards) et certaines opérations de financement (prêts de titres, pensions livrées).\nContrairement au risque de crédit traditionnel, où le montant dû est connu à l’avance, le risque de contrepartie porte sur des expositions futures incertaines, dépendant de l’évolution des marchés. La valeur d’un contrat peut devenir positive ou négative selon les mouvements du sous-jacent, ce qui rend la mesure du risque plus complexe."
+  },
+  {
+    "objectID": "risques/chapter_four.html#les-spécificités-du-risque-de-contrepartie",
+    "href": "risques/chapter_four.html#les-spécificités-du-risque-de-contrepartie",
+    "title": "Chapitre 4 : Le Risque de Contrepartie et le CVA",
+    "section": "Les Spécificités du Risque de Contrepartie",
+    "text": "Les Spécificités du Risque de Contrepartie\n\nRisque Bilatéral\nDans la majorité des dérivés, chaque partie peut tour à tour être créancière ou débitrice selon l’évolution du marché. L’exposition est donc bilatérale et dépend du sens des variations du sous-jacent.\n\n\nValeur Incertaine des Expositions\nLa perte potentielle en cas de défaut n’est pas fixe : elle dépend du mark-to-market du contrat au moment où le défaut survient. Ainsi, le risque de contrepartie est intimement lié à la dynamique du marché et peut varier considérablement dans le temps."
+  },
+  {
+    "objectID": "risques/chapter_four.html#mesure-de-lexposition",
+    "href": "risques/chapter_four.html#mesure-de-lexposition",
+    "title": "Chapitre 4 : Le Risque de Contrepartie et le CVA",
+    "section": "Mesure de l’Exposition",
+    "text": "Mesure de l’Exposition\nLa gestion du risque de contrepartie repose sur la définition de plusieurs mesures d’exposition potentielle ou attendue.\n\nExposition Potentielle Future (PFE)\nLa PFE représente une borne supérieure de l’exposition future pour un niveau de confiance donné. Elle joue un rôle analogue à une Value-at-Risk appliquée aux expositions positives :\n\\[\nPFE_{\\alpha}(t) = \\text{Quantile}_{\\alpha}\\big( \\max(V_t, 0) \\big)\n\\]\noù ( V_t ) est la valeur future du contrat.\n\n\nExposition Attendue (EE)\nL’exposition attendue à une date future correspond à la moyenne des expositions positives possibles :\n\\[\nEE(t) = \\mathbb{E}\\big[ \\max(V_t, 0) \\big]\n\\]\n\n\nExposition Attendue Positive (EPE)\nL’EPE est la moyenne pondérée de l’EE sur l’horizon considéré. C’est une mesure synthétique largement utilisée dans les approches réglementaires :\n\\[\nEPE = \\frac{1}{T} \\int_0^T EE(t)\\,dt\n\\]"
+  },
+  {
+    "objectID": "risques/chapter_four.html#techniques-de-réduction-du-risque",
+    "href": "risques/chapter_four.html#techniques-de-réduction-du-risque",
+    "title": "Chapitre 4 : Le Risque de Contrepartie et le CVA",
+    "section": "Techniques de Réduction du Risque",
+    "text": "Techniques de Réduction du Risque\n\nCompensation (Netting)\nLes contrats conclus avec une même contrepartie peuvent être regroupés dans une convention de compensation, permettant de compenser les valeurs positives et négatives :\n\nSans netting : les expositions s’additionnent\n\nAvec netting : seule l’exposition nette est considérée\n\nCela réduit mécaniquement la perte potentielle en cas de défaut.\n\n\nCollatéralisation\nLes accords de collatéral (CSA) prévoient l’échange de garanties pour couvrir l’exposition courante. Les montants sont ajustés régulièrement pour refléter l’évolution de la valeur des positions.\nLe processus comprend généralement :\n\nCalcul quotidien du mark-to-market\n\nDétermination de l’exposition nette\n\nDépôt ou restitution de collatéral selon les seuils contractuels\n\n\n\nAppels de Marge\nLorsque la valeur du contrat varie défavorablement pour une partie, celle-ci peut être tenue de fournir des garanties additionnelles. Les appels de marge constituent un mécanisme essentiel pour limiter l’accumulation d’expositions."
+  },
+  {
+    "objectID": "risques/chapter_four.html#le-cva-valorisation-du-risque-de-contrepartie",
+    "href": "risques/chapter_four.html#le-cva-valorisation-du-risque-de-contrepartie",
+    "title": "Chapitre 4 : Le Risque de Contrepartie et le CVA",
+    "section": "Le CVA : Valorisation du Risque de Contrepartie",
+    "text": "Le CVA : Valorisation du Risque de Contrepartie\n\nDéfinition\nLe Credit Valuation Adjustment (CVA) correspond à la diminution de la valeur théorique d’un contrat dérivé liée au risque de défaut de la contrepartie. Il s’agit de l’écart entre la valeur du contrat dans un monde sans défaut et sa valeur ajustée du risque de crédit.\nFormellement :\n\\[\nCVA = V_{\\text{sans risque}} - V_{\\text{avec risque}}\n\\]\n\n\nImportance du CVA\nLors de la crise de 2008, une grande partie des pertes liées aux dérivés provenait de la variation du CVA plutôt que de défauts avérés. Le CVA est devenu un déterminant central de la valorisation et du capital réglementaire.\n\n\nFormule Simplifiée\nUne approximation classique du CVA est :\n\\[\nCVA = (1 - R)\\, \\sum_{t} EE(t)\\, PD(t)\n\\]\noù :\n\n( R ) : taux de recouvrement\n\n( EE(t) ) : exposition attendue\n\n( PD(t) ) : probabilité de défaut marginale\n\nCette formule met en lumière les trois composantes essentielles du CVA : exposition, risque de défaut, sévérité de la perte."
+  },
+  {
+    "objectID": "risques/chapter_four.html#le-cadre-réglementaire",
+    "href": "risques/chapter_four.html#le-cadre-réglementaire",
+    "title": "Chapitre 4 : Le Risque de Contrepartie et le CVA",
+    "section": "Le Cadre Réglementaire",
+    "text": "Le Cadre Réglementaire\n\nBâle III — Capital CVA\nBâle III introduit un capital CVA destiné à couvrir non seulement le défaut mais aussi la dégradation de la qualité de crédit des contreparties. Deux approches coexistent :\n\n\nApproche Standardisée\nBasée sur des coefficients réglementaires et les notations externes des contreparties.\n\n\nApproche Avancée\nLes banques peuvent utiliser leurs propres modèles internes pour le calcul du CVA et du capital associé, sous conditions de validation prudentielle stricte."
+  },
+  {
+    "objectID": "risques/chapter_four.html#défis-de-la-modélisation",
+    "href": "risques/chapter_four.html#défis-de-la-modélisation",
+    "title": "Chapitre 4 : Le Risque de Contrepartie et le CVA",
+    "section": "Défis de la Modélisation",
+    "text": "Défis de la Modélisation\n\nRisque de Wrong-Way\nLe risque de wrong-way survient lorsque l’exposition augmente précisément lorsque la contrepartie devient plus susceptible de faire défaut.\nExemple typique : contrepartie très exposée au prix d’une matière première qui s’effondre.\n\n\nQualité des Données\nLa mesure du CVA repose sur :\n\ndes données de marché (courbes de taux, volatilités, CDS),\ndes données contractuelles (CSA, netting),\nune modélisation du défaut.\n\nL’agrégation et la cohérence de ces données constituent un défi opérationnel majeur.\n\n\nComplexité des Modèles\nLes modèles doivent intégrer :\n\ndépendance entre exposition et défaut,\neffets de la compensation,\ndynamique du collatéral,\nmigrations de crédit.\n\nLa sophistication croissante des instruments accroît les exigences de modélisation."
+  },
+  {
+    "objectID": "risques/chapter_four.html#bonnes-pratiques-pour-la-gestion-du-risque-de-contrepartie",
+    "href": "risques/chapter_four.html#bonnes-pratiques-pour-la-gestion-du-risque-de-contrepartie",
+    "title": "Chapitre 4 : Le Risque de Contrepartie et le CVA",
+    "section": "Bonnes Pratiques pour la Gestion du Risque de Contrepartie",
+    "text": "Bonnes Pratiques pour la Gestion du Risque de Contrepartie\n\nSuivi continu des expositions et de la qualité de crédit\n\nLimites d’exposition par contrepartie, secteur, notation\n\nDiversification des partenaires contractuels\n\nCommunication claire entre équipes (front office, risque, opérations)\n\nTests de stress centrés sur les expositions futures"
+  },
+  {
+    "objectID": "risques/chapter_four.html#perspectives-et-défis",
+    "href": "risques/chapter_four.html#perspectives-et-défis",
+    "title": "Chapitre 4 : Le Risque de Contrepartie et le CVA",
+    "section": "Perspectives et Défis",
+    "text": "Perspectives et Défis\nLe risque de contrepartie évolue face à plusieurs enjeux stratégiques :\n\nintégration des risques climatiques dans les modèles,\nrôle croissant de la compensation centrale,\ndéveloppement de la blockchain et des smart contracts,\névolution des standards comptables et prudentiels.\n\nLa gestion rigoureuse du risque de contrepartie demeure essentielle pour la résilience du système financier."
   }
 ]

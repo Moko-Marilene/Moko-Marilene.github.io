@@ -28,5 +28,11 @@
   },
   "risques/chapter_two.qmd": {
     "chapter_two.html": "b6be47a9"
+  },
+  "risques/chapter_three.qmd": {
+    "chapter_three.html": "d94fc6a9"
+  },
+  "risques/chapter_four.qmd": {
+    "chapter_four.html": "d0ca815d"
   }
 }
