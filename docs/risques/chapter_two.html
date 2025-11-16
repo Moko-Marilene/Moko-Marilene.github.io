@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Risque &amp; Régulation –</title>
+<title>Chapitre 2 : Le Risque de Marché –</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +23,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,8 +69,37 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -80,11 +109,11 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./logo.png" alt="" class="navbar-logo light-content">
-    <img src="./logo.png" alt="" class="navbar-logo dark-content">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../logo.png" alt="" class="navbar-logo light-content">
+    <img src="../logo.png" alt="" class="navbar-logo dark-content">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title"></span>
     </a>
   </div>
@@ -95,31 +124,31 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Accueil</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./finance.html"> 
+    <a class="nav-link" href="../finance.html"> 
 <span class="menu-text">Finance Quantitative</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./risque-regulation.html" aria-current="page"> 
+    <a class="nav-link" href="../risques/index.html"> 
 <span class="menu-text">Risque &amp; Régulation</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./modelisation-stat.qmd"> 
+    <a class="nav-link" href="../modelisation-stat.qmd"> 
 <span class="menu-text">Modélisation stat</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./data-science.html"> 
+    <a class="nav-link" href="../data-science.html"> 
 <span class="menu-text">Data science</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./articles-ressources.qmd"> 
+    <a class="nav-link" href="../articles-ressources.qmd"> 
 <span class="menu-text">Ressources</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">À propos</span></a>
   </li>  
 </ul>
@@ -138,30 +167,37 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#partie-i-cadre-théorique-du-banking-risk-management" id="toc-partie-i-cadre-théorique-du-banking-risk-management" class="nav-link active" data-scroll-target="#partie-i-cadre-théorique-du-banking-risk-management">Partie I — Cadre Théorique du Banking Risk Management</a></li>
-  <li><a href="#chapitre-1-introduction-à-la-gestion-des-risques-bancaires" id="toc-chapitre-1-introduction-à-la-gestion-des-risques-bancaires" class="nav-link" data-scroll-target="#chapitre-1-introduction-à-la-gestion-des-risques-bancaires">Chapitre 1 : Introduction à la Gestion des Risques Bancaires</a>
+  <li><a href="#comprendre-le-risque-de-marché" id="toc-comprendre-le-risque-de-marché" class="nav-link active" data-scroll-target="#comprendre-le-risque-de-marché">Comprendre le Risque de Marché</a></li>
+  <li><a href="#les-différentes-formes-du-risque-de-marché" id="toc-les-différentes-formes-du-risque-de-marché" class="nav-link" data-scroll-target="#les-différentes-formes-du-risque-de-marché">Les Différentes Formes du Risque de Marché</a>
   <ul class="collapse">
-  <li><a href="#la-gestion-des-risques-une-fonction-stratégique" id="toc-la-gestion-des-risques-une-fonction-stratégique" class="nav-link" data-scroll-target="#la-gestion-des-risques-une-fonction-stratégique">La Gestion des Risques : Une Fonction Stratégique</a></li>
-  <li><a href="#panorama-des-risques-bancaires" id="toc-panorama-des-risques-bancaires" class="nav-link" data-scroll-target="#panorama-des-risques-bancaires">Panorama des Risques Bancaires</a>
+  <li><a href="#risque-de-taux-dintérêt" id="toc-risque-de-taux-dintérêt" class="nav-link" data-scroll-target="#risque-de-taux-dintérêt">Risque de Taux d’Intérêt</a></li>
+  <li><a href="#risque-de-change" id="toc-risque-de-change" class="nav-link" data-scroll-target="#risque-de-change">Risque de Change</a></li>
+  <li><a href="#risque-actions" id="toc-risque-actions" class="nav-link" data-scroll-target="#risque-actions">Risque Actions</a></li>
+  <li><a href="#risque-matières-premières" id="toc-risque-matières-premières" class="nav-link" data-scroll-target="#risque-matières-premières">Risque Matières Premières</a></li>
+  </ul></li>
+  <li><a href="#les-mesures-de-sensibilité" id="toc-les-mesures-de-sensibilité" class="nav-link" data-scroll-target="#les-mesures-de-sensibilité">Les Mesures de Sensibilité</a>
   <ul class="collapse">
-  <li><a href="#le-risque-de-marché" id="toc-le-risque-de-marché" class="nav-link" data-scroll-target="#le-risque-de-marché">Le risque de marché</a></li>
-  <li><a href="#le-risque-de-crédit" id="toc-le-risque-de-crédit" class="nav-link" data-scroll-target="#le-risque-de-crédit">Le risque de crédit</a></li>
-  <li><a href="#le-risque-de-liquidité" id="toc-le-risque-de-liquidité" class="nav-link" data-scroll-target="#le-risque-de-liquidité">Le risque de liquidité</a></li>
-  <li><a href="#le-risque-opérationnel" id="toc-le-risque-opérationnel" class="nav-link" data-scroll-target="#le-risque-opérationnel">Le risque opérationnel</a></li>
-  <li><a href="#autres-risques" id="toc-autres-risques" class="nav-link" data-scroll-target="#autres-risques">Autres risques</a></li>
+  <li><a href="#la-duration" id="toc-la-duration" class="nav-link" data-scroll-target="#la-duration">La Duration</a></li>
+  <li><a href="#les-grecques" id="toc-les-grecques" class="nav-link" data-scroll-target="#les-grecques">Les Grecques</a></li>
   </ul></li>
-  <li><a href="#la-théorie-des-mesures-de-risque" id="toc-la-théorie-des-mesures-de-risque" class="nav-link" data-scroll-target="#la-théorie-des-mesures-de-risque">La Théorie des Mesures de Risque</a>
+  <li><a href="#value-at-risk-et-expected-shortfall-appliqués-au-risque-de-marché" id="toc-value-at-risk-et-expected-shortfall-appliqués-au-risque-de-marché" class="nav-link" data-scroll-target="#value-at-risk-et-expected-shortfall-appliqués-au-risque-de-marché">Value-at-Risk et Expected Shortfall appliqués au Risque de Marché</a>
   <ul class="collapse">
-  <li><a href="#mesures-de-risque-cohérentes" id="toc-mesures-de-risque-cohérentes" class="nav-link" data-scroll-target="#mesures-de-risque-cohérentes">Mesures de risque cohérentes</a></li>
+  <li><a href="#approches-de-calcul-de-la-var" id="toc-approches-de-calcul-de-la-var" class="nav-link" data-scroll-target="#approches-de-calcul-de-la-var">Approches de Calcul de la VaR</a></li>
+  <li><a href="#expected-shortfall" id="toc-expected-shortfall" class="nav-link" data-scroll-target="#expected-shortfall">Expected Shortfall</a></li>
   </ul></li>
-  <li><a href="#var-et-expected-shortfall" id="toc-var-et-expected-shortfall" class="nav-link" data-scroll-target="#var-et-expected-shortfall">VaR et Expected Shortfall</a>
+  <li><a href="#la-gestion-avancée-du-risque-de-marché" id="toc-la-gestion-avancée-du-risque-de-marché" class="nav-link" data-scroll-target="#la-gestion-avancée-du-risque-de-marché">La Gestion Avancée du Risque de Marché</a>
   <ul class="collapse">
-  <li><a href="#value-at-risk-var" id="toc-value-at-risk-var" class="nav-link" data-scroll-target="#value-at-risk-var">Value-at-Risk (VaR)</a></li>
-  <li><a href="#expected-shortfall-es" id="toc-expected-shortfall-es" class="nav-link" data-scroll-target="#expected-shortfall-es">Expected Shortfall (ES)</a></li>
+  <li><a href="#backtesting" id="toc-backtesting" class="nav-link" data-scroll-target="#backtesting">Backtesting</a></li>
+  <li><a href="#stress-testing" id="toc-stress-testing" class="nav-link" data-scroll-target="#stress-testing">Stress Testing</a></li>
+  <li><a href="#analyse-de-scénarios" id="toc-analyse-de-scénarios" class="nav-link" data-scroll-target="#analyse-de-scénarios">Analyse de Scénarios</a></li>
   </ul></li>
-  <li><a href="#le-cadre-réglementaire-de-bâle-i-à-bâle-iv" id="toc-le-cadre-réglementaire-de-bâle-i-à-bâle-iv" class="nav-link" data-scroll-target="#le-cadre-réglementaire-de-bâle-i-à-bâle-iv">Le Cadre Réglementaire : de Bâle I à Bâle IV</a></li>
+  <li><a href="#le-cadre-réglementaire-bâle-iv-et-la-frtb" id="toc-le-cadre-réglementaire-bâle-iv-et-la-frtb" class="nav-link" data-scroll-target="#le-cadre-réglementaire-bâle-iv-et-la-frtb">Le Cadre Réglementaire : Bâle IV et la FRTB</a>
+  <ul class="collapse">
+  <li><a href="#approche-standardisée" id="toc-approche-standardisée" class="nav-link" data-scroll-target="#approche-standardisée">Approche Standardisée</a></li>
+  <li><a href="#approche-par-modèles-internes" id="toc-approche-par-modèles-internes" class="nav-link" data-scroll-target="#approche-par-modèles-internes">Approche par Modèles Internes</a></li>
+  <li><a href="#exigences-quantitatives" id="toc-exigences-quantitatives" class="nav-link" data-scroll-target="#exigences-quantitatives">Exigences Quantitatives</a></li>
   </ul></li>
-  <li><a href="#partie-ii-travaux-applications-et-études" id="toc-partie-ii-travaux-applications-et-études" class="nav-link" data-scroll-target="#partie-ii-travaux-applications-et-études">Partie II — Travaux, Applications et Études</a></li>
+  <li><a href="#perspectives-dévolution" id="toc-perspectives-dévolution" class="nav-link" data-scroll-target="#perspectives-dévolution">Perspectives d’Évolution</a></li>
   </ul>
 </nav>
     </div>
@@ -170,7 +206,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Risque &amp; Régulation</h1>
+<h1 class="title">Chapitre 2 : Le Risque de Marché</h1>
 </div>
 
 
@@ -187,113 +223,177 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="partie-i-cadre-théorique-du-banking-risk-management" class="level1">
-<h1>Partie I — Cadre Théorique du Banking Risk Management</h1>
-<p>Dans cette première partie, nous présentons les fondements théoriques de la gestion des risques bancaires.<br>
-Elle rassemble les concepts, définitions et structures méthodologiques nécessaires pour comprendre le fonctionnement global du risk management dans les institutions financières.</p>
+<p><a href="../risques/index.html">⬅ Retour à Risque &amp; Régulation</a></p>
+<section id="comprendre-le-risque-de-marché" class="level2">
+<h2 class="anchored" data-anchor-id="comprendre-le-risque-de-marché">Comprendre le Risque de Marché</h2>
+<p>Le risque de marché correspond à la possibilité de subir une perte liée à l’évolution défavorable des prix sur les marchés financiers. Contrairement au risque de crédit, qui concerne la solidité financière d’une contrepartie, le risque de marché affecte directement la valeur des actifs détenus dans le portefeuille de négociation d’une banque.</p>
+<p>Il découle de mouvements de facteurs tels que les taux d’intérêt, les taux de change, les cours des actions, les spreads de crédit ou les prix des matières premières. Sa gestion exige une compréhension fine de ces facteurs et de leurs interactions, en particulier dans des conditions de volatilité élevée ou de stress de marché.</p>
 <hr>
 </section>
-<section id="chapitre-1-introduction-à-la-gestion-des-risques-bancaires" class="level1">
-<h1>Chapitre 1 : Introduction à la Gestion des Risques Bancaires</h1>
-<section id="la-gestion-des-risques-une-fonction-stratégique" class="level2">
-<h2 class="anchored" data-anchor-id="la-gestion-des-risques-une-fonction-stratégique">La Gestion des Risques : Une Fonction Stratégique</h2>
-<p>Au cœur du système économique, les banques assurent une mission essentielle de circulation des capitaux entre épargnants et investisseurs. Cette position centrale les expose naturellement à divers risques financiers qu’elles doivent apprendre à maîtriser.</p>
-<p>La gestion des risques a considérablement évolué : d’une fonction traditionnelle de contrôle, elle est devenue un véritable levier de création de valeur. Elle permet aujourd’hui une allocation optimale du capital et une tarification plus fine des produits financiers, tout en guidant les décisions stratégiques.</p>
-<p>Le risk manager moderne endosse un rôle crucial à l’interface des métiers. Véritable vigie, il anticipe les scénarios défavorables, conseille les équipes opérationnelles et éclaire la direction générale sur l’exposition aux risques.</p>
-<hr>
-</section>
-<section id="panorama-des-risques-bancaires" class="level2">
-<h2 class="anchored" data-anchor-id="panorama-des-risques-bancaires">Panorama des Risques Bancaires</h2>
-<p>Pour appréhender correctement la gestion des risques, il est fondamental d’en connaître les différentes facettes. Quatre catégories principales structurent le paysage risk management.</p>
-<section id="le-risque-de-marché" class="level3">
-<h3 class="anchored" data-anchor-id="le-risque-de-marché">Le risque de marché</h3>
-<p>Le risque de marché apparaît lorsque la valeur des positions détenues par une banque évolue sous l’effet des mouvements des marchés financiers. Ces mouvements concernent notamment :</p>
+<section id="les-différentes-formes-du-risque-de-marché" class="level2">
+<h2 class="anchored" data-anchor-id="les-différentes-formes-du-risque-de-marché">Les Différentes Formes du Risque de Marché</h2>
+<section id="risque-de-taux-dintérêt" class="level3">
+<h3 class="anchored" data-anchor-id="risque-de-taux-dintérêt">Risque de Taux d’Intérêt</h3>
+<p>Le risque de taux traduit la sensibilité des instruments financiers aux variations des taux d’intérêt. Il se manifeste principalement à travers :</p>
 <ul>
-<li>les taux d’intérêt,<br>
-</li>
-<li>les taux de change,<br>
-</li>
-<li>les cours des actions,<br>
-</li>
-<li>les matières premières,<br>
-</li>
-<li>et, plus globalement, l’ensemble des conditions économiques et financières.</li>
+<li>le <strong>risque de niveau</strong>, lié à un déplacement parallèle de la courbe des taux ;</li>
+<li>le <strong>risque de pente</strong>, lorsque les taux courts et les taux longs évoluent différemment ;</li>
+<li>le <strong>risque de courbure</strong>, qui apparaît lorsque la convexité ou la forme de la courbe se modifie.</li>
 </ul>
-<p>Ce risque ne se résume pas à une liste de menaces distinctes : il traduit la manière dont un portefeuille réagit aux évolutions de son environnement. Certains instruments sont sensibles à de petites variations, tandis que d’autres réagissent davantage à des mouvements plus marqués ou à des périodes de forte instabilité, où les prix peuvent changer rapidement et où les relations entre actifs deviennent moins prévisibles.</p>
 </section>
-<section id="le-risque-de-crédit" class="level3">
-<h3 class="anchored" data-anchor-id="le-risque-de-crédit">Le risque de crédit</h3>
-<p>Le risque de crédit, le plus significatif pour une banque, correspond à la probabilité qu’une contrepartie ne honore pas ses engagements financiers.</p>
+<section id="risque-de-change" class="level3">
+<h3 class="anchored" data-anchor-id="risque-de-change">Risque de Change</h3>
+<p>Lorsque des positions sont libellées dans différentes devises, les fluctuations des taux de change peuvent générer des gains ou des pertes. Le risque de change est particulièrement significatif pour les institutions opérant à l’international ou pour les portefeuilles multi-devises.</p>
 </section>
-<section id="le-risque-de-liquidité" class="level3">
-<h3 class="anchored" data-anchor-id="le-risque-de-liquidité">Le risque de liquidité</h3>
-<p>Il se manifeste sous deux angles : - <strong>liquidité de marché</strong> : capacité à céder des actifs sans perte de valeur significative ; - <strong>liquidité de financement</strong> : aptitude à se refinancer à un coût raisonnable.</p>
+<section id="risque-actions" class="level3">
+<h3 class="anchored" data-anchor-id="risque-actions">Risque Actions</h3>
+<p>Ce risque correspond à l’exposition aux variations des cours boursiers. Il combine :</p>
+<ul>
+<li>un <strong>risque systématique</strong>, lié à l’évolution générale du marché ;</li>
+<li>un <strong>risque spécifique</strong>, propre à chaque entreprise ou secteur.</li>
+</ul>
 </section>
-<section id="le-risque-opérationnel" class="level3">
-<h3 class="anchored" data-anchor-id="le-risque-opérationnel">Le risque opérationnel</h3>
-<p>Il englobe les pertes potentielles liées à des défaillances internes (processus, personnes, systèmes) ou à des événements externes, incluant le risque juridique.</p>
-</section>
-<section id="autres-risques" class="level3">
-<h3 class="anchored" data-anchor-id="autres-risques">Autres risques</h3>
-<p>Parmi les autres risques notables : - le <strong>risque de réputation</strong>,<br>
-- le <strong>risque de modèle</strong>,<br>
-- le <strong>risque systémique</strong>.</p>
-<blockquote class="blockquote">
-<p>Ces risques sont profondément interconnectés. Une approche en silos pourrait conduire à sous-estimer des menaces transversales aux conséquences potentiellement graves.</p>
-</blockquote>
+<section id="risque-matières-premières" class="level3">
+<h3 class="anchored" data-anchor-id="risque-matières-premières">Risque Matières Premières</h3>
+<p>Les prix des matières premières (pétrole, gaz, métaux, produits agricoles) sont influencés par des facteurs géopolitiques, climatiques ou économiques, rendant les expositions potentiellement très volatiles.</p>
 <hr>
 </section>
 </section>
-<section id="la-théorie-des-mesures-de-risque" class="level2">
-<h2 class="anchored" data-anchor-id="la-théorie-des-mesures-de-risque">La Théorie des Mesures de Risque</h2>
-<p>La quantification rigoureuse du risque s’appuie sur des outils mathématiques sophistiqués. Une <strong>mesure de risque</strong>, notée ( (L) ) où ( L ) représente la perte aléatoire, détermine le capital économique nécessaire à sa couverture.</p>
-<section id="mesures-de-risque-cohérentes" class="level3">
-<h3 class="anchored" data-anchor-id="mesures-de-risque-cohérentes">Mesures de risque cohérentes</h3>
-<p>Artzner et ses co-auteurs ont défini quatre axiomes qui caractérisent une mesure de risque robuste :</p>
-<ol type="1">
-<li><p><strong>Invariance par translation</strong><br>
-[ (L + c) = (L) + c ]</p></li>
-<li><p><strong>Homogénéité positive</strong><br>
-[ (L) = (L) ]</p></li>
-<li><p><strong>Monotonie</strong><br>
-[ L_1 L_2 (L_1) (L_2) ]</p></li>
-<li><p><strong>Sous-additivité</strong><br>
-[ (L_1 + L_2) (L_1) + (L_2) ]</p></li>
-</ol>
-<p>Ces propriétés garantissent que la mesure du risque se comporte de manière intuitive et économiquement rationnelle.</p>
+<section id="les-mesures-de-sensibilité" class="level2">
+<h2 class="anchored" data-anchor-id="les-mesures-de-sensibilité">Les Mesures de Sensibilité</h2>
+<p>La gestion du risque de marché repose largement sur l’analyse des <strong>sensibilités</strong>, qui mesurent la réaction du prix d’un instrument à la variation d’un facteur de risque.</p>
+<section id="la-duration" class="level3">
+<h3 class="anchored" data-anchor-id="la-duration">La Duration</h3>
+<p>Pour les actifs de taux, la durée (duration) quantifie la sensibilité du prix d’un instrument à une variation du taux d’intérêt :</p>
+<p><span class="math display">\[
+D = -\frac{1}{P}\,\frac{\partial P}{\partial y},
+\]</span></p>
+<p>où <span class="math inline">\(P\)</span> désigne le prix de l’instrument et <span class="math inline">\(y\)</span> son rendement.</p>
+</section>
+<section id="les-grecques" class="level3">
+<h3 class="anchored" data-anchor-id="les-grecques">Les Grecques</h3>
+<p>Pour les produits dérivés (instruments financiers dont la valeur dépend d’un actif sous-jacent), les sensibilités sont décrites à l’aide des <strong>Grecques</strong>, qui capturent différentes dimensions du risque :</p>
+<ul>
+<li><p><strong>Delta</strong> :<br>
+<span class="math display">\[
+\Delta = \frac{\partial P}{\partial S}
+\]</span> mesure la sensibilité au prix du sous-jacent <span class="math inline">\(S\)</span> ;</p></li>
+<li><p><strong>Gamma</strong> :<br>
+<span class="math display">\[
+\Gamma = \frac{\partial^2 P}{\partial S^2}
+\]</span> capture la convexité de la relation entre <span class="math inline">\(P\)</span> et <span class="math inline">\(S\)</span> ;</p></li>
+<li><p><strong>Vega</strong> : sensibilité à la volatilité <span class="math inline">\(\sigma\)</span> ;</p></li>
+<li><p><strong>Theta</strong> : sensibilité au temps (décroissance de valeur liée à l’écoulement du temps) ;</p></li>
+<li><p><strong>Rho</strong> : sensibilité aux variations du taux d’intérêt <span class="math inline">\(r\)</span>.</p></li>
+</ul>
 <hr>
 </section>
 </section>
-<section id="var-et-expected-shortfall" class="level2">
-<h2 class="anchored" data-anchor-id="var-et-expected-shortfall">VaR et Expected Shortfall</h2>
-<section id="value-at-risk-var" class="level3">
-<h3 class="anchored" data-anchor-id="value-at-risk-var">Value-at-Risk (VaR)</h3>
-<p>La Value-at-Risk représente la perte maximale qui ne sera dépassée qu’avec une probabilité donnée :</p>
-<p>[ _(L) = { x : (L x) }. ]</p>
-<p>Bien que simple et intuitive, elle souffre de deux limites majeures : - elle n’est pas cohérente,<br>
-- elle ne renseigne pas sur la gravité des pertes extrêmes.</p>
+<section id="value-at-risk-et-expected-shortfall-appliqués-au-risque-de-marché" class="level2">
+<h2 class="anchored" data-anchor-id="value-at-risk-et-expected-shortfall-appliqués-au-risque-de-marché">Value-at-Risk et Expected Shortfall appliqués au Risque de Marché</h2>
+<p>La Value-at-Risk (VaR) et l’Expected Shortfall (ES) sont les mesures principales utilisées pour quantifier le risque de marché à l’échelle du portefeuille.</p>
+<section id="approches-de-calcul-de-la-var" class="level3">
+<h3 class="anchored" data-anchor-id="approches-de-calcul-de-la-var">Approches de Calcul de la VaR</h3>
+<section id="méthode-historique" class="level4">
+<h4 class="anchored" data-anchor-id="méthode-historique">Méthode Historique</h4>
+<p>La VaR historique repose sur les réalisations passées des facteurs de marché. On calcule les pertes journalières successives et on retient le quantile empirique :</p>
+<p><span class="math display">\[
+\text{VaR}_{\alpha} = L_{(n\alpha)},
+\]</span></p>
+<p>où <span class="math inline">\(L_{(n\alpha)}\)</span> désigne la perte correspondant au quantile <span class="math inline">\(\alpha\)</span>.</p>
 </section>
-<section id="expected-shortfall-es" class="level3">
-<h3 class="anchored" data-anchor-id="expected-shortfall-es">Expected Shortfall (ES)</h3>
-<p>L’Expected Shortfall correspond à la perte moyenne dans les pires scénarios :</p>
-<p>[ _(L) = [, L L _(L),]. ]</p>
-<p>Sa cohérence et sa meilleure capture des risques extrêmes en font désormais la mesure privilégiée dans les réglementations récentes.</p>
+<section id="méthode-paramétrique-variancecovariance" class="level4">
+<h4 class="anchored" data-anchor-id="méthode-paramétrique-variancecovariance">Méthode Paramétrique (Variance–Covariance)</h4>
+<p>Sous des hypothèses de normalité des rendements et de linéarité du portefeuille :</p>
+<p><span class="math display">\[
+\text{VaR}_{\alpha} = \mu + \Phi^{-1}(\alpha)\,\sigma,
+\]</span></p>
+<p>où <span class="math inline">\(\mu\)</span> et <span class="math inline">\(\sigma\)</span> représentent respectivement la moyenne et l’écart-type des pertes.</p>
+</section>
+<section id="méthode-monte-carlo" class="level4">
+<h4 class="anchored" data-anchor-id="méthode-monte-carlo">Méthode Monte Carlo</h4>
+<p>Cette approche consiste à simuler un grand nombre de scénarios, puis à en extraire le quantile :</p>
+<p><span class="math display">\[
+\text{VaR}_{\alpha} = F_L^{-1}(\alpha),
+\]</span></p>
+<p>où <span class="math inline">\(F_L\)</span> est la distribution simulée des pertes.</p>
+</section>
+</section>
+<section id="expected-shortfall" class="level3">
+<h3 class="anchored" data-anchor-id="expected-shortfall">Expected Shortfall</h3>
+<p>L’Expected Shortfall mesure la perte moyenne au-delà du quantile défini par la VaR :</p>
+<p><span class="math display">\[
+\text{ES}_{\alpha}
+= \mathbb{E}[\, L \mid L &gt; \text{VaR}_{\alpha}(L) \,].
+\]</span></p>
+<p>Il fournit une information complémentaire sur la sévérité des pertes extrêmes, particulièrement importante en période de stress.</p>
 <hr>
 </section>
 </section>
-<section id="le-cadre-réglementaire-de-bâle-i-à-bâle-iv" class="level2">
-<h2 class="anchored" data-anchor-id="le-cadre-réglementaire-de-bâle-i-à-bâle-iv">Le Cadre Réglementaire : de Bâle I à Bâle IV</h2>
-<p><strong>Bâle I (1988)</strong> : premier standard international avec le ratio Cooke (capital/RWA ≥ 8%).<br>
-<strong>Bâle II (2004)</strong> : approche en trois piliers, reconnaissance des modèles internes.<br>
-<strong>Bâle III (2010/2011)</strong> : renforcement de la qualité du capital, coussins, ratios LCR et NSFR.<br>
-<strong>Bâle IV (2017)</strong> : remplacement de la VaR par l’ES, nouvelle approche opérationnelle, restrictions sur modèles internes.</p>
-<p>Cette évolution réglementaire témoigne de la recherche permanente d’un équilibre entre innovation financière et stabilité du système.</p>
+<section id="la-gestion-avancée-du-risque-de-marché" class="level2">
+<h2 class="anchored" data-anchor-id="la-gestion-avancée-du-risque-de-marché">La Gestion Avancée du Risque de Marché</h2>
+<section id="backtesting" class="level3">
+<h3 class="anchored" data-anchor-id="backtesting">Backtesting</h3>
+<p>Le backtesting consiste à confronter les prévisions de risque aux pertes réellement observées.</p>
+<p>Deux dimensions sont généralement testées :</p>
+<ul>
+<li>la <strong>couverture inconditionnelle</strong>, qui vérifie que le nombre de violations est cohérent avec le niveau de confiance ;</li>
+<li>l’<strong>indépendance</strong>, qui s’assure que les exceptions ne sont pas regroupées en périodes de tension.</li>
+</ul>
+</section>
+<section id="stress-testing" class="level3">
+<h3 class="anchored" data-anchor-id="stress-testing">Stress Testing</h3>
+<p>Le stress testing évalue l’impact sur le portefeuille de scénarios extrêmes mais plausibles, qu’ils soient inspirés de périodes historiques (crise de 2008, choc COVID-19) ou construits de manière hypothétique.</p>
+</section>
+<section id="analyse-de-scénarios" class="level3">
+<h3 class="anchored" data-anchor-id="analyse-de-scénarios">Analyse de Scénarios</h3>
+<p>Cette méthode complète le stress testing en étudiant des évolutions coordonnées de plusieurs facteurs de risque, permettant une évaluation plus fine des vulnérabilités.</p>
 <hr>
 </section>
 </section>
-<section id="partie-ii-travaux-applications-et-études" class="level1">
-<h1>Partie II — Travaux, Applications et Études</h1>
-<p>Dans cette seconde partie, tu pourras présenter tes analyses, études de cas, travaux personnels, modèles, simulations, notes techniques ou présentations académiques.</p>
+<section id="le-cadre-réglementaire-bâle-iv-et-la-frtb" class="level2">
+<h2 class="anchored" data-anchor-id="le-cadre-réglementaire-bâle-iv-et-la-frtb">Le Cadre Réglementaire : Bâle IV et la FRTB</h2>
+<p>La réforme <strong>FRTB (Fundamental Review of the Trading Book)</strong> issue de Bâle IV modernise profondément la mesure du risque de marché.</p>
+<section id="approche-standardisée" class="level3">
+<h3 class="anchored" data-anchor-id="approche-standardisée">Approche Standardisée</h3>
+<p>Elle repose sur :</p>
+<ul>
+<li>des sensibilités (delta, vega, curvature),</li>
+<li>des classes de risque homogènes,</li>
+<li>des horizons de liquidité différenciés selon les instruments.</li>
+</ul>
+</section>
+<section id="approche-par-modèles-internes" class="level3">
+<h3 class="anchored" data-anchor-id="approche-par-modèles-internes">Approche par Modèles Internes</h3>
+<p>Plus exigeante, elle impose notamment :</p>
+<ul>
+<li>l’utilisation de l’ES au lieu de la VaR ;</li>
+<li>la prise en compte des horizons de liquidité ;</li>
+<li>des critères de backtesting renforcés.</li>
+</ul>
+</section>
+<section id="exigences-quantitatives" class="level3">
+<h3 class="anchored" data-anchor-id="exigences-quantitatives">Exigences Quantitatives</h3>
+<p>Les principaux paramètres sont :</p>
+<ul>
+<li>un niveau de confiance de <strong>97,5%</strong> pour l’ES ;</li>
+<li>une période de calcul intégrant des données de stress ;</li>
+<li>une diversification reconnue mais strictement encadrée.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="perspectives-dévolution" class="level2">
+<h2 class="anchored" data-anchor-id="perspectives-dévolution">Perspectives d’Évolution</h2>
+<p>Le risque de marché évolue avec les transformations des marchés financiers et l’apparition de nouveaux facteurs de risque. Parmi eux :</p>
+<ul>
+<li>l’innovation financière et les nouveaux instruments complexes ;</li>
+<li>l’augmentation de la fréquence des chocs de marché ;</li>
+<li>la prise en compte des risques climatiques ;</li>
+<li>l’usage croissant de l’intelligence artificielle dans les modèles.</li>
+</ul>
+<p>Ces évolutions imposent une adaptation continue des outils et des cadres prudentiels afin de garantir la résilience du système financier.</p>
+<hr>
 
 
 </section>

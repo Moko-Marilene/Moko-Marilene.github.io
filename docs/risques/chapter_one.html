@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Risque &amp; Régulation –</title>
+<title>Chapitre 1 : Introduction à la Gestion des Risques Bancaires –</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +23,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -69,8 +69,37 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -80,11 +109,11 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    <img src="./logo.png" alt="" class="navbar-logo light-content">
-    <img src="./logo.png" alt="" class="navbar-logo dark-content">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../logo.png" alt="" class="navbar-logo light-content">
+    <img src="../logo.png" alt="" class="navbar-logo dark-content">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title"></span>
     </a>
   </div>
@@ -95,31 +124,31 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Accueil</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./finance.html"> 
+    <a class="nav-link" href="../finance.html"> 
 <span class="menu-text">Finance Quantitative</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./risque-regulation.html" aria-current="page"> 
+    <a class="nav-link" href="../risques/index.html"> 
 <span class="menu-text">Risque &amp; Régulation</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./modelisation-stat.qmd"> 
+    <a class="nav-link" href="../modelisation-stat.qmd"> 
 <span class="menu-text">Modélisation stat</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./data-science.html"> 
+    <a class="nav-link" href="../data-science.html"> 
 <span class="menu-text">Data science</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./articles-ressources.qmd"> 
+    <a class="nav-link" href="../articles-ressources.qmd"> 
 <span class="menu-text">Ressources</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">À propos</span></a>
   </li>  
 </ul>
@@ -138,21 +167,20 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#partie-i-cadre-théorique-du-banking-risk-management" id="toc-partie-i-cadre-théorique-du-banking-risk-management" class="nav-link active" data-scroll-target="#partie-i-cadre-théorique-du-banking-risk-management">Partie I — Cadre Théorique du Banking Risk Management</a></li>
-  <li><a href="#chapitre-1-introduction-à-la-gestion-des-risques-bancaires" id="toc-chapitre-1-introduction-à-la-gestion-des-risques-bancaires" class="nav-link" data-scroll-target="#chapitre-1-introduction-à-la-gestion-des-risques-bancaires">Chapitre 1 : Introduction à la Gestion des Risques Bancaires</a>
+  <li><a href="#chapitre-1-introduction-à-la-gestion-des-risques-bancaires" id="toc-chapitre-1-introduction-à-la-gestion-des-risques-bancaires" class="nav-link active" data-scroll-target="#chapitre-1-introduction-à-la-gestion-des-risques-bancaires">Chapitre 1 : Introduction à la Gestion des Risques Bancaires</a>
   <ul class="collapse">
-  <li><a href="#la-gestion-des-risques-une-fonction-stratégique" id="toc-la-gestion-des-risques-une-fonction-stratégique" class="nav-link" data-scroll-target="#la-gestion-des-risques-une-fonction-stratégique">La Gestion des Risques : Une Fonction Stratégique</a></li>
-  <li><a href="#panorama-des-risques-bancaires" id="toc-panorama-des-risques-bancaires" class="nav-link" data-scroll-target="#panorama-des-risques-bancaires">Panorama des Risques Bancaires</a>
+  <li><a href="#la-gestion-des-risques-une-fonction-stratégique" id="toc-la-gestion-des-risques-une-fonction-stratégique" class="nav-link" data-scroll-target="#la-gestion-des-risques-une-fonction-stratégique">La Gestion des Risques : une Fonction Stratégique</a></li>
+  <li><a href="#les-principaux-risques-bancaires" id="toc-les-principaux-risques-bancaires" class="nav-link" data-scroll-target="#les-principaux-risques-bancaires">Les Principaux Risques Bancaires</a>
   <ul class="collapse">
-  <li><a href="#le-risque-de-marché" id="toc-le-risque-de-marché" class="nav-link" data-scroll-target="#le-risque-de-marché">Le risque de marché</a></li>
-  <li><a href="#le-risque-de-crédit" id="toc-le-risque-de-crédit" class="nav-link" data-scroll-target="#le-risque-de-crédit">Le risque de crédit</a></li>
-  <li><a href="#le-risque-de-liquidité" id="toc-le-risque-de-liquidité" class="nav-link" data-scroll-target="#le-risque-de-liquidité">Le risque de liquidité</a></li>
-  <li><a href="#le-risque-opérationnel" id="toc-le-risque-opérationnel" class="nav-link" data-scroll-target="#le-risque-opérationnel">Le risque opérationnel</a></li>
-  <li><a href="#autres-risques" id="toc-autres-risques" class="nav-link" data-scroll-target="#autres-risques">Autres risques</a></li>
+  <li><a href="#risque-de-marché" id="toc-risque-de-marché" class="nav-link" data-scroll-target="#risque-de-marché">Risque de Marché</a></li>
+  <li><a href="#risque-de-crédit" id="toc-risque-de-crédit" class="nav-link" data-scroll-target="#risque-de-crédit">Risque de Crédit</a></li>
+  <li><a href="#risque-de-liquidité" id="toc-risque-de-liquidité" class="nav-link" data-scroll-target="#risque-de-liquidité">Risque de Liquidité</a></li>
+  <li><a href="#risque-opérationnel" id="toc-risque-opérationnel" class="nav-link" data-scroll-target="#risque-opérationnel">Risque Opérationnel</a></li>
+  <li><a href="#autres-risques" id="toc-autres-risques" class="nav-link" data-scroll-target="#autres-risques">Autres Risques</a></li>
   </ul></li>
-  <li><a href="#la-théorie-des-mesures-de-risque" id="toc-la-théorie-des-mesures-de-risque" class="nav-link" data-scroll-target="#la-théorie-des-mesures-de-risque">La Théorie des Mesures de Risque</a>
+  <li><a href="#les-mesures-de-risque" id="toc-les-mesures-de-risque" class="nav-link" data-scroll-target="#les-mesures-de-risque">Les Mesures de Risque</a>
   <ul class="collapse">
-  <li><a href="#mesures-de-risque-cohérentes" id="toc-mesures-de-risque-cohérentes" class="nav-link" data-scroll-target="#mesures-de-risque-cohérentes">Mesures de risque cohérentes</a></li>
+  <li><a href="#mesures-de-risque-cohérentes" id="toc-mesures-de-risque-cohérentes" class="nav-link" data-scroll-target="#mesures-de-risque-cohérentes">Mesures de Risque Cohérentes</a></li>
   </ul></li>
   <li><a href="#var-et-expected-shortfall" id="toc-var-et-expected-shortfall" class="nav-link" data-scroll-target="#var-et-expected-shortfall">VaR et Expected Shortfall</a>
   <ul class="collapse">
@@ -161,7 +189,6 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#le-cadre-réglementaire-de-bâle-i-à-bâle-iv" id="toc-le-cadre-réglementaire-de-bâle-i-à-bâle-iv" class="nav-link" data-scroll-target="#le-cadre-réglementaire-de-bâle-i-à-bâle-iv">Le Cadre Réglementaire : de Bâle I à Bâle IV</a></li>
   </ul></li>
-  <li><a href="#partie-ii-travaux-applications-et-études" id="toc-partie-ii-travaux-applications-et-études" class="nav-link" data-scroll-target="#partie-ii-travaux-applications-et-études">Partie II — Travaux, Applications et Études</a></li>
   </ul>
 </nav>
     </div>
@@ -170,7 +197,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Risque &amp; Régulation</h1>
+<h1 class="title">Chapitre 1 : Introduction à la Gestion des Risques Bancaires</h1>
 </div>
 
 
@@ -187,80 +214,92 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="partie-i-cadre-théorique-du-banking-risk-management" class="level1">
-<h1>Partie I — Cadre Théorique du Banking Risk Management</h1>
-<p>Dans cette première partie, nous présentons les fondements théoriques de la gestion des risques bancaires.<br>
-Elle rassemble les concepts, définitions et structures méthodologiques nécessaires pour comprendre le fonctionnement global du risk management dans les institutions financières.</p>
-<hr>
-</section>
+<p><a href="../risques/index.html">⬅ Retour à Risque &amp; Régulation</a></p>
 <section id="chapitre-1-introduction-à-la-gestion-des-risques-bancaires" class="level1">
 <h1>Chapitre 1 : Introduction à la Gestion des Risques Bancaires</h1>
 <section id="la-gestion-des-risques-une-fonction-stratégique" class="level2">
-<h2 class="anchored" data-anchor-id="la-gestion-des-risques-une-fonction-stratégique">La Gestion des Risques : Une Fonction Stratégique</h2>
-<p>Au cœur du système économique, les banques assurent une mission essentielle de circulation des capitaux entre épargnants et investisseurs. Cette position centrale les expose naturellement à divers risques financiers qu’elles doivent apprendre à maîtriser.</p>
-<p>La gestion des risques a considérablement évolué : d’une fonction traditionnelle de contrôle, elle est devenue un véritable levier de création de valeur. Elle permet aujourd’hui une allocation optimale du capital et une tarification plus fine des produits financiers, tout en guidant les décisions stratégiques.</p>
-<p>Le risk manager moderne endosse un rôle crucial à l’interface des métiers. Véritable vigie, il anticipe les scénarios défavorables, conseille les équipes opérationnelles et éclaire la direction générale sur l’exposition aux risques.</p>
+<h2 class="anchored" data-anchor-id="la-gestion-des-risques-une-fonction-stratégique">La Gestion des Risques : une Fonction Stratégique</h2>
+<p>Au cœur du système économique, les banques jouent un rôle fondamental d’intermédiation en orientant les capitaux entre agents en excédent et agents en besoin de financement. Cette position centrale les expose naturellement à une variété de risques financiers qu’il est essentiel de comprendre et de maîtriser.</p>
+<p>Avec le temps, la fonction de gestion des risques s’est profondément transformée. Jadis perçue comme un simple dispositif de contrôle, elle constitue aujourd’hui un <strong>levier stratégique</strong>, permettant :</p>
+<ul>
+<li>une allocation optimale du capital,</li>
+<li>une tarification plus fine des produits,</li>
+<li>une meilleure anticipation des chocs,</li>
+<li>un pilotage éclairé des décisions stratégiques.</li>
+</ul>
 <hr>
 </section>
-<section id="panorama-des-risques-bancaires" class="level2">
-<h2 class="anchored" data-anchor-id="panorama-des-risques-bancaires">Panorama des Risques Bancaires</h2>
-<p>Pour appréhender correctement la gestion des risques, il est fondamental d’en connaître les différentes facettes. Quatre catégories principales structurent le paysage risk management.</p>
-<section id="le-risque-de-marché" class="level3">
-<h3 class="anchored" data-anchor-id="le-risque-de-marché">Le risque de marché</h3>
-<p>Le risque de marché apparaît lorsque la valeur des positions détenues par une banque évolue sous l’effet des mouvements des marchés financiers. Ces mouvements concernent notamment :</p>
+<section id="les-principaux-risques-bancaires" class="level2">
+<h2 class="anchored" data-anchor-id="les-principaux-risques-bancaires">Les Principaux Risques Bancaires</h2>
+<p>La première étape du risk management consiste à identifier les sources d’incertitude susceptibles d’affecter la situation financière de la banque. On distingue traditionnellement plusieurs grandes catégories de risques.</p>
+<section id="risque-de-marché" class="level3">
+<h3 class="anchored" data-anchor-id="risque-de-marché">Risque de Marché</h3>
+<p>Le risque de marché se manifeste lorsque la valeur des positions détenues par une banque évolue défavorablement sous l’effet des variations des facteurs de marché :</p>
 <ul>
-<li>les taux d’intérêt,<br>
-</li>
-<li>les taux de change,<br>
-</li>
-<li>les cours des actions,<br>
-</li>
-<li>les matières premières,<br>
-</li>
-<li>et, plus globalement, l’ensemble des conditions économiques et financières.</li>
+<li>taux d’intérêt,</li>
+<li>taux de change,</li>
+<li>cours des actions,</li>
+<li>prix des matières premières,</li>
+<li>spreads de crédit,</li>
+<li>conditions macroéconomiques générales.</li>
 </ul>
-<p>Ce risque ne se résume pas à une liste de menaces distinctes : il traduit la manière dont un portefeuille réagit aux évolutions de son environnement. Certains instruments sont sensibles à de petites variations, tandis que d’autres réagissent davantage à des mouvements plus marqués ou à des périodes de forte instabilité, où les prix peuvent changer rapidement et où les relations entre actifs deviennent moins prévisibles.</p>
+<p>Ce risque reflète la <strong>sensibilité globale du portefeuille</strong> à l’environnement financier. Certains actifs réagissent fortement à de petites variations de marché, tandis que d’autres sont davantage sensibles aux mouvements amples ou aux périodes d’instabilité durant lesquelles les dépendances entre actifs deviennent moins prévisibles.</p>
 </section>
-<section id="le-risque-de-crédit" class="level3">
-<h3 class="anchored" data-anchor-id="le-risque-de-crédit">Le risque de crédit</h3>
-<p>Le risque de crédit, le plus significatif pour une banque, correspond à la probabilité qu’une contrepartie ne honore pas ses engagements financiers.</p>
+<section id="risque-de-crédit" class="level3">
+<h3 class="anchored" data-anchor-id="risque-de-crédit">Risque de Crédit</h3>
+<p>Le risque de crédit correspond à la possibilité qu’une contrepartie ne respecte pas ses obligations financières. Il constitue généralement la composante la plus importante du risque bancaire.</p>
 </section>
-<section id="le-risque-de-liquidité" class="level3">
-<h3 class="anchored" data-anchor-id="le-risque-de-liquidité">Le risque de liquidité</h3>
-<p>Il se manifeste sous deux angles : - <strong>liquidité de marché</strong> : capacité à céder des actifs sans perte de valeur significative ; - <strong>liquidité de financement</strong> : aptitude à se refinancer à un coût raisonnable.</p>
+<section id="risque-de-liquidité" class="level3">
+<h3 class="anchored" data-anchor-id="risque-de-liquidité">Risque de Liquidité</h3>
+<p>Ce risque présente deux dimensions :</p>
+<ul>
+<li><strong>liquidité de marché</strong> : capacité à vendre un actif sans perte de valeur excessive,</li>
+<li><strong>liquidité de financement</strong> : capacité à se refinancer à un coût raisonnable.</li>
+</ul>
 </section>
-<section id="le-risque-opérationnel" class="level3">
-<h3 class="anchored" data-anchor-id="le-risque-opérationnel">Le risque opérationnel</h3>
-<p>Il englobe les pertes potentielles liées à des défaillances internes (processus, personnes, systèmes) ou à des événements externes, incluant le risque juridique.</p>
+<section id="risque-opérationnel" class="level3">
+<h3 class="anchored" data-anchor-id="risque-opérationnel">Risque Opérationnel</h3>
+<p>Il résulte de défaillances internes (processus, systèmes, erreurs humaines) ou d’événements externes, et englobe notamment le risque juridique.</p>
 </section>
 <section id="autres-risques" class="level3">
-<h3 class="anchored" data-anchor-id="autres-risques">Autres risques</h3>
-<p>Parmi les autres risques notables : - le <strong>risque de réputation</strong>,<br>
-- le <strong>risque de modèle</strong>,<br>
-- le <strong>risque systémique</strong>.</p>
+<h3 class="anchored" data-anchor-id="autres-risques">Autres Risques</h3>
+<p>Parmi les risques complémentaires :</p>
+<ul>
+<li><strong>risque de réputation</strong>,<br>
+</li>
+<li><strong>risque de modèle</strong>,<br>
+</li>
+<li><strong>risque systémique</strong>.</li>
+</ul>
 <blockquote class="blockquote">
-<p>Ces risques sont profondément interconnectés. Une approche en silos pourrait conduire à sous-estimer des menaces transversales aux conséquences potentiellement graves.</p>
+<p>Les risques bancaires sont fortement interconnectés : une approche fragmentée peut conduire à sous-estimer les vulnérabilités globales.</p>
 </blockquote>
 <hr>
 </section>
 </section>
-<section id="la-théorie-des-mesures-de-risque" class="level2">
-<h2 class="anchored" data-anchor-id="la-théorie-des-mesures-de-risque">La Théorie des Mesures de Risque</h2>
-<p>La quantification rigoureuse du risque s’appuie sur des outils mathématiques sophistiqués. Une <strong>mesure de risque</strong>, notée ( (L) ) où ( L ) représente la perte aléatoire, détermine le capital économique nécessaire à sa couverture.</p>
+<section id="les-mesures-de-risque" class="level2">
+<h2 class="anchored" data-anchor-id="les-mesures-de-risque">Les Mesures de Risque</h2>
+<p>La mesure du risque repose sur des outils statistiques permettant de quantifier les pertes potentielles associées à une position ou un portefeuille.<br>
+Une <strong>mesure de risque</strong>, notée <span class="math inline">\(\mathcal{R}(L)\)</span> pour une perte aléatoire <span class="math inline">\(L\)</span>, représente généralement le capital économique nécessaire pour couvrir cette perte dans un scénario défavorable.</p>
 <section id="mesures-de-risque-cohérentes" class="level3">
-<h3 class="anchored" data-anchor-id="mesures-de-risque-cohérentes">Mesures de risque cohérentes</h3>
-<p>Artzner et ses co-auteurs ont défini quatre axiomes qui caractérisent une mesure de risque robuste :</p>
+<h3 class="anchored" data-anchor-id="mesures-de-risque-cohérentes">Mesures de Risque Cohérentes</h3>
+<p>Artzner et al.&nbsp;ont défini quatre propriétés fondamentales caractérisant une mesure de risque <strong>cohérente</strong> :</p>
 <ol type="1">
-<li><p><strong>Invariance par translation</strong><br>
-[ (L + c) = (L) + c ]</p></li>
-<li><p><strong>Homogénéité positive</strong><br>
-[ (L) = (L) ]</p></li>
-<li><p><strong>Monotonie</strong><br>
-[ L_1 L_2 (L_1) (L_2) ]</p></li>
-<li><p><strong>Sous-additivité</strong><br>
-[ (L_1 + L_2) (L_1) + (L_2) ]</p></li>
+<li><p><strong>Invariance par translation</strong> <span class="math display">\[
+\mathcal{R}(L + c) = \mathcal{R}(L) + c
+\]</span></p></li>
+<li><p><strong>Homogénéité positive</strong> <span class="math display">\[
+\mathcal{R}(\lambda L) = \lambda \mathcal{R}(L)
+\]</span></p></li>
+<li><p><strong>Monotonie</strong> <span class="math display">\[
+L_1 \le L_2 \;\Rightarrow\; \mathcal{R}(L_1) \le \mathcal{R}(L_2)
+\]</span></p></li>
+<li><p><strong>Sous-additivité</strong> <span class="math display">\[
+\mathcal{R}(L_1 + L_2) \le \mathcal{R}(L_1) + \mathcal{R}(L_2)
+\]</span></p></li>
 </ol>
-<p>Ces propriétés garantissent que la mesure du risque se comporte de manière intuitive et économiquement rationnelle.</p>
+<p>Ces propriétés assurent un comportement économique raisonnable de la mesure du risque.<br>
+Dans ce cadre, la <strong>Value-at-Risk (VaR)</strong> est devenue l’outil le plus couramment utilisé en pratique, notamment dans les réglementations prudentielles.</p>
 <hr>
 </section>
 </section>
@@ -268,34 +307,53 @@ Elle rassemble les concepts, définitions et structures méthodologiques nécess
 <h2 class="anchored" data-anchor-id="var-et-expected-shortfall">VaR et Expected Shortfall</h2>
 <section id="value-at-risk-var" class="level3">
 <h3 class="anchored" data-anchor-id="value-at-risk-var">Value-at-Risk (VaR)</h3>
-<p>La Value-at-Risk représente la perte maximale qui ne sera dépassée qu’avec une probabilité donnée :</p>
-<p>[ _(L) = { x : (L x) }. ]</p>
-<p>Bien que simple et intuitive, elle souffre de deux limites majeures : - elle n’est pas cohérente,<br>
-- elle ne renseigne pas sur la gravité des pertes extrêmes.</p>
+<p>La VaR à un niveau de confiance <span class="math inline">\(\alpha\)</span> et sur un horizon donné représente la perte maximale qui ne sera dépassée qu’avec une probabilité <span class="math inline">\(1 - \alpha\)</span> :</p>
+<p><span class="math display">\[
+\text{VaR}_{\alpha}(L)
+= \inf \{\, x : \mathbb{P}(L \le x) \ge \alpha \,\}.
+\]</span></p>
+<p>Bien qu’intuitive et largement adoptée, elle présente deux limites importantes :</p>
+<ul>
+<li>elle peut violer la sous-additivité (donc n’est pas cohérente),</li>
+<li>elle ne dit rien de l’ampleur des pertes extrêmes situées au-delà du quantile.</li>
+</ul>
+<p>Ces limitations ont conduit à privilégier une mesure plus robuste : l’<strong>Expected Shortfall</strong>.</p>
+<hr>
 </section>
 <section id="expected-shortfall-es" class="level3">
 <h3 class="anchored" data-anchor-id="expected-shortfall-es">Expected Shortfall (ES)</h3>
-<p>L’Expected Shortfall correspond à la perte moyenne dans les pires scénarios :</p>
-<p>[ _(L) = [, L L _(L),]. ]</p>
-<p>Sa cohérence et sa meilleure capture des risques extrêmes en font désormais la mesure privilégiée dans les réglementations récentes.</p>
+<p>L’Expected Shortfall correspond à la perte moyenne observée dans les pires scénarios, c’est-à-dire au-delà de la VaR :</p>
+<p><span class="math display">\[
+\text{ES}_{\alpha}(L)
+= \mathbb{E}\big[\, L \mid L \ge \text{VaR}_{\alpha}(L) \,\big].
+\]</span></p>
+<p>Contrairement à la VaR, l’ES :</p>
+<ul>
+<li>tient compte de la sévérité des pertes extrêmes,<br>
+</li>
+<li>respecte les quatre axiomes de cohérence,<br>
+</li>
+<li>offre une meilleure mesure du risque en conditions de stress.</li>
+</ul>
+<p>C’est pour ces raisons qu’elle a été adoptée dans les cadres réglementaires récents.</p>
 <hr>
 </section>
 </section>
 <section id="le-cadre-réglementaire-de-bâle-i-à-bâle-iv" class="level2">
 <h2 class="anchored" data-anchor-id="le-cadre-réglementaire-de-bâle-i-à-bâle-iv">Le Cadre Réglementaire : de Bâle I à Bâle IV</h2>
-<p><strong>Bâle I (1988)</strong> : premier standard international avec le ratio Cooke (capital/RWA ≥ 8%).<br>
-<strong>Bâle II (2004)</strong> : approche en trois piliers, reconnaissance des modèles internes.<br>
-<strong>Bâle III (2010/2011)</strong> : renforcement de la qualité du capital, coussins, ratios LCR et NSFR.<br>
-<strong>Bâle IV (2017)</strong> : remplacement de la VaR par l’ES, nouvelle approche opérationnelle, restrictions sur modèles internes.</p>
-<p>Cette évolution réglementaire témoigne de la recherche permanente d’un équilibre entre innovation financière et stabilité du système.</p>
-<hr>
-</section>
-</section>
-<section id="partie-ii-travaux-applications-et-études" class="level1">
-<h1>Partie II — Travaux, Applications et Études</h1>
-<p>Dans cette seconde partie, tu pourras présenter tes analyses, études de cas, travaux personnels, modèles, simulations, notes techniques ou présentations académiques.</p>
+<p>L’évolution de la régulation prudentielle suit l’objectif de renforcer la résilience du système bancaire face aux chocs.</p>
+<ul>
+<li><strong>Bâle I (1988)</strong> : introduction du ratio Cooke (capital/RWA ≥ 8%).<br>
+</li>
+<li><strong>Bâle II (2004)</strong> : architecture en trois piliers, reconnaissance des modèles internes.<br>
+</li>
+<li><strong>Bâle III (2010–2011)</strong> : amélioration de la qualité du capital, coussins de conservation, ratios LCR et NSFR.<br>
+</li>
+<li><strong>Bâle IV (2017)</strong> : ado</li>
+</ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

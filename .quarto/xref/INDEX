@@ -19,5 +19,14 @@
   },
   "data-science.qmd": {
     "data-science.html": "4a6e93da"
+  },
+  "risques/chapter_one.qmd": {
+    "chapter_one.html": "587644ee"
+  },
+  "risques/index.qmd": {
+    "index.html": "eea70e3a"
+  },
+  "risques/chapter_two.qmd": {
+    "chapter_two.html": "b6be47a9"
   }
 }

@@ -1,0 +1,25 @@
+---
+title: "Risque & Régulation"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+### Partie I — Cadre Théorique du Banking Risk Management
+
+Dans cette première partie, nous présentons les fondements théoriques de la gestion des risques bancaires.  
+Elle rassemble les concepts, définitions et structures méthodologiques nécessaires pour comprendre le fonctionnement global du risk management dans les institutions financières.
+
+---
+
+#### 📘 Chapitres disponibles
+
+#####  [Chapitre 1 : Introduction à la Gestion des Risques Bancaires](chapter_one.qmd)
+#####  [Chapitre 2 : Le risque de marché](chapter_two.qmd)
+
+
+
+### Partie II — Travaux, Applications et Études
+
+Cette seconde partie regroupera vos analyses, études de cas, simulations ou projets appliqués.

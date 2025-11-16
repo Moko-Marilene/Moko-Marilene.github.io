@@ -4,7 +4,7 @@
     "href": "about.html",
     "title": "Marilene KOUGOUM",
     "section": "",
-    "text": "Je suis Marilene KOUGOUM, récemment diplômée de l’ENSAI Rennes en tant qu’ingénieure en data science et gestion des risques. Cette formation m’a permis d’acquérir une base solide en modélisation des risques financiers - notamment les risques de marché et de crédit - ainsi qu’une bonne compréhension des cadres comptables et réglementaires structurants du secteur bancaire (Bâle III, IFRS 9, etc.).\nJe poursuis actuellement mes études à l’Université Paris Cité au sein du master M2MO, spécialisé en modélisation aléatoire, finance quantitative et data science.\nJ’ai créé ce site pour partager ce que j’apprends au fil de mon parcours : d’une part, pour aider mes cadets académiques à comprendre les notions enseignées en école d’ingénieur et en master quantitatif ; d’autre part, pour rendre accessibles certains concepts parfois techniques en finance quantitative, en data science ou en gestion des risques.\nLes contenus présents sur ce site proviennent de mes travaux académiques, de projets personnels ou d’enseignements réalisés sous la supervision de professeurs et de professionnels experts dans leurs domaines. Je ne prétends pas que ces contenus soient exhaustifs : ils reflètent mon apprentissage continu et ma volonté de partager.\nMerci de votre visite, et bonne exploration !"
+    "text": "Je suis Marilene KOUGOUM, récemment diplômée de l’ENSAI Rennes en tant qu’ingénieure en data science et gestion des risques. Cette formation m’a permis d’acquérir une base solide en modélisation des risques financiers - notamment les risques de marché et de crédit - ainsi qu’une bonne compréhension des cadres comptables et réglementaires structurant de secteur bancaire (Bâle III, IFRS 9, etc.).\nJe poursuis actuellement mes études à l’Université Paris Cité au sein du master M2MO, spécialisé en modélisation aléatoire, finance quantitative et data science.\nJ’ai créé ce site pour partager ce que j’apprends au fil de mon parcours : d’une part, pour aider mes cadets académiques à avoir un aperçu des notions enseignées en école d’ingénieur et en master quantitatif ; d’autre part, afin de vulgariser des concepts parfois techniques en finance quantitative, en data science ou en gestion des risques.\nLes contenus présents sur ce site proviennent de mes travaux académiques, de projets personnels ou d’enseignements réalisés sous la supervision de professeurs et de professionnels experts dans leurs domaines. Je ne prétends pas que ces contenus soient exhaustifs : ils reflètent mon apprentissage continu et ma volonté de partager.\nMerci de votre visite, et bonne exploration !"
   },
   {
     "objectID": "index.html",
@@ -33,5 +33,173 @@
     "title": " ",
     "section": "Publications récentes",
     "text": "Publications récentes\n\n\n\n\nCourbe de taux & modèle de Hull–White\n\n\nBootstrapping, valorisation caplets/swap­tion, calibration Hull–White\n\nLire\n\n\n\n\nVECM & Pairs Trading\n\n\nCointégration,ruptures structurelles, extensions (GARCH, régimes), usages en stratégie pairs trading\n\nLire\n\n\n\n\nGestion de la liquidité des actifs\n\n\nProfondeur de marché, Calcul du profil d’écoulement,liquidation avec/sans déformation.\n\nLire"
+  },
+  {
+    "objectID": "risque-regulation.html",
+    "href": "risque-regulation.html",
+    "title": "Risque & Régulation",
+    "section": "",
+    "text": "Dans cette première partie, nous présentons les fondements théoriques de la gestion des risques bancaires.\nElle rassemble les concepts, définitions et structures méthodologiques nécessaires pour comprendre le fonctionnement global du risk management dans les institutions financières."
+  },
+  {
+    "objectID": "risque-regulation.html#la-gestion-des-risques-une-fonction-stratégique",
+    "href": "risque-regulation.html#la-gestion-des-risques-une-fonction-stratégique",
+    "title": "Risque & Régulation",
+    "section": "La Gestion des Risques : Une Fonction Stratégique",
+    "text": "La Gestion des Risques : Une Fonction Stratégique\nAu cœur du système économique, les banques assurent une mission essentielle de circulation des capitaux entre épargnants et investisseurs. Cette position centrale les expose naturellement à divers risques financiers qu’elles doivent apprendre à maîtriser.\nLa gestion des risques a considérablement évolué : d’une fonction traditionnelle de contrôle, elle est devenue un véritable levier de création de valeur. Elle permet aujourd’hui une allocation optimale du capital et une tarification plus fine des produits financiers, tout en guidant les décisions stratégiques.\nLe risk manager moderne endosse un rôle crucial à l’interface des métiers. Véritable vigie, il anticipe les scénarios défavorables, conseille les équipes opérationnelles et éclaire la direction générale sur l’exposition aux risques."
+  },
+  {
+    "objectID": "risque-regulation.html#panorama-des-risques-bancaires",
+    "href": "risque-regulation.html#panorama-des-risques-bancaires",
+    "title": "Risque & Régulation",
+    "section": "Panorama des Risques Bancaires",
+    "text": "Panorama des Risques Bancaires\nPour appréhender correctement la gestion des risques, il est fondamental d’en connaître les différentes facettes. Quatre catégories principales structurent le paysage risk management.\n\nLe risque de marché\nLe risque de marché apparaît lorsque la valeur des positions détenues par une banque évolue sous l’effet des mouvements des marchés financiers. Ces mouvements concernent notamment :\n\nles taux d’intérêt,\n\nles taux de change,\n\nles cours des actions,\n\nles matières premières,\n\net, plus globalement, l’ensemble des conditions économiques et financières.\n\nCe risque ne se résume pas à une liste de menaces distinctes : il traduit la manière dont un portefeuille réagit aux évolutions de son environnement. Certains instruments sont sensibles à de petites variations, tandis que d’autres réagissent davantage à des mouvements plus marqués ou à des périodes de forte instabilité, où les prix peuvent changer rapidement et où les relations entre actifs deviennent moins prévisibles.\n\n\nLe risque de crédit\nLe risque de crédit, le plus significatif pour une banque, correspond à la probabilité qu’une contrepartie ne honore pas ses engagements financiers.\n\n\nLe risque de liquidité\nIl se manifeste sous deux angles : - liquidité de marché : capacité à céder des actifs sans perte de valeur significative ; - liquidité de financement : aptitude à se refinancer à un coût raisonnable.\n\n\nLe risque opérationnel\nIl englobe les pertes potentielles liées à des défaillances internes (processus, personnes, systèmes) ou à des événements externes, incluant le risque juridique.\n\n\nAutres risques\nParmi les autres risques notables : - le risque de réputation,\n- le risque de modèle,\n- le risque systémique.\n\nCes risques sont profondément interconnectés. Une approche en silos pourrait conduire à sous-estimer des menaces transversales aux conséquences potentiellement graves."
+  },
+  {
+    "objectID": "risque-regulation.html#la-théorie-des-mesures-de-risque",
+    "href": "risque-regulation.html#la-théorie-des-mesures-de-risque",
+    "title": "Risque & Régulation",
+    "section": "La Théorie des Mesures de Risque",
+    "text": "La Théorie des Mesures de Risque\nLa quantification rigoureuse du risque s’appuie sur des outils mathématiques sophistiqués. Une mesure de risque, notée ( (L) ) où ( L ) représente la perte aléatoire, détermine le capital économique nécessaire à sa couverture.\n\nMesures de risque cohérentes\nArtzner et ses co-auteurs ont défini quatre axiomes qui caractérisent une mesure de risque robuste :\n\nInvariance par translation\n[ (L + c) = (L) + c ]\nHomogénéité positive\n[ (L) = (L) ]\nMonotonie\n[ L_1 L_2 (L_1) (L_2) ]\nSous-additivité\n[ (L_1 + L_2) (L_1) + (L_2) ]\n\nCes propriétés garantissent que la mesure du risque se comporte de manière intuitive et économiquement rationnelle."
+  },
+  {
+    "objectID": "risque-regulation.html#var-et-expected-shortfall",
+    "href": "risque-regulation.html#var-et-expected-shortfall",
+    "title": "Risque & Régulation",
+    "section": "VaR et Expected Shortfall",
+    "text": "VaR et Expected Shortfall\n\nValue-at-Risk (VaR)\nLa Value-at-Risk représente la perte maximale qui ne sera dépassée qu’avec une probabilité donnée :\n[ _(L) = { x : (L x) }. ]\nBien que simple et intuitive, elle souffre de deux limites majeures : - elle n’est pas cohérente,\n- elle ne renseigne pas sur la gravité des pertes extrêmes.\n\n\nExpected Shortfall (ES)\nL’Expected Shortfall correspond à la perte moyenne dans les pires scénarios :\n[ _(L) = [, L L _(L),]. ]\nSa cohérence et sa meilleure capture des risques extrêmes en font désormais la mesure privilégiée dans les réglementations récentes."
+  },
+  {
+    "objectID": "risque-regulation.html#le-cadre-réglementaire-de-bâle-i-à-bâle-iv",
+    "href": "risque-regulation.html#le-cadre-réglementaire-de-bâle-i-à-bâle-iv",
+    "title": "Risque & Régulation",
+    "section": "Le Cadre Réglementaire : de Bâle I à Bâle IV",
+    "text": "Le Cadre Réglementaire : de Bâle I à Bâle IV\nBâle I (1988) : premier standard international avec le ratio Cooke (capital/RWA ≥ 8%).\nBâle II (2004) : approche en trois piliers, reconnaissance des modèles internes.\nBâle III (2010/2011) : renforcement de la qualité du capital, coussins, ratios LCR et NSFR.\nBâle IV (2017) : remplacement de la VaR par l’ES, nouvelle approche opérationnelle, restrictions sur modèles internes.\nCette évolution réglementaire témoigne de la recherche permanente d’un équilibre entre innovation financière et stabilité du système."
+  },
+  {
+    "objectID": "risques/chapter_one.html",
+    "href": "risques/chapter_one.html",
+    "title": "Chapitre 1 : Introduction à la Gestion des Risques Bancaires",
+    "section": "",
+    "text": "⬅ Retour à Risque & Régulation"
+  },
+  {
+    "objectID": "risques/chapter_one.html#la-gestion-des-risques-une-fonction-stratégique",
+    "href": "risques/chapter_one.html#la-gestion-des-risques-une-fonction-stratégique",
+    "title": "Chapitre 1 : Introduction à la Gestion des Risques Bancaires",
+    "section": "La Gestion des Risques : une Fonction Stratégique",
+    "text": "La Gestion des Risques : une Fonction Stratégique\nAu cœur du système économique, les banques jouent un rôle fondamental d’intermédiation en orientant les capitaux entre agents en excédent et agents en besoin de financement. Cette position centrale les expose naturellement à une variété de risques financiers qu’il est essentiel de comprendre et de maîtriser.\nAvec le temps, la fonction de gestion des risques s’est profondément transformée. Jadis perçue comme un simple dispositif de contrôle, elle constitue aujourd’hui un levier stratégique, permettant :\n\nune allocation optimale du capital,\nune tarification plus fine des produits,\nune meilleure anticipation des chocs,\nun pilotage éclairé des décisions stratégiques."
+  },
+  {
+    "objectID": "risques/chapter_one.html#panorama-des-risques-bancaires",
+    "href": "risques/chapter_one.html#panorama-des-risques-bancaires",
+    "title": "Chapitre 1 : Introduction à la Gestion des Risques Bancaires",
+    "section": "Panorama des Risques Bancaires",
+    "text": "Panorama des Risques Bancaires\nPour appréhender correctement la gestion des risques, il est fondamental d’en connaître les différentes facettes. Quatre catégories principales structurent le paysage du risk management.\n\nLe risque de marché\nLe risque de marché apparaît lorsque la valeur des positions détenues par une banque évolue sous l’effet des mouvements des marchés financiers. Ces mouvements concernent notamment :\n\nles taux d’intérêt,\n\nles taux de change,\n\nles cours des actions,\n\nles matières premières,\n\net, plus globalement, l’ensemble des conditions économiques et financières.\n\nCe risque ne se résume pas à une liste de menaces distinctes : il traduit la manière dont un portefeuille réagit aux évolutions de son environnement. Certains instruments sont sensibles à de petites variations, tandis que d’autres réagissent davantage à des mouvements plus marqués ou à des périodes de forte instabilité, où les prix peuvent changer rapidement et où les relations entre actifs deviennent moins prévisibles.\n\n\nLe risque de crédit\nLe risque de crédit, le plus significatif pour une banque, correspond à la probabilité qu’une contrepartie ne honore pas ses engagements financiers.\n\n\nLe risque de liquidité\nIl se manifeste sous deux angles : - liquidité de marché : capacité à céder des actifs sans perte de valeur significative ; - liquidité de financement : aptitude à se refinancer à un coût raisonnable.\n\n\nLe risque opérationnel\nIl englobe les pertes potentielles liées à des défaillances internes (processus, personnes, systèmes) ou à des événements externes, incluant le risque juridique.\n\n\nAutres risques\nParmi les autres risques notables : - le risque de réputation,\n- le risque de modèle,\n- le risque systémique.\n\nCes risques sont profondément interconnectés. Une approche en silos pourrait conduire à sous-estimer des menaces transversales aux conséquences potentiellement graves."
+  },
+  {
+    "objectID": "risques/chapter_one.html#la-théorie-des-mesures-de-risque",
+    "href": "risques/chapter_one.html#la-théorie-des-mesures-de-risque",
+    "title": "Chapitre 1 : Introduction à la Gestion des Risques Bancaires",
+    "section": "La Théorie des Mesures de Risque",
+    "text": "La Théorie des Mesures de Risque\nLa quantification rigoureuse du risque s’appuie sur des outils mathématiques sophistiqués. Une mesure de risque, notée ( (L) ) où ( L ) représente une perte aléatoire, détermine le capital économique nécessaire à sa couverture.\n\nMesures de risque cohérentes\nArtzner et ses co-auteurs ont défini quatre axiomes qui caractérisent une mesure de risque robuste :\n\nInvariance par translation\n\\[\n\\mathcal{R}(L + c) = \\mathcal{R}(L) + c\n\\]\nHomogénéité positive\n\\[\n\\mathcal{R}(\\lambda L) = \\lambda \\mathcal{R}(L)\n\\]\nMonotonie\n\\[\nL_1 \\le L_2 \\;\\Rightarrow\\; \\mathcal{R}(L_1) \\le \\mathcal{R}(L_2)\n\\]\nSous-additivité\n\\[\n\\mathcal{R}(L_1 + L_2) \\le \\mathcal{R}(L_1) + \\mathcal{R}(L_2)\n\\]\n\nCes propriétés garantissent que la mesure du risque se comporte de manière intuitive et économiquement rationnelle.\nDans ce contexte, la Value-at-Risk (VaR) s’est imposée comme un outil largement utilisé en pratique et dans les réglementations prudentielles."
+  },
+  {
+    "objectID": "risques/chapter_one.html#var-et-expected-shortfall",
+    "href": "risques/chapter_one.html#var-et-expected-shortfall",
+    "title": "Chapitre 1 : Introduction à la Gestion des Risques Bancaires",
+    "section": "VaR et Expected Shortfall",
+    "text": "VaR et Expected Shortfall\n\nValue-at-Risk (VaR)\nLa VaR à un niveau de confiance \\(\\alpha\\) et sur un horizon donné représente la perte maximale qui ne sera dépassée qu’avec une probabilité \\(1 - \\alpha\\) :\n\\[\n\\text{VaR}_{\\alpha}(L)\n= \\inf \\{\\, x : \\mathbb{P}(L \\le x) \\ge \\alpha \\,\\}.\n\\]\nBien qu’intuitive et largement adoptée, elle présente deux limites importantes :\n\nelle peut violer la sous-additivité (donc n’est pas cohérente),\nelle ne dit rien de l’ampleur des pertes extrêmes situées au-delà du quantile.\n\nCes limitations ont conduit à privilégier une mesure plus robuste : l’Expected Shortfall.\n\n\n\nExpected Shortfall (ES)\nL’Expected Shortfall correspond à la perte moyenne observée dans les pires scénarios, c’est-à-dire au-delà de la VaR :\n\\[\n\\text{ES}_{\\alpha}(L)\n= \\mathbb{E}\\big[\\, L \\mid L \\ge \\text{VaR}_{\\alpha}(L) \\,\\big].\n\\]\nContrairement à la VaR, l’ES :\n\ntient compte de la sévérité des pertes extrêmes,\n\nrespecte les quatre axiomes de cohérence,\n\noffre une meilleure mesure du risque en conditions de stress.\n\nC’est pour ces raisons qu’elle a été adoptée dans les cadres réglementaires récents."
+  },
+  {
+    "objectID": "risques/chapter_one.html#le-cadre-réglementaire-de-bâle-i-à-bâle-iv",
+    "href": "risques/chapter_one.html#le-cadre-réglementaire-de-bâle-i-à-bâle-iv",
+    "title": "Chapitre 1 : Introduction à la Gestion des Risques Bancaires",
+    "section": "Le Cadre Réglementaire : de Bâle I à Bâle IV",
+    "text": "Le Cadre Réglementaire : de Bâle I à Bâle IV\nL’évolution de la régulation prudentielle suit l’objectif de renforcer la résilience du système bancaire face aux chocs.\n\nBâle I (1988) : introduction du ratio Cooke (capital/RWA ≥ 8%).\n\nBâle II (2004) : architecture en trois piliers, reconnaissance des modèles internes.\n\nBâle III (2010–2011) : amélioration de la qualité du capital, coussins de conservation, ratios LCR et NSFR.\n\nBâle IV (2017) : ado"
+  },
+  {
+    "objectID": "risques/index.html",
+    "href": "risques/index.html",
+    "title": "Risque & Régulation",
+    "section": "",
+    "text": "Partie I — Cadre Théorique du Banking Risk Management\nDans cette première partie, nous présentons les fondements théoriques de la gestion des risques bancaires.\nElle rassemble les concepts, définitions et structures méthodologiques nécessaires pour comprendre le fonctionnement global du risk management dans les institutions financières.\n\n\n📘 Chapitres disponibles\n\nChapitre 1 : Introduction à la Gestion des Risques Bancaires\n\n\nChapitre 2 : Le risque de marché\n\n\n\n\nPartie II — Travaux, Applications et Études\nCette seconde partie regroupera vos analyses, études de cas, simulations ou projets appliqués."
+  },
+  {
+    "objectID": "risques/chapter_one.html#la-gestion-des-risques-une-fonction-stratégique-1",
+    "href": "risques/chapter_one.html#la-gestion-des-risques-une-fonction-stratégique-1",
+    "title": "Chapitre 1 : Introduction à la Gestion des Risques Bancaires",
+    "section": "La Gestion des Risques : Une Fonction Stratégique",
+    "text": "La Gestion des Risques : Une Fonction Stratégique\nAu cœur du système économique, les banques assurent une mission essentielle de circulation des capitaux entre épargnants et investisseurs. Cette position centrale les expose naturellement à divers risques financiers qu’elles doivent apprendre à maîtriser.\nLa gestion des risques a considérablement évolué : d’une fonction traditionnelle de contrôle, elle est devenue un véritable levier de création de valeur. Elle permet aujourd’hui une allocation optimale du capital et une tarification plus fine des produits financiers, tout en guidant les décisions stratégiques.\nLe risk manager moderne endosse un rôle crucial à l’interface des métiers. Véritable vigie, il anticipe les scénarios défavorables, conseille les équipes opérationnelles et éclaire la direction générale sur l’exposition aux risques."
+  },
+  {
+    "objectID": "risques/chapter_two.html",
+    "href": "risques/chapter_two.html",
+    "title": "Chapitre 2 : Le Risque de Marché",
+    "section": "",
+    "text": "⬅ Retour à Risque & Régulation"
+  },
+  {
+    "objectID": "risques/chapter_two.html#comprendre-le-risque-de-marché",
+    "href": "risques/chapter_two.html#comprendre-le-risque-de-marché",
+    "title": "Chapitre 2 : Le Risque de Marché",
+    "section": "Comprendre le Risque de Marché",
+    "text": "Comprendre le Risque de Marché\nLe risque de marché correspond à la possibilité de subir une perte liée à l’évolution défavorable des prix sur les marchés financiers. Contrairement au risque de crédit, qui concerne la solidité financière d’une contrepartie, le risque de marché affecte directement la valeur des actifs détenus dans le portefeuille de négociation d’une banque.\nIl découle de mouvements de facteurs tels que les taux d’intérêt, les taux de change, les cours des actions, les spreads de crédit ou les prix des matières premières. Sa gestion exige une compréhension fine de ces facteurs et de leurs interactions, en particulier dans des conditions de volatilité élevée ou de stress de marché."
+  },
+  {
+    "objectID": "risques/chapter_two.html#les-différentes-formes-du-risque-de-marché",
+    "href": "risques/chapter_two.html#les-différentes-formes-du-risque-de-marché",
+    "title": "Chapitre 2 : Le Risque de Marché",
+    "section": "Les Différentes Formes du Risque de Marché",
+    "text": "Les Différentes Formes du Risque de Marché\n\nRisque de Taux d’Intérêt\nLe risque de taux traduit la sensibilité des instruments financiers aux variations des taux d’intérêt. Il se manifeste principalement à travers :\n\nle risque de niveau, lié à un déplacement parallèle de la courbe des taux ;\nle risque de pente, lorsque les taux courts et les taux longs évoluent différemment ;\nle risque de courbure, qui apparaît lorsque la convexité ou la forme de la courbe se modifie.\n\n\n\nRisque de Change\nLorsque des positions sont libellées dans différentes devises, les fluctuations des taux de change peuvent générer des gains ou des pertes. Le risque de change est particulièrement significatif pour les institutions opérant à l’international ou pour les portefeuilles multi-devises.\n\n\nRisque Actions\nCe risque correspond à l’exposition aux variations des cours boursiers. Il combine :\n\nun risque systématique, lié à l’évolution générale du marché ;\nun risque spécifique, propre à chaque entreprise ou secteur.\n\n\n\nRisque Matières Premières\nLes prix des matières premières (pétrole, gaz, métaux, produits agricoles) sont influencés par des facteurs géopolitiques, climatiques ou économiques, rendant les expositions potentiellement très volatiles."
+  },
+  {
+    "objectID": "risques/chapter_two.html#les-mesures-de-sensibilité",
+    "href": "risques/chapter_two.html#les-mesures-de-sensibilité",
+    "title": "Chapitre 2 : Le Risque de Marché",
+    "section": "Les Mesures de Sensibilité",
+    "text": "Les Mesures de Sensibilité\nLa gestion du risque de marché repose largement sur l’analyse des sensibilités, qui mesurent la réaction du prix d’un instrument à la variation d’un facteur de risque.\n\nLa Duration\nPour les actifs de taux, la durée (duration) quantifie la sensibilité du prix d’un instrument à une variation du taux d’intérêt :\n\\[\nD = -\\frac{1}{P}\\,\\frac{\\partial P}{\\partial y},\n\\]\noù \\(P\\) désigne le prix de l’instrument et \\(y\\) son rendement.\n\n\nLes Grecques\nPour les produits dérivés (instruments financiers dont la valeur dépend d’un actif sous-jacent), les sensibilités sont décrites à l’aide des Grecques, qui capturent différentes dimensions du risque :\n\nDelta :\n\\[\n\\Delta = \\frac{\\partial P}{\\partial S}\n\\] mesure la sensibilité au prix du sous-jacent \\(S\\) ;\nGamma :\n\\[\n\\Gamma = \\frac{\\partial^2 P}{\\partial S^2}\n\\] capture la convexité de la relation entre \\(P\\) et \\(S\\) ;\nVega : sensibilité à la volatilité \\(\\sigma\\) ;\nTheta : sensibilité au temps (décroissance de valeur liée à l’écoulement du temps) ;\nRho : sensibilité aux variations du taux d’intérêt \\(r\\)."
+  },
+  {
+    "objectID": "risques/chapter_two.html#value-at-risk-et-expected-shortfall-appliqués-au-risque-de-marché",
+    "href": "risques/chapter_two.html#value-at-risk-et-expected-shortfall-appliqués-au-risque-de-marché",
+    "title": "Chapitre 2 : Le Risque de Marché",
+    "section": "Value-at-Risk et Expected Shortfall appliqués au Risque de Marché",
+    "text": "Value-at-Risk et Expected Shortfall appliqués au Risque de Marché\nLa Value-at-Risk (VaR) et l’Expected Shortfall (ES) sont les mesures principales utilisées pour quantifier le risque de marché à l’échelle du portefeuille.\n\nApproches de Calcul de la VaR\n\nMéthode Historique\nLa VaR historique repose sur les réalisations passées des facteurs de marché. On calcule les pertes journalières successives et on retient le quantile empirique :\n\\[\n\\text{VaR}_{\\alpha} = L_{(n\\alpha)},\n\\]\noù \\(L_{(n\\alpha)}\\) désigne la perte correspondant au quantile \\(\\alpha\\).\n\n\nMéthode Paramétrique (Variance–Covariance)\nSous des hypothèses de normalité des rendements et de linéarité du portefeuille :\n\\[\n\\text{VaR}_{\\alpha} = \\mu + \\Phi^{-1}(\\alpha)\\,\\sigma,\n\\]\noù \\(\\mu\\) et \\(\\sigma\\) représentent respectivement la moyenne et l’écart-type des pertes.\n\n\nMéthode Monte Carlo\nCette approche consiste à simuler un grand nombre de scénarios, puis à en extraire le quantile :\n\\[\n\\text{VaR}_{\\alpha} = F_L^{-1}(\\alpha),\n\\]\noù \\(F_L\\) est la distribution simulée des pertes.\n\n\n\nExpected Shortfall\nL’Expected Shortfall mesure la perte moyenne au-delà du quantile défini par la VaR :\n\\[\n\\text{ES}_{\\alpha}\n= \\mathbb{E}[\\, L \\mid L &gt; \\text{VaR}_{\\alpha}(L) \\,].\n\\]\nIl fournit une information complémentaire sur la sévérité des pertes extrêmes, particulièrement importante en période de stress."
+  },
+  {
+    "objectID": "risques/chapter_two.html#la-gestion-avancée-du-risque-de-marché",
+    "href": "risques/chapter_two.html#la-gestion-avancée-du-risque-de-marché",
+    "title": "Chapitre 2 : Le Risque de Marché",
+    "section": "La Gestion Avancée du Risque de Marché",
+    "text": "La Gestion Avancée du Risque de Marché\n\nBacktesting\nLe backtesting consiste à confronter les prévisions de risque aux pertes réellement observées.\nDeux dimensions sont généralement testées :\n\nla couverture inconditionnelle, qui vérifie que le nombre de violations est cohérent avec le niveau de confiance ;\nl’indépendance, qui s’assure que les exceptions ne sont pas regroupées en périodes de tension.\n\n\n\nStress Testing\nLe stress testing évalue l’impact sur le portefeuille de scénarios extrêmes mais plausibles, qu’ils soient inspirés de périodes historiques (crise de 2008, choc COVID-19) ou construits de manière hypothétique.\n\n\nAnalyse de Scénarios\nCette méthode complète le stress testing en étudiant des évolutions coordonnées de plusieurs facteurs de risque, permettant une évaluation plus fine des vulnérabilités."
+  },
+  {
+    "objectID": "risques/chapter_two.html#le-cadre-réglementaire-bâle-iv-et-la-frtb",
+    "href": "risques/chapter_two.html#le-cadre-réglementaire-bâle-iv-et-la-frtb",
+    "title": "Chapitre 2 : Le Risque de Marché",
+    "section": "Le Cadre Réglementaire : Bâle IV et la FRTB",
+    "text": "Le Cadre Réglementaire : Bâle IV et la FRTB\nLa réforme FRTB (Fundamental Review of the Trading Book) issue de Bâle IV modernise profondément la mesure du risque de marché.\n\nApproche Standardisée\nElle repose sur :\n\ndes sensibilités (delta, vega, curvature),\ndes classes de risque homogènes,\ndes horizons de liquidité différenciés selon les instruments.\n\n\n\nApproche par Modèles Internes\nPlus exigeante, elle impose notamment :\n\nl’utilisation de l’ES au lieu de la VaR ;\nla prise en compte des horizons de liquidité ;\ndes critères de backtesting renforcés.\n\n\n\nExigences Quantitatives\nLes principaux paramètres sont :\n\nun niveau de confiance de 97,5% pour l’ES ;\nune période de calcul intégrant des données de stress ;\nune diversification reconnue mais strictement encadrée."
+  },
+  {
+    "objectID": "risques/chapter_two.html#perspectives-dévolution",
+    "href": "risques/chapter_two.html#perspectives-dévolution",
+    "title": "Chapitre 2 : Le Risque de Marché",
+    "section": "Perspectives d’Évolution",
+    "text": "Perspectives d’Évolution\nLe risque de marché évolue avec les transformations des marchés financiers et l’apparition de nouveaux facteurs de risque. Parmi eux :\n\nl’innovation financière et les nouveaux instruments complexes ;\nl’augmentation de la fréquence des chocs de marché ;\nla prise en compte des risques climatiques ;\nl’usage croissant de l’intelligence artificielle dans les modèles.\n\nCes évolutions imposent une adaptation continue des outils et des cadres prudentiels afin de garantir la résilience du système financier."
+  },
+  {
+    "objectID": "risques/chapter_one.html#les-principaux-risques-bancaires",
+    "href": "risques/chapter_one.html#les-principaux-risques-bancaires",
+    "title": "Chapitre 1 : Introduction à la Gestion des Risques Bancaires",
+    "section": "Les Principaux Risques Bancaires",
+    "text": "Les Principaux Risques Bancaires\nLa première étape du risk management consiste à identifier les sources d’incertitude susceptibles d’affecter la situation financière de la banque. On distingue traditionnellement plusieurs grandes catégories de risques.\n\nRisque de Marché\nLe risque de marché se manifeste lorsque la valeur des positions détenues par une banque évolue défavorablement sous l’effet des variations des facteurs de marché :\n\ntaux d’intérêt,\ntaux de change,\ncours des actions,\nprix des matières premières,\nspreads de crédit,\nconditions macroéconomiques générales.\n\nCe risque reflète la sensibilité globale du portefeuille à l’environnement financier. Certains actifs réagissent fortement à de petites variations de marché, tandis que d’autres sont davantage sensibles aux mouvements amples ou aux périodes d’instabilité durant lesquelles les dépendances entre actifs deviennent moins prévisibles.\n\n\nRisque de Crédit\nLe risque de crédit correspond à la possibilité qu’une contrepartie ne respecte pas ses obligations financières. Il constitue généralement la composante la plus importante du risque bancaire.\n\n\nRisque de Liquidité\nCe risque présente deux dimensions :\n\nliquidité de marché : capacité à vendre un actif sans perte de valeur excessive,\nliquidité de financement : capacité à se refinancer à un coût raisonnable.\n\n\n\nRisque Opérationnel\nIl résulte de défaillances internes (processus, systèmes, erreurs humaines) ou d’événements externes, et englobe notamment le risque juridique.\n\n\nAutres Risques\nParmi les risques complémentaires :\n\nrisque de réputation,\n\nrisque de modèle,\n\nrisque systémique.\n\n\nLes risques bancaires sont fortement interconnectés : une approche fragmentée peut conduire à sous-estimer les vulnérabilités globales."
+  },
+  {
+    "objectID": "risques/chapter_one.html#les-mesures-de-risque",
+    "href": "risques/chapter_one.html#les-mesures-de-risque",
+    "title": "Chapitre 1 : Introduction à la Gestion des Risques Bancaires",
+    "section": "Les Mesures de Risque",
+    "text": "Les Mesures de Risque\nLa mesure du risque repose sur des outils statistiques permettant de quantifier les pertes potentielles associées à une position ou un portefeuille.\nUne mesure de risque, notée \\(\\mathcal{R}(L)\\) pour une perte aléatoire \\(L\\), représente généralement le capital économique nécessaire pour couvrir cette perte dans un scénario défavorable.\n\nMesures de Risque Cohérentes\nArtzner et al. ont défini quatre propriétés fondamentales caractérisant une mesure de risque cohérente :\n\nInvariance par translation \\[\n\\mathcal{R}(L + c) = \\mathcal{R}(L) + c\n\\]\nHomogénéité positive \\[\n\\mathcal{R}(\\lambda L) = \\lambda \\mathcal{R}(L)\n\\]\nMonotonie \\[\nL_1 \\le L_2 \\;\\Rightarrow\\; \\mathcal{R}(L_1) \\le \\mathcal{R}(L_2)\n\\]\nSous-additivité \\[\n\\mathcal{R}(L_1 + L_2) \\le \\mathcal{R}(L_1) + \\mathcal{R}(L_2)\n\\]\n\nCes propriétés assurent un comportement économique raisonnable de la mesure du risque.\nDans ce cadre, la Value-at-Risk (VaR) est devenue l’outil le plus couramment utilisé en pratique, notamment dans les réglementations prudentielles."
   }
 ]

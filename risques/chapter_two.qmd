@@ -1,0 +1,196 @@
+---
+title: "Chapitre 2 : Le Risque de Marché"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+[⬅ Retour à Risque & Régulation](index.qmd)
+
+## Comprendre le Risque de Marché
+
+Le risque de marché correspond à la possibilité de subir une perte liée à l’évolution défavorable des prix sur les marchés financiers. Contrairement au risque de crédit, qui concerne la solidité financière d’une contrepartie, le risque de marché affecte directement la valeur des actifs détenus dans le portefeuille de négociation d’une banque.
+
+Il découle de mouvements de facteurs tels que les taux d’intérêt, les taux de change, les cours des actions, les spreads de crédit ou les prix des matières premières. Sa gestion exige une compréhension fine de ces facteurs et de leurs interactions, en particulier dans des conditions de volatilité élevée ou de stress de marché.
+
+---
+
+## Les Différentes Formes du Risque de Marché
+
+### Risque de Taux d’Intérêt
+
+Le risque de taux traduit la sensibilité des instruments financiers aux variations des taux d'intérêt. Il se manifeste principalement à travers :
+
+- le **risque de niveau**, lié à un déplacement parallèle de la courbe des taux ;
+- le **risque de pente**, lorsque les taux courts et les taux longs évoluent différemment ;
+- le **risque de courbure**, qui apparaît lorsque la convexité ou la forme de la courbe se modifie.
+
+### Risque de Change
+
+Lorsque des positions sont libellées dans différentes devises, les fluctuations des taux de change peuvent générer des gains ou des pertes. Le risque de change est particulièrement significatif pour les institutions opérant à l’international ou pour les portefeuilles multi-devises.
+
+### Risque Actions
+
+Ce risque correspond à l’exposition aux variations des cours boursiers. Il combine :
+
+- un **risque systématique**, lié à l’évolution générale du marché ;
+- un **risque spécifique**, propre à chaque entreprise ou secteur.
+
+### Risque Matières Premières
+
+Les prix des matières premières (pétrole, gaz, métaux, produits agricoles) sont influencés par des facteurs géopolitiques, climatiques ou économiques, rendant les expositions potentiellement très volatiles.
+
+---
+
+## Les Mesures de Sensibilité
+
+La gestion du risque de marché repose largement sur l’analyse des **sensibilités**, qui mesurent la réaction du prix d’un instrument à la variation d’un facteur de risque.
+
+### La Duration
+
+Pour les actifs de taux, la durée (duration) quantifie la sensibilité du prix d’un instrument à une variation du taux d’intérêt :
+
+$$
+D = -\frac{1}{P}\,\frac{\partial P}{\partial y},
+$$
+
+où $P$ désigne le prix de l'instrument et $y$ son rendement.
+
+### Les Grecques
+
+Pour les produits dérivés (instruments financiers dont la valeur dépend d’un actif sous-jacent), les sensibilités sont décrites à l’aide des **Grecques**, qui capturent différentes dimensions du risque :
+
+- **Delta** :  
+  $$
+  \Delta = \frac{\partial P}{\partial S}
+  $$
+  mesure la sensibilité au prix du sous-jacent $S$ ;
+
+- **Gamma** :  
+  $$
+  \Gamma = \frac{\partial^2 P}{\partial S^2}
+  $$
+  capture la convexité de la relation entre $P$ et $S$ ;
+
+- **Vega** : sensibilité à la volatilité $\sigma$ ;
+
+- **Theta** : sensibilité au temps (décroissance de valeur liée à l'écoulement du temps) ;
+
+- **Rho** : sensibilité aux variations du taux d’intérêt $r$.
+
+---
+
+## Value-at-Risk et Expected Shortfall appliqués au Risque de Marché
+
+La Value-at-Risk (VaR) et l’Expected Shortfall (ES) sont les mesures principales utilisées pour quantifier le risque de marché à l’échelle du portefeuille.
+
+### Approches de Calcul de la VaR
+
+#### Méthode Historique
+
+La VaR historique repose sur les réalisations passées des facteurs de marché. On calcule les pertes journalières successives et on retient le quantile empirique :
+
+$$
+\text{VaR}_{\alpha} = L_{(n\alpha)},
+$$
+
+où $L_{(n\alpha)}$ désigne la perte correspondant au quantile $\alpha$.
+
+#### Méthode Paramétrique (Variance–Covariance)
+
+Sous des hypothèses de normalité des rendements et de linéarité du portefeuille :
+
+$$
+\text{VaR}_{\alpha} = \mu + \Phi^{-1}(\alpha)\,\sigma,
+$$
+
+où $\mu$ et $\sigma$ représentent respectivement la moyenne et l’écart-type des pertes.
+
+#### Méthode Monte Carlo
+
+Cette approche consiste à simuler un grand nombre de scénarios, puis à en extraire le quantile :
+
+$$
+\text{VaR}_{\alpha} = F_L^{-1}(\alpha),
+$$
+
+où $F_L$ est la distribution simulée des pertes.
+
+### Expected Shortfall
+
+L’Expected Shortfall mesure la perte moyenne au-delà du quantile défini par la VaR :
+
+$$
+\text{ES}_{\alpha}
+= \mathbb{E}[\, L \mid L > \text{VaR}_{\alpha}(L) \,].
+$$
+
+Il fournit une information complémentaire sur la sévérité des pertes extrêmes, particulièrement importante en période de stress.
+
+---
+
+## La Gestion Avancée du Risque de Marché
+
+### Backtesting
+
+Le backtesting consiste à confronter les prévisions de risque aux pertes réellement observées.
+
+Deux dimensions sont généralement testées :
+
+- la **couverture inconditionnelle**, qui vérifie que le nombre de violations est cohérent avec le niveau de confiance ;
+- l’**indépendance**, qui s’assure que les exceptions ne sont pas regroupées en périodes de tension.
+
+### Stress Testing
+
+Le stress testing évalue l’impact sur le portefeuille de scénarios extrêmes mais plausibles, qu’ils soient inspirés de périodes historiques (crise de 2008, choc COVID-19) ou construits de manière hypothétique.
+
+### Analyse de Scénarios
+
+Cette méthode complète le stress testing en étudiant des évolutions coordonnées de plusieurs facteurs de risque, permettant une évaluation plus fine des vulnérabilités.
+
+---
+
+## Le Cadre Réglementaire : Bâle IV et la FRTB
+
+La réforme **FRTB (Fundamental Review of the Trading Book)** issue de Bâle IV modernise profondément la mesure du risque de marché.
+
+### Approche Standardisée
+
+Elle repose sur :
+
+- des sensibilités (delta, vega, curvature),
+- des classes de risque homogènes,
+- des horizons de liquidité différenciés selon les instruments.
+
+### Approche par Modèles Internes
+
+Plus exigeante, elle impose notamment :
+
+- l’utilisation de l’ES au lieu de la VaR ;
+- la prise en compte des horizons de liquidité ;
+- des critères de backtesting renforcés.
+
+### Exigences Quantitatives
+
+Les principaux paramètres sont :
+
+- un niveau de confiance de **97,5%** pour l’ES ;
+- une période de calcul intégrant des données de stress ;
+- une diversification reconnue mais strictement encadrée.
+
+---
+
+## Perspectives d’Évolution
+
+Le risque de marché évolue avec les transformations des marchés financiers et l’apparition de nouveaux facteurs de risque. Parmi eux :
+
+- l’innovation financière et les nouveaux instruments complexes ;
+- l’augmentation de la fréquence des chocs de marché ;
+- la prise en compte des risques climatiques ;
+- l’usage croissant de l’intelligence artificielle dans les modèles.
+
+Ces évolutions imposent une adaptation continue des outils et des cadres prudentiels afin de garantir la résilience du système financier.
+
+---
+

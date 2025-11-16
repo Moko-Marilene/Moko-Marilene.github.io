@@ -1,4 +1,142 @@
 ---
-title: "Marilene-website "
-subtitle: "Quantitative finance / Stochastic modelling/ Risk management / Data science"
+title: "Risque & Régulation"
+format:
+  html:
+    toc: true
+    toc-depth: 3
 ---
+
+# Partie I — Cadre Théorique du Banking Risk Management
+
+Dans cette première partie, nous présentons les fondements théoriques de la gestion des risques bancaires.  
+Elle rassemble les concepts, définitions et structures méthodologiques nécessaires pour comprendre le fonctionnement global du risk management dans les institutions financières.
+
+---
+
+# Chapitre 1 : Introduction à la Gestion des Risques Bancaires
+
+## La Gestion des Risques : Une Fonction Stratégique
+
+Au cœur du système économique, les banques assurent une mission essentielle de circulation des capitaux entre épargnants et investisseurs. Cette position centrale les expose naturellement à divers risques financiers qu'elles doivent apprendre à maîtriser. 
+
+La gestion des risques a considérablement évolué : d'une fonction traditionnelle de contrôle, elle est devenue un véritable levier de création de valeur. Elle permet aujourd'hui une allocation optimale du capital et une tarification plus fine des produits financiers, tout en guidant les décisions stratégiques.
+
+Le risk manager moderne endosse un rôle crucial à l'interface des métiers. Véritable vigie, il anticipe les scénarios défavorables, conseille les équipes opérationnelles et éclaire la direction générale sur l'exposition aux risques.
+
+---
+
+## Panorama des Risques Bancaires
+
+Pour appréhender correctement la gestion des risques, il est fondamental d'en connaître les différentes facettes. Quatre catégories principales structurent le paysage risk management.
+
+### Le risque de marché
+
+Le risque de marché apparaît lorsque la valeur des positions détenues par une banque évolue sous l’effet des mouvements des marchés financiers. Ces mouvements concernent notamment :
+
+- les taux d’intérêt,  
+- les taux de change,  
+- les cours des actions,  
+- les matières premières,  
+- et, plus globalement, l’ensemble des conditions économiques et financières.
+
+Ce risque ne se résume pas à une liste de menaces distinctes : il traduit la manière dont un portefeuille réagit aux évolutions de son environnement. Certains instruments sont sensibles à de petites variations, tandis que d’autres réagissent davantage à des mouvements plus marqués ou à des périodes de forte instabilité, où les prix peuvent changer rapidement et où les relations entre actifs deviennent moins prévisibles.
+
+### Le risque de crédit
+
+Le risque de crédit, le plus significatif pour une banque, correspond à la probabilité qu'une contrepartie ne honore pas ses engagements financiers.
+
+### Le risque de liquidité
+
+Il se manifeste sous deux angles :
+- **liquidité de marché** : capacité à céder des actifs sans perte de valeur significative ;
+- **liquidité de financement** : aptitude à se refinancer à un coût raisonnable.
+
+### Le risque opérationnel
+
+Il englobe les pertes potentielles liées à des défaillances internes (processus, personnes, systèmes) ou à des événements externes, incluant le risque juridique.
+
+### Autres risques
+
+Parmi les autres risques notables :
+- le **risque de réputation**,  
+- le **risque de modèle**,  
+- le **risque systémique**.
+
+> Ces risques sont profondément interconnectés. Une approche en silos pourrait conduire à sous-estimer des menaces transversales aux conséquences potentiellement graves.
+
+---
+
+## La Théorie des Mesures de Risque
+
+La quantification rigoureuse du risque s'appuie sur des outils mathématiques sophistiqués. Une **mesure de risque**, notée \( \mathcal{R}(L) \) où \( L \) représente la perte aléatoire, détermine le capital économique nécessaire à sa couverture.
+
+### Mesures de risque cohérentes
+
+Artzner et ses co-auteurs ont défini quatre axiomes qui caractérisent une mesure de risque robuste :
+
+1. **Invariance par translation**  
+   \[
+   \mathcal{R}(L + c) = \mathcal{R}(L) + c
+   \]
+
+2. **Homogénéité positive**  
+   \[
+   \mathcal{R}(\lambda L) = \lambda \mathcal{R}(L)
+   \]
+
+3. **Monotonie**  
+   \[
+   L_1 \le L_2 \Rightarrow \mathcal{R}(L_1) \le \mathcal{R}(L_2)
+   \]
+
+4. **Sous-additivité**  
+   \[
+   \mathcal{R}(L_1 + L_2) \le \mathcal{R}(L_1) + \mathcal{R}(L_2)
+   \]
+
+Ces propriétés garantissent que la mesure du risque se comporte de manière intuitive et économiquement rationnelle.
+
+---
+
+## VaR et Expected Shortfall
+
+### Value-at-Risk (VaR)
+
+La Value-at-Risk représente la perte maximale qui ne sera dépassée qu’avec une probabilité donnée :
+
+\[
+\text{VaR}_\alpha(L) = \inf\{ x : \mathbb{P}(L \le x) \ge \alpha \}.
+\]
+
+Bien que simple et intuitive, elle souffre de deux limites majeures :
+- elle n’est pas cohérente,  
+- elle ne renseigne pas sur la gravité des pertes extrêmes.
+
+### Expected Shortfall (ES)
+
+L’Expected Shortfall correspond à la perte moyenne dans les pires scénarios :
+
+\[
+\text{ES}_\alpha(L) = \mathbb{E}[\, L \mid L \ge \text{VaR}_\alpha(L)\,].
+\]
+
+Sa cohérence et sa meilleure capture des risques extrêmes en font désormais la mesure privilégiée dans les réglementations récentes.
+
+---
+
+## Le Cadre Réglementaire : de Bâle I à Bâle IV
+
+**Bâle I (1988)** : premier standard international avec le ratio Cooke (capital/RWA ≥ 8%).  
+**Bâle II (2004)** : approche en trois piliers, reconnaissance des modèles internes.  
+**Bâle III (2010/2011)** : renforcement de la qualité du capital, coussins, ratios LCR et NSFR.  
+**Bâle IV (2017)** : remplacement de la VaR par l’ES, nouvelle approche opérationnelle, restrictions sur modèles internes.
+
+Cette évolution réglementaire témoigne de la recherche permanente d'un équilibre entre innovation financière et stabilité du système.
+
+---
+
+# Partie II — Travaux, Applications et Études
+
+Dans cette seconde partie, tu pourras présenter tes analyses, études de cas, travaux personnels, modèles, simulations, notes techniques ou présentations académiques.
+
+

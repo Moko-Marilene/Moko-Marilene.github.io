@@ -25,7 +25,7 @@ format:
 <div class="axis-card">
   <h3>Risque & Régulation</h3>
   <p>Risque de marché, risque de crédit, conformité bancaire...</p>
-  <a href="risque.qmd" class="axis-btn">→ Explorer</a>
+  <a href="risques/index.qmd" class="axis-btn">→ Explorer</a>
 </div>
 
 <div class="axis-card">
