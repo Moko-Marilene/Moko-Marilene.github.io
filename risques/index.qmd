@@ -8,8 +8,10 @@ format:
 
 ### Partie I — Cadre Théorique du Banking Risk Management
 
-Dans cette première partie, nous présentons les fondements théoriques de la gestion des risques bancaires.  
-Elle rassemble les concepts, définitions et structures méthodologiques nécessaires pour comprendre le fonctionnement global du risk management dans les institutions financières.
+Dans cette première partie, nous présentons les fondements théoriques de la gestion des risques bancaires.
+Elle rassemble les concepts, définitions et éléments méthodologiques essentiels pour comprendre le fonctionnement global du risk management au sein des institutions financières.
+
+Cette synthèse n’a pas vocation à constituer un cours exhaustif : elle offre un cadre de référence minimal, destiné à faciliter la compréhension des analyses, modèles et travaux présentés dans les sections suivantes.
 
 ---
 
