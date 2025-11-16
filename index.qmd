@@ -7,7 +7,7 @@ format:
 
 <!-- HERO IMAGE -->
 <div class="hero-banner">
-  <img src="banniere.png" class="hero-img">
+  <img src="Images/banniere.png" class="hero-img">
 </div>
 
 ---
@@ -43,23 +43,23 @@ format:
 <div class="project-grid">
 
 <div class="project-card">
-  <img src="courbe de taux.png" class="project-img">
+  <img src="Images/courbe de taux.png" class="project-img">
   <h3>Courbe de taux & modèle de Hull–White</h3>
   <p>Bootstrapping, valorisation caplets/swap­tion, calibration Hull–White</p>
   <a href="projets/projet1.qmd" class="btn">Lire</a>
 </div>
 
 <div class="project-card">
-  <img src="..." class="project-img">
-  <h3>Modélisation du risque de crédit</h3>
-  <p>PD, LGD, IFRS 9 et modèles statistiques appliqués.</p>
+  <img src="Images/pair_trading.png" class="project-img">
+  <h3>VECM & Pairs Trading</h3>
+  <p>Cointégration,ruptures structurelles, extensions (GARCH, régimes), usages en stratégie pairs trading</p>
   <a href="projets/projet2.qmd" class="btn">Lire</a>
 </div>
 
 <div class="project-card">
-  <img src="images/projet3.jpg" class="project-img">
-  <h3>Prévision de séries temporelles</h3>
-  <p>ARIMA, Prophet, LSTM : comparaison et analyse.</p>
+  <img src="Images/liquidite.png" class="project-img">
+  <h3>Gestion de la liquidité des actifs</h3>
+  <p>Profondeur de marché, Calcul du profil d'écoulement,liquidation avec/sans déformation.</p>
   <a href="projets/projet3.qmd" class="btn">Lire</a>
 </div>
 
