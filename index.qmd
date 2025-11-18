@@ -60,7 +60,7 @@ format:
   <img src="Images/liquidite.png" class="project-img">
   <h3>Gestion de la liquidité des actifs</h3>
   <p>Profondeur de marché, Calcul du profil d'écoulement,liquidation avec/sans déformation.</p>
-  <a href="projets/projet3.qmd" class="btn">Lire</a>
+  <a href="risques/projets/liquidity.qmd" class="btn">Lire</a>
 </div>
 
 </div>

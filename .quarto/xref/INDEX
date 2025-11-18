@@ -34,5 +34,11 @@
   },
   "risques/chapter_four.qmd": {
     "chapter_four.html": "d0ca815d"
+  },
+  "risques/projets/demo.qmd": {
+    "demo.html": "cd9c7cbf"
+  },
+  "risques/projets/liquidity.qmd": {
+    "liquidity.html": "d14fcd98"
   }
 }

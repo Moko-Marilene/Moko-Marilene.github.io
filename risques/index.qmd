@@ -24,6 +24,22 @@ Cette synthèse n’a pas vocation à être exhaustive : elle propose un cadre d
 #####  [Chapitre 4 : Le risque de contrepartie et le CVA](chapter_four.qmd)
 
 
-### Partie II — Travaux, Applications et Études
+---
 
-Cette seconde partie regroupera vos analyses, études de cas, simulations ou projets appliqués.
+### Partie II — Travaux, applications et études
+
+---
+
+## <span class="section-title"> </span>
+
+<div class="project-grid">
+
+<!-- Projet 1 -->
+<div class="project-card">
+  <img src="../Images/liquidite.png" class="project-img">
+  <h3>Gestion de la liquidité des actifs</h3>
+  <p>Profondeur de marché, calcul du profil d'écoulement, liquidation avec ou sans impact de marché.</p>
+  <a href="projets/liquidity.qmd" class="btn">Lire</a>
+</div>
+
+</div>
