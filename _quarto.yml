@@ -9,7 +9,7 @@ website:
     left:
       - href: index.qmd
         text: Accueil
-      - href: finance.qmd
+      - href: finance_quant/index.qmd
         text: Finance Quantitative
       - href: risques/index.qmd
         text: Risque & Régulation

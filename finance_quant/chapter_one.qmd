@@ -1,0 +1,125 @@
+---
+title: "Chapitre 1 : Introduction aux Instruments Financiers"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+[⬅ Retour](index.qmd)
+
+# Chapitre 1 : Introduction aux Instruments Financiers
+
+## Comprendre les Instruments Financiers
+
+Les instruments financiers constituent les briques fondamentales des marchés. Ils représentent soit un **droit de propriété** (action), soit une **créance** (obligation), soit un **contrat dérivé** dont la valeur dépend d’un actif sous-jacent.  
+
+Ils jouent un rôle central dans l’orientation du capital, la gestion des risques et le financement de l’économie.  
+
+On distingue traditionnellement deux grandes familles :
+
+- **Les instruments de base** : actions, obligations, devises, instruments monétaires.  
+- **Les produits dérivés** : contrats dont la valeur dépend d’un actif sous-jacent (taux, actions, indices, matières premières…).
+
+L’essor de ces produits, en particulier pour la couverture des risques, a conduit à une forte technicisation des salles de marché et à l’arrivée de profils spécialisés (ingénieurs, mathématiciens, informaticiens).
+
+---
+
+## Les Marchés Financiers
+
+### Marchés OTC (de gré à gré)
+
+Les marchés OTC regroupent l’ensemble des transactions négociées directement entre deux contreparties. Ils permettent une **flexibilité maximale** : chaque contrat peut être adapté aux besoins précis des institutions (montants, dates, maturités, devises, structure des flux…).
+
+**Atouts :**
+- forte personnalisation des contrats,  
+- maturités et montants ajustables,  
+- possibilité de concevoir des produits complexes ou sur mesure.
+
+**Limites :**
+- absence de garantie du meilleur prix,  
+- présence d’un **risque de contrepartie** : la qualité de crédit du partenaire est essentielle.
+
+---
+
+### Marchés Listés
+
+À l’inverse, les marchés listés organisent l’échange de produits **standardisés** à travers un carnet d’ordres centralisé. Les transactions sont sécurisées par une **chambre de compensation**, qui garantit leur bonne exécution.
+
+**Avantages :**
+- transparence et visibilité du prix,  
+- liquidité souvent élevée,  
+- risque de contrepartie fortement réduit.
+
+**Inconvénients :**
+- manque de flexibilité,  
+- standardisation parfois incompatible avec des besoins spécifiques.
+
+---
+
+## Les Produits Financiers de Base
+
+### Les Obligations
+
+Une obligation est un titre de dette émis par un État, une entreprise ou une institution financière. Le détenteur perçoit des **coupons** réguliers puis le **remboursement du principal** à l’échéance.  
+
+Les obligations se distinguent notamment par :
+
+- leur **séniorité** en cas de défaut,  
+- leur **risque de crédit**,  
+- leur **structure de flux** (coupon fixe, variable, zéro-coupon…).
+
+Elles constituent un pilier des marchés financiers, particulièrement utilisé pour le financement des États et des grandes entreprises.
+
+---
+
+### Les Actions
+
+Une action représente une **part de propriété** dans une entreprise. Elle donne droit :
+- à des dividendes,
+- à un droit de vote,
+- à une participation à la croissance future de la firme.
+
+La valorisation d’une action repose sur l’anticipation des flux futurs et sur les conditions de marché.  
+Les **indices boursiers** (CAC 40, S&P 500…) permettent de suivre l’évolution d’un ensemble représentatif de titres.
+
+---
+
+## Les Premiers Dérivés : Forwards, Futures, Swaps
+
+### Contrats Forward
+
+Un **forward** est un contrat dans lequel deux parties s’engagent à acheter ou vendre un actif à une date future et à un prix fixé dès aujourd’hui.  
+
+Il permet :
+- de **fixer un prix à l’avance**,  
+- de **couvrir un risque** (par exemple, un risque de change sur un paiement futur).
+
+Ces contrats sont généralement négociés OTC et peuvent être entièrement personnalisés.
+
+---
+
+### Contrats Futures
+
+Les **futures** sont la version standardisée des forwards, négociée sur un marché listé. Ils présentent plusieurs avantages :
+
+- une forte **transparence** des prix,  
+- une grande **liquidité**,  
+- une **élimination quasi totale du risque de contrepartie** grâce à la chambre de compensation.
+
+Ils constituent l’un des outils les plus utilisés pour couvrir des risques de taux, de change ou de matières premières.
+
+---
+
+### Swaps de Taux
+
+Un **swap de taux d’intérêt** est un contrat dans lequel deux parties s’échangent des flux financiers, typiquement :
+
+- un flux à **taux fixe**,  
+- contre un flux à **taux variable**.
+
+Les swaps permettent de transformer la nature d’un financement ou d’une position, par exemple passer d’un taux variable à un taux fixe, ou inversement.  
+Ils sont devenus l’un des instruments les plus utilisés au monde pour la gestion du risque de taux.
+
+---
+

@@ -46,14 +46,14 @@ format:
   <img src="Images/courbe de taux.png" class="project-img">
   <h3>Courbe de taux & modèle de Hull–White</h3>
   <p>Bootstrapping, valorisation caplets/swap­tion, calibration Hull–White</p>
-  <a href="projets/projet1.qmd" class="btn">Lire</a>
+  <a href="finance_quant/projets/projet_courbe_taux.qmd" class="btn">Lire</a>
 </div>
 
 <div class="project-card">
   <img src="Images/pair_trading.png" class="project-img">
   <h3>VECM & Pairs Trading</h3>
   <p>Cointégration,ruptures structurelles, extensions (GARCH, régimes), usages en stratégie pairs trading</p>
-  <a href="projets/projet2.qmd" class="btn">Lire</a>
+  <a href="finance_quant/projets/projet_courbe_taux.qmd" class="btn">Lire</a>
 </div>
 
 <div class="project-card">

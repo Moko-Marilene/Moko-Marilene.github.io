@@ -1,0 +1,41 @@
+---
+title: "Finance Quantitative"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+### Partie I — Cadre Théorique : Présentation des instruments financiers de base
+
+---
+
+#### 📘 Chapitres disponibles
+
+#####  [Chapitre 1 : Introduction aux Instruments Financiers](chapter_one.qmd)
+
+
+---
+
+
+Vous trouverez ci après des ressources bibliographiques que je vous suggère : [➡ Codes](...\ressources.qmd)
+
+
+### Partie II — Travaux, applications et études
+
+---
+
+## <span class="section-title"> </span>
+
+<div class="project-grid">
+
+<!-- Projet 1 -->
+<div class="project-card">
+  <img src="../Images/courbe de taux.png" class="project-img">
+  <h3>Courbe de taux & modèle de Hull–White</h3>
+  <p>Bootstrapping, valorisation caplets/swap­tion, calibration Hull–White</p>
+  <a href="projets/projet_courbe_taux.qmd" class="btn">Lire</a>
+</div>
+
+
+</div>

@@ -40,5 +40,29 @@
   },
   "risques/projets/liquidity.qmd": {
     "liquidity.html": "d14fcd98"
+  },
+  "risques/projets/CreditVaR.qmd": {
+    "CreditVaR.html": "5c35404e"
+  },
+  "docs/risques/projets/Codes_copules.qmd": {
+    "Codes_copules.html": "07b55902"
+  },
+  "risques/projets/Codes_copules.qmd": {
+    "Codes_copules.html": "340f97cb"
+  },
+  "docs/risques/projets/CreditVar.qmd": {
+    "CreditVar.html": "c1dd0b44"
+  },
+  "finance_quant/chapter_one.qmd": {
+    "chapter_one.html": "8c3803fa"
+  },
+  "finance_quant/finance.qmd": {
+    "finance.html": "87e3eb8f"
+  },
+  "finance_quant/index.qmd": {
+    "index.html": "0107ac35"
+  },
+  "finance_quant/projets/projet_courbe_taux.qmd": {
+    "projet_courbe_taux.html": "7bb19396"
   }
 }
