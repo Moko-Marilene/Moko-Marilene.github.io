@@ -40,7 +40,7 @@ from scipy.optimize import minimize
 
 ##   I. Risques de marché 
 
-### I.1.    Construction  d'un portefeuille diversifié
+###    Construction  d'un portefeuille diversifié
 
 
 On construit un portefeuille constitué de 10 entreprises du CAC40. Nous avons choisi des entreprises de secteurs variés afin de s'assurer que le portefeuille soit diversifié.
@@ -100,7 +100,7 @@ plt.show()
 ```
 
 
-#### I.1.1 Présentation du principe d'optimisation de Markovitz
+### Présentation du principe d'optimisation de Markovitz
 
 
 L'optimisation de Markowitz, également connue sous le nom de théorie moderne du portefeuille (MPT), permet de construire un portefeuille optimal en combinant des actifs de manière à minimiser la volatilité (ou le risque) tout en respectant une contrainte sur un niveau de rendement fixé. L'un des éléments clés de cette théorie est la détermination des poids de chaque actif dans le portefeuille, afin d'atteindre un compromis optimal entre le risque et le rendement.
@@ -127,7 +127,7 @@ $$
 \end{cases}
 $$
 
-#### I.1.2 Calcul des  rendements annualisées et des volatilités annualisés des log_rendements pour chaque actif
+####  Calcul des  rendements annualisées et des volatilités annualisés des log_rendements pour chaque actif
 
 ```{python}
 # Rendement annualisé
@@ -140,7 +140,7 @@ sigma = returns.cov().to_numpy()
 sigma = 252*sigma
 ```
 
-#### I.1.3. Optimisation du portefeuille
+####  Optimisation du portefeuille
 L'investisseur a la latitude de shorter ou pas (via l'argument *Positive* de la foncion efficient_portfolio qui donne la latitude de lever la contrainte de positivité des coefficients), également de definir le niveau de rendement souhaité (via l'argument *mu_target* de la même fonction). 
 
 Dans le cadre de l'exercice, pour des raisons de simplification et pour rester cohérent avec la suite, nous avons opté pour un portefeuille sur des positions longues.
@@ -158,7 +158,7 @@ sigma = 252*sigma
 ```
 
 
-#### I.1.3. Optimisation du portefeuille
+####  Optimisation du portefeuille
 L'investisseur a la latitude de shorter ou pas (via l'argument *Positive* de la foncion efficient_portfolio qui donne la latitude de lever la contrainte de positivité des coefficients), également de definir le niveau de rendement souhaité (via l'argument *mu_target* de la même fonction). 
 
 Dans le cadre de l'exercice, pour des raisons de simplification et pour rester cohérent avec la suite, nous avons opté pour un portefeuille sur des positions longues.
@@ -210,7 +210,7 @@ def efficient_portfolio(mu_target, range_=(-0.1, None), positive=True):
 ```
 
 
-#### I.1.4  Illustration pour un rendement cible de 10%
+####  Illustration pour un rendement cible de 10%
 
 
 Pour un rendement annuel cible de 10%, correspondant à l'ordre de grandeur des rendements du CAC40 qui représente le benchmark du fond, les poids optimaux donnés par le l'optimisation de Markovitz et qui ont permis de minimiser le risque auquel est exposé le porte feuille ( 9.67% de volatilité) sont donnés ci après:
@@ -261,7 +261,7 @@ On constate que le portefeuille optimal est assez diversifié.Les trois principa
 - Énergie : Engie (7.30%)  
  
 
-### I.2.    Suivi du porte feuille 
+###   Suivi du porte feuille 
 
 Dans cette section on va determiner l'AUM du portefeuille, suivre ses performances sa volatilité et ses performances relatives par rapport au CAC40.
 
@@ -279,7 +279,7 @@ weights = weights.set_index('Ticker')['Weight']
 ```
 
 
-#### I.2.1. AUM (Asset under management)
+### AUM (Asset under management)
 
 
 Elle représente la valeur du porte feuille et est déterminée par la formule suivante
@@ -309,7 +309,7 @@ portfolio.describe()
 Sur notre période d'etude, l'AUM en moyenne est de  59.10, et oscille entre 50.68 et 66.84.
 
 
-#### I.2.2 Performance du portefeuille
+#### Performance du portefeuille
 
 
 Dans le cadre du suivi de notre portfeuille, il est important d'identifier et de mesurer les risques auxquels il est exposé afin de mieux les encadrer. Dans cette section nous intéressons tout particulièrement au risque de marché. Ce risque peut être évalué à l'aide de:
@@ -342,7 +342,7 @@ Pour évaluer la performance relative du fonds par rapport à son indice de réf
 Cela signifie que le portefeuille sous-performe par rapport à son benchmark.
 
 
-#### I.2.2.1 Tracking error
+### Tracking error
 
  La Tracking Error (TE) mesure l'écart de performance entre un fonds et son indice de référence (benchmark). Elle est définie comme l'écart-type des différences de rendement entre le fonds et le benchmark sur une période donnée. Plus la Tracking Error est faible, plus le fonds suit fidèlement son indice de référence.
 
@@ -364,7 +364,7 @@ TError
 
 Il ressort que la dispersion des rendements du fond par rapport ceux de son indice de reférence est de 10.8% en moyenne.
 
-#### I.2.2.2 Volatilité
+### Volatilité
 
 
 Afin d'evaluer le risque de marché du fond, la  volatilité complète l'information apportée par la tracking error et permet de se faire une idée sur la regularité et la dispersion des rendements du fond sur la periode d'étude. Il s'agit de l'écart-type des performances absolues du fond.
@@ -382,7 +382,7 @@ std_dev
 cac40_df.std()*np.sqrt(252)
 ```
 
-#### I.2.2.3 Value at risk 
+### Value at risk 
 
 
 La value-at-risk (VaR) est une mesure très répendue en gestion de risques. Elle permet d'evaluer les pertes extrêmes encourrues sur un portefeuille sur un horizon donné sous un niveau de confiance. Elle est généralement calculée sur un horizon 1 jour. Pour obtenir une VaR sur un horizon (H) plus grand, on utilise la méthode de scaling qui consiste à multpiplier la VaR 1 jour par la racine carrée de H.
