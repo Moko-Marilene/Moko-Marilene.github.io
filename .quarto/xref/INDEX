@@ -64,5 +64,11 @@
   },
   "finance_quant/projets/projet_courbe_taux.qmd": {
     "projet_courbe_taux.html": "7bb19396"
+  },
+  "risques/projets/stat_extreme.qmd": {
+    "stat_extreme.html": "86f1825a"
+  },
+  "risques/projets/stat_extreme_corrige.qmd": {
+    "stat_extreme_corrige.html": "0bbdaa8a"
   }
 }

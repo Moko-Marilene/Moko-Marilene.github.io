@@ -50,4 +50,12 @@ Cette synthèse n’a pas vocation à être exhaustive : elle propose un cadre d
   <a href="projets/CreditVaR.qmd" class="btn">Lire</a>
 </div>
 
+
+<div class="project-card">
+  <img src="../Images/stat_extreme.png" class="project-img">
+  <h3>Gestion de risques multiples : théorie des copules</h3>
+  <p>Modélisation de dependances via copules,Triangle de crédit, Calcul de VaR, intervalle de confiance.</p>
+  <a href="projets/stat_extreme_corrige.qmd" class="btn">Lire</a>
+</div>
+
 </div>

@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="DEBA Franck">
+<meta name="author" content="KOUGOUM Marilene">
 
-<title>Chapitre 3 : Le Risque de Crédit –</title>
+<title>Statistiques des risques extrêmes –</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,27 +22,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,38 +105,15 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
-<link rel="stylesheet" href="../styles.css">
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -109,11 +123,11 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../logo.png" alt="" class="navbar-logo light-content">
-    <img src="../logo.png" alt="" class="navbar-logo dark-content">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../logo.png" alt="" class="navbar-logo light-content">
+    <img src="../../logo.png" alt="" class="navbar-logo dark-content">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title"></span>
     </a>
   </div>
@@ -124,31 +138,31 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Accueil</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../finance_quant/index.html"> 
+    <a class="nav-link" href="../../finance_quant/index.html"> 
 <span class="menu-text">Finance Quantitative</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../risques/index.html"> 
+    <a class="nav-link" href="../../risques/index.html"> 
 <span class="menu-text">Risque &amp; Régulation</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../modelisation-stat.qmd"> 
+    <a class="nav-link" href="../../modelisation-stat.qmd"> 
 <span class="menu-text">Modélisation stat</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../data-science.html"> 
+    <a class="nav-link" href="../../data-science.html"> 
 <span class="menu-text">Data science</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../articles-ressources.qmd"> 
+    <a class="nav-link" href="../../articles-ressources.qmd"> 
 <span class="menu-text">Ressources</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">À propos</span></a>
   </li>  
 </ul>
@@ -167,43 +181,14 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#comprendre-le-risque-de-crédit" id="toc-comprendre-le-risque-de-crédit" class="nav-link active" data-scroll-target="#comprendre-le-risque-de-crédit">Comprendre le Risque de Crédit</a></li>
-  <li><a href="#les-concepts-clés-du-risque-de-crédit" id="toc-les-concepts-clés-du-risque-de-crédit" class="nav-link" data-scroll-target="#les-concepts-clés-du-risque-de-crédit">Les Concepts Clés du Risque de Crédit</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#récupération-des-données-et-analyse" id="toc-récupération-des-données-et-analyse" class="nav-link" data-scroll-target="#récupération-des-données-et-analyse">Récupération des données et analyse</a>
   <ul class="collapse">
-  <li><a href="#probabilité-de-défaut-pd" id="toc-probabilité-de-défaut-pd" class="nav-link" data-scroll-target="#probabilité-de-défaut-pd">Probabilité de Défaut (PD)</a></li>
-  <li><a href="#perte-en-cas-de-défaut-lgd" id="toc-perte-en-cas-de-défaut-lgd" class="nav-link" data-scroll-target="#perte-en-cas-de-défaut-lgd">Perte en Cas de Défaut (LGD)</a></li>
-  <li><a href="#exposition-au-moment-du-défaut-ead" id="toc-exposition-au-moment-du-défaut-ead" class="nav-link" data-scroll-target="#exposition-au-moment-du-défaut-ead">Exposition au Moment du Défaut (EAD)</a></li>
-  <li><a href="#perte-attendue-el" id="toc-perte-attendue-el" class="nav-link" data-scroll-target="#perte-attendue-el">Perte Attendue (EL)</a></li>
+  <li><a href="#vérification-des-valeurs-manquantes" id="toc-vérification-des-valeurs-manquantes" class="nav-link" data-scroll-target="#vérification-des-valeurs-manquantes">Vérification des valeurs manquantes</a></li>
+  <li><a href="#résumé-descriptif" id="toc-résumé-descriptif" class="nav-link" data-scroll-target="#résumé-descriptif">Résumé descriptif</a></li>
+  <li><a href="#calcul-des-log-rendements" id="toc-calcul-des-log-rendements" class="nav-link" data-scroll-target="#calcul-des-log-rendements">Calcul des log-rendements</a></li>
+  <li><a href="#visualisation" id="toc-visualisation" class="nav-link" data-scroll-target="#visualisation">Visualisation</a></li>
   </ul></li>
-  <li><a href="#les-marchés-du-crédit" id="toc-les-marchés-du-crédit" class="nav-link" data-scroll-target="#les-marchés-du-crédit">Les Marchés du Crédit</a>
-  <ul class="collapse">
-  <li><a href="#marché-des-prêts-bancaires" id="toc-marché-des-prêts-bancaires" class="nav-link" data-scroll-target="#marché-des-prêts-bancaires">Marché des Prêts Bancaires</a></li>
-  <li><a href="#marché-obligataire" id="toc-marché-obligataire" class="nav-link" data-scroll-target="#marché-obligataire">Marché Obligataire</a></li>
-  <li><a href="#titrisation-et-dérivés-de-crédit" id="toc-titrisation-et-dérivés-de-crédit" class="nav-link" data-scroll-target="#titrisation-et-dérivés-de-crédit">Titrisation et Dérivés de Crédit</a></li>
-  </ul></li>
-  <li><a href="#le-cadre-réglementaire-bâle-ii-iii" id="toc-le-cadre-réglementaire-bâle-ii-iii" class="nav-link" data-scroll-target="#le-cadre-réglementaire-bâle-ii-iii">Le Cadre Réglementaire Bâle II / III</a>
-  <ul class="collapse">
-  <li><a href="#approche-standardisée" id="toc-approche-standardisée" class="nav-link" data-scroll-target="#approche-standardisée">Approche Standardisée</a></li>
-  <li><a href="#approche-fondation-firb" id="toc-approche-fondation-firb" class="nav-link" data-scroll-target="#approche-fondation-firb">Approche Fondation (FIRB)</a></li>
-  <li><a href="#approche-avancée-airb" id="toc-approche-avancée-airb" class="nav-link" data-scroll-target="#approche-avancée-airb">Approche Avancée (AIRB)</a></li>
-  </ul></li>
-  <li><a href="#modélisation-des-paramètres-de-crédit" id="toc-modélisation-des-paramètres-de-crédit" class="nav-link" data-scroll-target="#modélisation-des-paramètres-de-crédit">Modélisation des Paramètres de Crédit</a>
-  <ul class="collapse">
-  <li><a href="#modélisation-de-la-pd" id="toc-modélisation-de-la-pd" class="nav-link" data-scroll-target="#modélisation-de-la-pd">Modélisation de la PD</a></li>
-  <li><a href="#modélisation-de-la-lgd" id="toc-modélisation-de-la-lgd" class="nav-link" data-scroll-target="#modélisation-de-la-lgd">Modélisation de la LGD</a></li>
-  <li><a href="#modélisation-de-lead" id="toc-modélisation-de-lead" class="nav-link" data-scroll-target="#modélisation-de-lead">Modélisation de l’EAD</a></li>
-  </ul></li>
-  <li><a href="#le-capital-économique-pour-le-risque-de-crédit" id="toc-le-capital-économique-pour-le-risque-de-crédit" class="nav-link" data-scroll-target="#le-capital-économique-pour-le-risque-de-crédit">Le Capital Économique pour le Risque de Crédit</a>
-  <ul class="collapse">
-  <li><a href="#value-at-risk-crédit" id="toc-value-at-risk-crédit" class="nav-link" data-scroll-target="#value-at-risk-crédit">Value-at-Risk Crédit</a></li>
-  <li><a href="#modèle-de-vasicek" id="toc-modèle-de-vasicek" class="nav-link" data-scroll-target="#modèle-de-vasicek">Modèle de Vasicek</a></li>
-  </ul></li>
-  <li><a href="#évolutions-règlementaires-récentes" id="toc-évolutions-règlementaires-récentes" class="nav-link" data-scroll-target="#évolutions-règlementaires-récentes">Évolutions Règlementaires Récentes</a>
-  <ul class="collapse">
-  <li><a href="#bâle-iii" id="toc-bâle-iii" class="nav-link" data-scroll-target="#bâle-iii">Bâle III</a></li>
-  <li><a href="#bâle-iv" id="toc-bâle-iv" class="nav-link" data-scroll-target="#bâle-iv">Bâle IV</a></li>
-  </ul></li>
-  <li><a href="#perspectives-et-défis" id="toc-perspectives-et-défis" class="nav-link" data-scroll-target="#perspectives-et-défis">Perspectives et Défis</a></li>
   </ul>
 </nav>
     </div>
@@ -212,13 +197,20 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Chapitre 3 : Le Risque de Crédit</h1>
+<h1 class="title">Statistiques des risques extrêmes</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>DEBA Franck </p>
+             <p>KOUGOUM Marilene </p>
+          </div>
+  </div>
     
   
     
@@ -229,260 +221,228 @@ window.Quarto = {
 </header>
 
 
-<p><a href="../risques/index.html">⬅ Retour</a></p>
-<section id="comprendre-le-risque-de-crédit" class="level2">
-<h2 class="anchored" data-anchor-id="comprendre-le-risque-de-crédit">Comprendre le Risque de Crédit</h2>
-<p>Le risque de crédit correspond à la possibilité qu’un emprunteur ou une contrepartie ne respecte pas ses obligations financières. Pour la plupart des institutions bancaires, il constitue la composante la plus importante du risque global, car il concerne directement la capacité des clients à rembourser leurs dettes.</p>
-<p>Contrairement au risque de marché, qui résulte de la fluctuation des prix financiers, le risque de crédit se focalise sur la <strong>solvabilité</strong>. Sa gestion repose sur l’évaluation de la qualité des contreparties, la modélisation des comportements de défaut et l’estimation des pertes potentielles.</p>
+<!-- Corrections effectuées : orthographe, accents, titres, cohérence QMD -->
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Ce projet a pour objectif d’étudier la mesure du risque de pertes extrêmes à partir d’une série historique de log-rendements boursiers, en combinant :</p>
+<ul>
+<li>des approches classiques de VaR non paramétrique et gaussienne,</li>
+<li>des méthodes plus avancées basées sur la pondération EWMA,</li>
+<li>des lois de probabilité à queues épaisses (Skew-Student),</li>
+<li>la théorie des valeurs extrêmes (TVE : GEV, GPD, POT),</li>
+<li>et enfin des modèles dynamiques de volatilité (AR(1)-GARCH(1,1)) pour construire une VaR dynamique et backtestée.</li>
+</ul>
+<p>Plus spécifiquement, il s’agira de :</p>
+<ul>
+<li>comparer les différentes approches de VaR en termes de réalisme et de couverture du risque ;</li>
+<li>mettre en place un protocole de backtesting adaptatif permettant de recalibrer les modèles lorsque ceux-ci ne décrivent plus correctement le risque observé.</li>
+</ul>
+<p><a href="https://github.com/usenameFD/STATISTIQUES-RISQUES-EXTREMES.git">Lien vers l’application Dash (GitHub)</a></p>
 <hr>
 </section>
-<section id="les-concepts-clés-du-risque-de-crédit" class="level2">
-<h2 class="anchored" data-anchor-id="les-concepts-clés-du-risque-de-crédit">Les Concepts Clés du Risque de Crédit</h2>
-<p>Les modèles réglementaires et internes reposent sur quatre paramètres fondamentaux.</p>
-<section id="probabilité-de-défaut-pd" class="level3">
-<h3 class="anchored" data-anchor-id="probabilité-de-défaut-pd">Probabilité de Défaut (PD)</h3>
-<p>La probabilité de défaut (PD) mesure la probabilité qu’une contrepartie fasse défaut sur un horizon donné, le plus souvent un an :</p>
-<p><span class="math display">\[
-PD = \mathbb{P}(\text{Défaut})
-\]</span></p>
-</section>
-<section id="perte-en-cas-de-défaut-lgd" class="level3">
-<h3 class="anchored" data-anchor-id="perte-en-cas-de-défaut-lgd">Perte en Cas de Défaut (LGD)</h3>
-<p>La LGD (Loss Given Default) représente la proportion de l’exposition qui serait perdue en cas de défaut après prise en compte des recouvrements :</p>
-<p><span class="math display">\[
-LGD = 1 - \text{Taux de Recouvrement}
-\]</span></p>
-</section>
-<section id="exposition-au-moment-du-défaut-ead" class="level3">
-<h3 class="anchored" data-anchor-id="exposition-au-moment-du-défaut-ead">Exposition au Moment du Défaut (EAD)</h3>
-<p>L’exposition au défaut (EAD) correspond au montant effectivement engagé au moment du défaut.<br>
-Pour les engagements conditionnels, elle inclut un facteur de conversion :</p>
-<p><span class="math display">\[
-EAD = \text{Encours Courant} + \text{Engagements Non Utilisés} \times CCF
-\]</span></p>
-</section>
-<section id="perte-attendue-el" class="level3">
-<h3 class="anchored" data-anchor-id="perte-attendue-el">Perte Attendue (EL)</h3>
-<p>Les trois paramètres précédents permettent de définir la <strong>perte attendue</strong>, composante centrale de la gestion du risque de crédit :</p>
-<p><span class="math display">\[
-EL = PD \times LGD \times EAD
-\]</span></p>
-<hr>
-</section>
-</section>
-<section id="les-marchés-du-crédit" class="level2">
-<h2 class="anchored" data-anchor-id="les-marchés-du-crédit">Les Marchés du Crédit</h2>
-<section id="marché-des-prêts-bancaires" class="level3">
-<h3 class="anchored" data-anchor-id="marché-des-prêts-bancaires">Marché des Prêts Bancaires</h3>
-<p>Le marché du crédit bancaire se divise principalement en :</p>
-<ul>
-<li><strong>Banque de détail</strong> : crédits aux particuliers et aux petites entreprises<br>
-</li>
-<li><strong>Banque corporate</strong> : financements aux grandes entreprises<br>
-</li>
-<li><strong>Processus de scoring</strong> : modèles automatisés d’évaluation du risque</li>
-</ul>
-</section>
-<section id="marché-obligataire" class="level3">
-<h3 class="anchored" data-anchor-id="marché-obligataire">Marché Obligataire</h3>
-<p>Les entreprises et États peuvent se financer via l’émission d’obligations :</p>
-<ul>
-<li><strong>Obligations souveraines</strong> : exposition au risque de crédit de l’État<br>
-</li>
-<li><strong>Obligations corporate</strong> : risque propre aux entreprises<br>
-</li>
-<li><strong>Spread de crédit</strong> : prime de risque exigée pour compenser un risque de défaut</li>
-</ul>
-</section>
-<section id="titrisation-et-dérivés-de-crédit" class="level3">
-<h3 class="anchored" data-anchor-id="titrisation-et-dérivés-de-crédit">Titrisation et Dérivés de Crédit</h3>
-<section id="titrisation" class="level4">
-<h4 class="anchored" data-anchor-id="titrisation">Titrisation</h4>
-<p>La titrisation permet de transformer des actifs illiquides en titres négociables :</p>
-<ul>
-<li><strong>ABS</strong> : Asset-Backed Securities<br>
-</li>
-<li><strong>MBS</strong> : Mortgage-Backed Securities<br>
-</li>
-<li><strong>CDO</strong> : Collateralized Debt Obligations</li>
-</ul>
-</section>
-<section id="dérivés-de-crédit" class="level4">
-<h4 class="anchored" data-anchor-id="dérivés-de-crédit">Dérivés de Crédit</h4>
-<p>Le CDS (Credit Default Swap) est l’instrument de référence pour transférer le risque de crédit :</p>
-<ul>
-<li>l’acheteur de protection paie une prime périodique,<br>
-</li>
-<li>le vendeur de protection indemnise en cas de défaut.</li>
-</ul>
-<hr>
-</section>
-</section>
-</section>
-<section id="le-cadre-réglementaire-bâle-ii-iii" class="level2">
-<h2 class="anchored" data-anchor-id="le-cadre-réglementaire-bâle-ii-iii">Le Cadre Réglementaire Bâle II / III</h2>
-<section id="approche-standardisée" class="level3">
-<h3 class="anchored" data-anchor-id="approche-standardisée">Approche Standardisée</h3>
-<p>Les pondérations de risque sont déterminées à partir des notations externes. Exemple simplifié :</p>
-<table class="caption-top table">
+<section id="récupération-des-données-et-analyse" class="level2">
+<h2 class="anchored" data-anchor-id="récupération-des-données-et-analyse">Récupération des données et analyse</h2>
+<div id="4edad097" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> functions</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">"ignore"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ticker_symbol <span class="op">=</span> <span class="st">"^FCHI"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>df_close <span class="op">=</span> yf.download(ticker_symbol, start<span class="op">=</span><span class="st">"2008-10-15"</span>, end<span class="op">=</span><span class="st">"2024-06-11"</span>)[[<span class="st">"Close"</span>]]</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>df_close.head(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>[*********************100%***********************]  1 of 1 completed</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
 <tr class="header">
-<th>Notation</th>
-<th>Pondération</th>
+<th data-quarto-table-cell-role="th">Price</th>
+<th data-quarto-table-cell-role="th">Close</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Ticker</th>
+<th data-quarto-table-cell-role="th">^FCHI</th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th"></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>AAA–AA</td>
-<td>20%</td>
+<th data-quarto-table-cell-role="th">2008-10-15</th>
+<td>3381.070068</td>
 </tr>
 <tr class="even">
-<td>A+</td>
-<td>50%</td>
-</tr>
-<tr class="odd">
-<td>BBB</td>
-<td>100%</td>
-</tr>
-<tr class="even">
-<td>BB</td>
-<td>150%</td>
+<th data-quarto-table-cell-role="th">2008-10-16</th>
+<td>3181.000000</td>
 </tr>
 </tbody>
 </table>
+
+</div>
+</div>
+</div>
+<section id="vérification-des-valeurs-manquantes" class="level3">
+<h3 class="anchored" data-anchor-id="vérification-des-valeurs-manquantes">Vérification des valeurs manquantes</h3>
+<div id="31a6a82f" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>missing_values <span class="op">=</span> df_close.isnull().<span class="bu">sum</span>().iloc[<span class="dv">0</span>]</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Nombre de valeurs manquantes dans 'Close': </span><span class="sc">{</span>missing_values<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Nombre de valeurs manquantes dans 'Close': 0</code></pre>
+</div>
+</div>
 </section>
-<section id="approche-fondation-firb" class="level3">
-<h3 class="anchored" data-anchor-id="approche-fondation-firb">Approche Fondation (FIRB)</h3>
-<p>Dans l’approche FIRB :</p>
-<ul>
-<li>La banque estime la PD<br>
-</li>
-<li>La LGD et l’EAD sont standardisées<br>
-</li>
-<li>Le capital est calculé via la formule réglementaire</li>
-</ul>
-</section>
-<section id="approche-avancée-airb" class="level3">
-<h3 class="anchored" data-anchor-id="approche-avancée-airb">Approche Avancée (AIRB)</h3>
-<p>L’approche AIRB permet à la banque d’estimer :</p>
-<ul>
-<li>PD<br>
-</li>
-<li>LGD<br>
-</li>
-<li>EAD<br>
-</li>
-<li>maturité effective (M)</li>
-</ul>
-<p>Ces approches offrent plus de précision mais exigent une validation stricte des modèles.</p>
-<hr>
-</section>
-</section>
-<section id="modélisation-des-paramètres-de-crédit" class="level2">
-<h2 class="anchored" data-anchor-id="modélisation-des-paramètres-de-crédit">Modélisation des Paramètres de Crédit</h2>
-<section id="modélisation-de-la-pd" class="level3">
-<h3 class="anchored" data-anchor-id="modélisation-de-la-pd">Modélisation de la PD</h3>
-<section id="approche-par-cohortes" class="level4">
-<h4 class="anchored" data-anchor-id="approche-par-cohortes">Approche par Cohortes</h4>
-<p>La méthode des cohortes repose sur l’historique de défauts :</p>
-<p><span class="math display">\[
-PD_c = \frac{\sum D^c_T}{\sum N^c_T}
-\]</span></p>
-</section>
-<section id="approche-statistique" class="level4">
-<h4 class="anchored" data-anchor-id="approche-statistique">Approche Statistique</h4>
-<p>Les modèles statistiques, comme la régression logistique, relient la PD aux caractéristiques des emprunteurs :</p>
-<p><span class="math display">\[
-PD = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_1 + \cdots + \beta_n x_n)}}
-\]</span></p>
-</section>
-</section>
-<section id="modélisation-de-la-lgd" class="level3">
-<h3 class="anchored" data-anchor-id="modélisation-de-la-lgd">Modélisation de la LGD</h3>
-<section id="lgd-de-marché" class="level4">
-<h4 class="anchored" data-anchor-id="lgd-de-marché">LGD de Marché</h4>
-<p>Estimée à partir des prix observés après défaut :</p>
-<p><span class="math display">\[
-LGD_{\text{Marché}} = 1 - \frac{\text{Prix Après Défaut}}{\text{Nominal}}
-\]</span></p>
-</section>
-<section id="lgd-de-recouvrement" class="level4">
-<h4 class="anchored" data-anchor-id="lgd-de-recouvrement">LGD de Recouvrement</h4>
-<p>Basée sur les flux de recouvrement actualisés :</p>
-<p><span class="math display">\[
-LGD_{\text{Recouvrement}} = \frac{EAD - \text{Recouvrements Actualisés}}{EAD}
-\]</span></p>
-</section>
-</section>
-<section id="modélisation-de-lead" class="level3">
-<h3 class="anchored" data-anchor-id="modélisation-de-lead">Modélisation de l’EAD</h3>
-<p>Pour les engagements conditionnels :</p>
-<p><span class="math display">\[
-EAD = \text{Encours} + \text{Non Utilisé} \times CCF
-\]</span></p>
-<hr>
-</section>
-</section>
-<section id="le-capital-économique-pour-le-risque-de-crédit" class="level2">
-<h2 class="anchored" data-anchor-id="le-capital-économique-pour-le-risque-de-crédit">Le Capital Économique pour le Risque de Crédit</h2>
-<section id="value-at-risk-crédit" class="level3">
-<h3 class="anchored" data-anchor-id="value-at-risk-crédit">Value-at-Risk Crédit</h3>
-<p>Le capital économique est défini comme la différence entre la VaR et la perte attendue :</p>
-<p><span class="math display">\[
-EC_{\alpha} = VaR_{\alpha} - EL
-\]</span></p>
-</section>
-<section id="modèle-de-vasicek" class="level3">
-<h3 class="anchored" data-anchor-id="modèle-de-vasicek">Modèle de Vasicek</h3>
-<p>Dans le cadre du modèle à un facteur systémique :</p>
-<p><span class="math display">\[
-VaR_{\alpha}
-= \Phi\!\left(
-\frac{\Phi^{-1}(PD) + \sqrt{\rho}\,\Phi^{-1}(\alpha)}
-     {\sqrt{1-\rho}}
-\right)
-\]</span></p>
-<p>Ce modèle constitue la base de la formule réglementaire IRB.</p>
-<hr>
-</section>
-</section>
-<section id="évolutions-règlementaires-récentes" class="level2">
-<h2 class="anchored" data-anchor-id="évolutions-règlementaires-récentes">Évolutions Règlementaires Récentes</h2>
-<section id="bâle-iii" class="level3">
-<h3 class="anchored" data-anchor-id="bâle-iii">Bâle III</h3>
-<p>Parmi les renforcements :</p>
-<ul>
-<li>exigences plus strictes pour les expositions financières,</li>
-<li>coussin de conservation du capital,</li>
-<li>exigences spécifiques pour les portefeuilles de trading.</li>
-</ul>
-</section>
-<section id="bâle-iv" class="level3">
-<h3 class="anchored" data-anchor-id="bâle-iv">Bâle IV</h3>
-<p>Les réformes introduisent :</p>
-<ul>
-<li>des planchers limitant la réduction des RWA via modèles internes,</li>
-<li>une révision des pondérations standardisées,</li>
-<li>un traitement plus prudent des expositions actions et immobilières.</li>
-</ul>
-<hr>
-</section>
-</section>
-<section id="perspectives-et-défis" class="level2">
-<h2 class="anchored" data-anchor-id="perspectives-et-défis">Perspectives et Défis</h2>
-<p>La gestion du risque de crédit doit s’adapter à plusieurs tendances majeures :</p>
-<ul>
-<li>intégration des risques climatiques,<br>
-</li>
-<li>montée en puissance des techniques de machine learning,<br>
-</li>
-<li>cycles économiques plus incertains,<br>
-</li>
-<li>exploitation de données massives.</li>
-</ul>
-<p>Ces évolutions nécessitent une amélioration continue des méthodes d’évaluation et des cadres prudentiels.</p>
+<section id="résumé-descriptif" class="level3">
+<h3 class="anchored" data-anchor-id="résumé-descriptif">Résumé descriptif</h3>
+<div id="133dedc8" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> df_close[<span class="st">'Close'</span>].describe()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
 
 
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Ticker</th>
+<th data-quarto-table-cell-role="th">^FCHI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">count</th>
+<td>4002.000000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">mean</th>
+<td>4909.823427</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">std</th>
+<td>1289.022374</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">min</th>
+<td>2519.290039</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">25%</th>
+<td>3871.482483</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">50%</th>
+<td>4755.440186</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">75%</th>
+<td>5590.390015</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">max</th>
+<td>8239.990234</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="calcul-des-log-rendements" class="level3">
+<h3 class="anchored" data-anchor-id="calcul-des-log-rendements">Calcul des log-rendements</h3>
+<div id="c7681770" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df_close[<span class="st">"Log Return"</span>] <span class="op">=</span> np.log(df_close[<span class="st">"Close"</span>] <span class="op">/</span> df_close[<span class="st">"Close"</span>].shift(<span class="dv">1</span>))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df_close.dropna(inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>df_close.head(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Price</th>
+<th data-quarto-table-cell-role="th">Close</th>
+<th data-quarto-table-cell-role="th">Log Return</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Ticker</th>
+<th data-quarto-table-cell-role="th">^FCHI</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+<tr class="header">
+<th data-quarto-table-cell-role="th">Date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2008-10-16</th>
+<td>3181.000000</td>
+<td>-0.060997</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2008-10-17</th>
+<td>3329.919922</td>
+<td>0.045753</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="visualisation" class="level3">
+<h3 class="anchored" data-anchor-id="visualisation">Visualisation</h3>
+<div id="42ba9827" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>fig, ax1 <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ax1.plot(df_close.index, df_close[<span class="st">"Close"</span>], label<span class="op">=</span><span class="st">"Close"</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> ax1.twinx()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>ax2.plot(df_close.index, df_close[<span class="st">"Log Return"</span>], color<span class="op">=</span><span class="st">"red"</span>, label<span class="op">=</span><span class="st">"Log Return"</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Évolution des prix de clôture et des log-rendements"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="stat_extreme_files/figure-html/cell-6-output-1.png" width="1005" height="508" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>On observe une tendance haussière nette sur les prix, signe de non-stationnarité, tandis que les rendements semblent plus réguliers.</p>
+<hr>
+
+
+</section>
 </section>
 
 </main> <!-- /main -->
