@@ -19,7 +19,7 @@ format:
 <div class="axis-card">
   <h3>Finance quantitative</h3>
   <p>Calibration de processus stochastiques, Modèles de courbe de taux, Pricing...</p>
-  <a href="finance.qmd" class="axis-btn">→ Explorer</a>
+  <a href="finance_quant/index.qmd" class="axis-btn">→ Explorer</a>
 </div>
 
 <div class="axis-card">
@@ -50,10 +50,10 @@ format:
 </div>
 
 <div class="project-card">
-  <img src="Images/pair_trading.png" class="project-img">
-  <h3>VECM & Pairs Trading</h3>
-  <p>Cointégration,ruptures structurelles, extensions (GARCH, régimes), usages en stratégie pairs trading</p>
-  <a href="finance_quant/projets/projet_courbe_taux.qmd" class="btn">Lire</a>
+  <img src="../Images/vol_sto.png" class="project-img">
+  <h3>Calibration de modèles à volatilité stochastique par filtrage</h3>
+  <p>Modèle de Taylor, filtre de Kalman, filtre particulaire</p>
+  <a href="finance_quant/projets/tp_filtre.qmd" class="btn">Lire</a>
 </div>
 
 <div class="project-card">

@@ -18,7 +18,7 @@ format:
 ---
 
 
-Vous trouverez ci après des ressources bibliographiques que je vous suggère : [➡ Codes](...\ressources.qmd)
+Vous trouverez ci après des ressources bibliographiques que je vous suggère : [➡ Ressources](...\ressources.qmd)
 
 
 ### Partie II — Travaux, applications et études
@@ -35,6 +35,20 @@ Vous trouverez ci après des ressources bibliographiques que je vous suggère : 
   <h3>Courbe de taux & modèle de Hull–White</h3>
   <p>Bootstrapping, valorisation caplets/swap­tion, calibration Hull–White</p>
   <a href="projets/projet_courbe_taux.qmd" class="btn">Lire</a>
+</div>
+
+<div class="project-card">
+  <img src="../Images/BS.png" class="project-img">
+  <h3>Modèle de Black Scholes</h3>
+  <p>Pricing d'options européénnes, calcul de grecques, comparaison formules fermées/monté carlo</p>
+  <a href="projets/tp_black_scholes.qmd" class="btn">Lire</a>
+</div>
+
+<div class="project-card">
+  <img src="../Images/vol_sto.png" class="project-img">
+  <h3>Calibration de modèles à volatilité stochastique par filtrage</h3>
+  <p>Modèle de Taylor, filtre de Kalman, filtre particulaire</p>
+  <a href="projets/tp_filtre.qmd" class="btn">Lire</a>
 </div>
 
 

@@ -70,5 +70,14 @@
   },
   "risques/projets/stat_extreme_corrige.qmd": {
     "stat_extreme_corrige.html": "0bbdaa8a"
+  },
+  "finance_quant/finance_files/tp_black_scholes.qmd": {
+    "tp_black_scholes.html": "71eec315"
+  },
+  "finance_quant/projets/tp_black_scholes.qmd": {
+    "tp_black_scholes.html": "9125e972"
+  },
+  "finance_quant/projets/tp_filtre.qmd": {
+    "tp_filtre.html": "2c90d5c7"
   }
 }

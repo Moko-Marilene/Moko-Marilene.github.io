@@ -32,7 +32,7 @@
     "href": "index.html#publications-récentes",
     "title": " ",
     "section": "Publications récentes",
-    "text": "Publications récentes\n\n\n\n\nCourbe de taux & modèle de Hull–White\n\n\nBootstrapping, valorisation caplets/swap­tion, calibration Hull–White\n\nLire\n\n\n\n\nVECM & Pairs Trading\n\n\nCointégration,ruptures structurelles, extensions (GARCH, régimes), usages en stratégie pairs trading\n\nLire\n\n\n\n\nGestion de la liquidité des actifs\n\n\nProfondeur de marché, Calcul du profil d’écoulement,liquidation avec/sans déformation.\n\nLire"
+    "text": "Publications récentes\n\n\n\n\nCourbe de taux & modèle de Hull–White\n\n\nBootstrapping, valorisation caplets/swap­tion, calibration Hull–White\n\nLire\n\n\n\n\nCalibration de modèles à volatilité stochastique par filtrage\n\n\nModèle de Taylor, filtre de Kalman, filtre particulaire\n\nLire\n\n\n\n\nGestion de la liquidité des actifs\n\n\nProfondeur de marché, Calcul du profil d’écoulement,liquidation avec/sans déformation.\n\nLire"
   },
   {
     "objectID": "risque-regulation.html",
@@ -655,7 +655,7 @@
     "href": "finance_quant/index.html#section",
     "title": "Finance Quantitative",
     "section": " ",
-    "text": "Courbe de taux & modèle de Hull–White\n\n\nBootstrapping, valorisation caplets/swap­tion, calibration Hull–White\n\nLire"
+    "text": "Courbe de taux & modèle de Hull–White\n\n\nBootstrapping, valorisation caplets/swap­tion, calibration Hull–White\n\nLire\n\n\n\n\nModèle de Black Scholes\n\n\nPricing d’options européénnes, calcul de grecques, comparaison formules fermées/monté carlo\n\nLire\n\n\n\n\nCalibration de modèles à volatilité stochastique par filtrage\n\n\nModèle de Taylor, filtre de Kalman, filtre particulaire\n\nLire"
   },
   {
     "objectID": "finance_quant/chapter_one.html",
@@ -697,7 +697,7 @@
     "href": "finance_quant/index.html",
     "title": "Finance Quantitative",
     "section": "",
-    "text": "Vous trouverez ci après des ressources bibliographiques que je vous suggère : ➡ Codes"
+    "text": "Vous trouverez ci après des ressources bibliographiques que je vous suggère : ➡ Ressources"
   },
   {
     "objectID": "finance_quant/projets/projet_courbe_taux.html",
@@ -887,5 +887,390 @@
     "title": "Statistiques des risques extrêmes",
     "section": "Conclusion",
     "text": "Conclusion\n\nL’estimation de la Value at Risk (VaR) est une tâche essentielle pour nous qui sommes appelés à être des modélisateur, car elle constitue un indicateur clé qui oriente la prise de decision, des banques, des prestataires de services d’investissement, et même des sociétés de gestion de portefeuilles.\nDans la littérature, plusieurs méthodes permettent d’estimer la Value at Risk. Dans le cadre de ce cours, et plus particulièrement de ce projet, nous avons exploré diverses approches, allant de la méthode gaussienne classique à des modèles plus sophistiqués tels que le modèle AR(1)-GARCH(1,1).\nChacune de ces méthodes a montré ses limites, tant au niveau du calcul du nombre d’exceptions que de l’application du protocole de backtesting.\nEn se concentrant plus spécifiquement sur les modèles de type série temporelle, les tests statistiques réalisés dans le cadre de la modélisation AR(1) — notamment sur les résidus, la distribution et la volatilité — ont mis en évidence deux points clés : les résidus ne suivent pas la même loi de distribution, et la volatilité n’est pas constante.\nCes observations nous ont naturellement conduit au passage à un modèle conditionnel de type AR(1)-GARCH(1,1), plus adapté pour modéliser les variations de la volatilité dans le temps.\nEn combinant ce modèle avec une loi de queue plus souple (la GPD dans notre cas), nous avons pu affiner l’estimation de la VaR, notamment dans les zones extrêmes.\nLa version dynamique de la VaR, fondée sur ce modèle, s’est révélée la plus pertinente : elle s’ajuste mieux aux fluctuations des données et permet d’identifier plus efficacement les périodes de stress.\nCela montre que, bien que ces modèles soient plus sophistiqués et donc plus complexes à implémenter, leur utilisation permet d’obtenir un gain significatif en termes de précision.\nPar ailleurs, ce projet nous a permis d’approfondir notre compréhension des défis associés à l’estimation de la VaR, ainsi que des difficultés rencontrées avec les différentes approches. Cela inclut, par exemple, la détermination de la taille des blocs pour l’approche des blocs maxima, ou encore le choix du seuil optimal dans le cadre de l’approche POT. Nous avons été amenés à pousser la réflexion de manière plus approfondie afin de concevoir nous même des mécanismes permettant de sélectionner automatiquement certains paramètres, optimisant ainsi le processus d’estimation."
+  },
+  {
+    "objectID": "finance_quant/finance_files/tp_black_scholes.html",
+    "href": "finance_quant/finance_files/tp_black_scholes.html",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "",
+    "text": "Nous nous intéressons ici au modèle de Black–Scholes pour le pricing d’options européennes d’achat (calls) et à la notion de calibration du modèle via la volatilité implicite.\nL’objectif est de :\n\nrappeler la formule fermée de Black–Scholes pour le prix d’un call ;\ncomparer ce prix avec une approximation par Monte Carlo ;\ncalculer les Greeks (Delta, Gamma, Vega) :\n\nanalytiquement,\npuis numériquement (différences finies),\net via une approche Monte Carlo ;\n\ndéterminer la volatilité implicite à partir de prix d’options donnés.\n\nOn se place dans le cadre classique où le prix de l’actif sous-jacent ((S_t)_{t }) suit un mouvement brownien géométrique :\n[ dS_t = S_t , dt + S_t , dW_t, ]\noù : - () est le taux de rendement moyen de l’actif, - () est la volatilité (supposée constante), - (W_t) est un mouvement brownien standard.\nSous la mesure risque-neutre, le drift est remplacé par le taux sans risque (r), ce qui permet d’obtenir une formule explicite pour le prix d’un call européen.\n\n\nCode\nimport numpy as np\nfrom scipy.stats import norm\nfrom scipy.optimize import fsolve\nimport matplotlib.pyplot as plt"
+  },
+  {
+    "objectID": "finance_quant/finance_files/tp_black_scholes.html#rappel-de-la-formule",
+    "href": "finance_quant/finance_files/tp_black_scholes.html#rappel-de-la-formule",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "1.1 Rappel de la formule",
+    "text": "1.1 Rappel de la formule\nConsidérons un call européen de maturité () (temps jusqu’à l’échéance) et de prix d’exercice (K).\nLe modèle de Black–Scholes donne :\n[ C(S,K,r,,)=S,N(d_1)-K e^{-r},N(d_2), ]\navec :\n[ d_1=, d_2=d_1-. ]"
+  },
+  {
+    "objectID": "finance_quant/finance_files/tp_black_scholes.html#implémentation-de-la-formule-fermée",
+    "href": "finance_quant/finance_files/tp_black_scholes.html#implémentation-de-la-formule-fermée",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "1.2 Implémentation de la formule fermée",
+    "text": "1.2 Implémentation de la formule fermée\n\nQuestion 1 — Fonction Call\n\n\nCode\ndef Call(S, K, r, tau, sigma):\n    \"\"\"\n    Prix d'un call européen par la formule de Black–Scholes.\n    \"\"\"\n    d1 = (np.log(S/K) + (r + 0.5 * sigma**2) * tau) / (sigma * np.sqrt(tau))\n    d2 = d1 - sigma * np.sqrt(tau)\n    C = S * norm.cdf(d1) - K * np.exp(-r * tau) * norm.cdf(d2)\n    return C"
+  },
+  {
+    "objectID": "finance_quant/finance_files/tp_black_scholes.html#idée-générale",
+    "href": "finance_quant/finance_files/tp_black_scholes.html#idée-générale",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "2.1 Idée générale",
+    "text": "2.1 Idée générale\nOn simule (S_), on calcule le payoff ((S_- K)^+), on moyenne et on actualise :\n[ C e^{-r} [(S_-K)^+]. ]\nSous Black–Scholes :\n[ S_= S_0,((r-^2)+ W_), W_N(0,). ]"
+  },
+  {
+    "objectID": "finance_quant/finance_files/tp_black_scholes.html#implémentation",
+    "href": "finance_quant/finance_files/tp_black_scholes.html#implémentation",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "2.2 Implémentation",
+    "text": "2.2 Implémentation\n\nQuestion 2 — MonteCarlo\n\n\nCode\ndef MonteCarlo(r, sigma, tau, M, K, S0):\n    \"\"\"\n    Approximation Monte Carlo du prix d'un call européen.\n    \"\"\"\n    sigma_T = sigma * np.sqrt(tau)\n    Z = np.random.normal(0, sigma_T, M)\n    S_T = S0 * np.exp((r - 0.5 * sigma**2) * tau + Z)\n    payoff = np.maximum(S_T - K, 0)\n    return np.exp(-r * tau) * np.mean(payoff)"
+  },
+  {
+    "objectID": "finance_quant/finance_files/tp_black_scholes.html#cas-de-test",
+    "href": "finance_quant/finance_files/tp_black_scholes.html#cas-de-test",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "3.1 Cas de test",
+    "text": "3.1 Cas de test\n\n3.1.1 Cas a) ()\n\n\nCode\nS = 42\nK = 40\nr = 0.1\ntau = 6\nsigma = 0.2\n\ncall_BS = Call(S, K, r, tau, sigma)\nprint(\"Prix BS :\", call_BS)\n\n\nPrix BS : 20.67722481517296\n\n\nMonte Carlo :\n\n\nCode\nfor M in [500, 5000, 50000]:\n    call_MC = MonteCarlo(r, sigma, tau, M, K, S)\n    print(f\"M = {M} → MC = {call_MC}\")\n\n\nM = 500 → MC = 21.144384995165154\nM = 5000 → MC = 20.613054152557833\nM = 50000 → MC = 20.651902847727182\n\n\n\n\n3.1.2 Cas b) ()\n\n\nCode\nS = 42\nK = 40\nr = 0.1\ntau = 3\nsigma = 0.2\n\ncall_BS = Call(S, K, r, tau, sigma)\nprint(\"Prix BS :\", call_BS)\n\n\nPrix BS : 13.362666146646749\n\n\nMonte Carlo :\n\n\nCode\nfor M in [500, 5000, 50000]:\n    call_MC = MonteCarlo(r, sigma, tau, M, K, S)\n    print(f\"M = {M} → MC = {call_MC}\")\n\n\nM = 500 → MC = 13.512562123371131\nM = 5000 → MC = 13.321746161933204\nM = 50000 → MC = 13.44086881278945"
+  },
+  {
+    "objectID": "finance_quant/finance_files/tp_black_scholes.html#rappel",
+    "href": "finance_quant/finance_files/tp_black_scholes.html#rappel",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "4.1 Rappel",
+    "text": "4.1 Rappel\n[ =, =, =. ]"
+  },
+  {
+    "objectID": "finance_quant/finance_files/tp_black_scholes.html#formules-analytiques",
+    "href": "finance_quant/finance_files/tp_black_scholes.html#formules-analytiques",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "4.2 Formules analytiques",
+    "text": "4.2 Formules analytiques\n\nQuestion 4 — FormulaBSGreeks\n\n\nCode\ndef FormulaBSGreeks(S, K, r, tau, sigma):\n    \"\"\"\n    Greeks analytiques pour un call BS.\n    \"\"\"\n    d1 = (np.log(S/K)+(r+0.5*sigma**2)*tau)/(sigma*np.sqrt(tau))\n    pdf = np.exp(-d1**2/2)/np.sqrt(2*np.pi)\n\n    delta = norm.cdf(d1)\n    gamma = pdf / (S * sigma * np.sqrt(tau))\n    vega  = S * np.sqrt(tau) * pdf\n\n    return delta, gamma, vega\n\nS = 100\nK = 110\nr = 0\nsigma = 0.2\ntau = 0.5\n\ndelta, gamma, vega = FormulaBSGreeks(S, K, r, tau, sigma)\nprint(delta, gamma, vega)\n\n\n0.27317649402256877 0.023516737297119228 23.51673729711923"
+  },
+  {
+    "objectID": "finance_quant/finance_files/tp_black_scholes.html#approximations",
+    "href": "finance_quant/finance_files/tp_black_scholes.html#approximations",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "5.1 Approximations",
+    "text": "5.1 Approximations\n[ , . ]"
+  },
+  {
+    "objectID": "finance_quant/finance_files/tp_black_scholes.html#implémentation-1",
+    "href": "finance_quant/finance_files/tp_black_scholes.html#implémentation-1",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "5.2 Implémentation",
+    "text": "5.2 Implémentation\n\nQuestion 5 — Greeks_diff\n\n\nCode\ndef Greeks_diff(S, K, r, tau, sigma, h=1e-4):\n    delta = (Call(S+h,K,r,tau,sigma)-Call(S-h,K,r,tau,sigma))/(2*h)\n    gamma = (Call(S+h,K,r,tau,sigma)-2*Call(S,K,r,tau,sigma)+Call(S-h,K,r,tau,sigma))/(h**2)\n    vega  = (Call(S,K,r,tau,sigma+h)-Call(S,K,r,tau,sigma-h))/(2*h)\n    return delta, gamma, vega\n\ndelta_fd, gamma_fd, vega_fd = Greeks_diff(S, K, r, tau, sigma)\nprint(delta_fd, gamma_fd, vega_fd)\n\n\n0.27317649401226163 0.023516832925452036 23.516736154753914"
+  },
+  {
+    "objectID": "finance_quant/finance_files/tp_black_scholes.html#principe",
+    "href": "finance_quant/finance_files/tp_black_scholes.html#principe",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "6.1 Principe",
+    "text": "6.1 Principe\nMéthode pathwise pour Δ, likelihood ratio pour Vega."
+  },
+  {
+    "objectID": "finance_quant/finance_files/tp_black_scholes.html#implémentation-2",
+    "href": "finance_quant/finance_files/tp_black_scholes.html#implémentation-2",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "6.2 Implémentation",
+    "text": "6.2 Implémentation\n\n\nCode\ndef Greeks_Monte_Carlo(r, sigma, tau, M, K, S0):\n    d1 = (np.log(S0/K)+(r+0.5*sigma**2)*tau)/(sigma*np.sqrt(tau))\n\n    sigma_T = sigma*np.sqrt(tau)\n    Z = np.random.normal(0, sigma_T, M)\n    S_T = S0*np.exp((r-0.5*sigma**2)*tau + Z)\n\n    delta_MC = np.exp(-r*tau)*np.mean((S_T &gt; K)*(S_T/S0))\n    gamma_MC = np.exp(-d1**2/2)/(S0*sigma*np.sqrt(2*np.pi*tau))\n    vega_MC  = np.exp(-r*tau)*np.mean((S_T &gt; K)*(S_T/sigma)*(np.log(S_T/S0)-(r-0.5*sigma**2)*tau))\n\n    return delta_MC, gamma_MC, vega_MC\n\ndelta_MC, gamma_MC, vega_MC = Greeks_Monte_Carlo(r, sigma, tau, 10000, K, S)\nprint(delta_MC, gamma_MC, vega_MC)\n\n\n0.26365042624348933 0.02351673729711923 25.694184913685838"
+  },
+  {
+    "objectID": "finance_quant/finance_files/tp_black_scholes.html#définition",
+    "href": "finance_quant/finance_files/tp_black_scholes.html#définition",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "7.1 Définition",
+    "text": "7.1 Définition\nTrouver () tel que :\n[ C{BS}(S,K,r,,)=C{}. ]"
+  },
+  {
+    "objectID": "finance_quant/finance_files/tp_black_scholes.html#implémentation-3",
+    "href": "finance_quant/finance_files/tp_black_scholes.html#implémentation-3",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "7.2 Implémentation",
+    "text": "7.2 Implémentation\n\nQuestion 6 — ImpliedVolBS\n\n\nCode\ndef ImpliedVolBS(S, K, r, tau, call):\n    sigma0 = 0.2\n\n    def f(sigma):\n        return Call(S, K, r, tau, sigma) - call\n\n    return fsolve(f, sigma0)[0]"
+  },
+  {
+    "objectID": "finance_quant/finance_files/tp_black_scholes.html#exemples",
+    "href": "finance_quant/finance_files/tp_black_scholes.html#exemples",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "7.3 Exemples",
+    "text": "7.3 Exemples\n\n3 mois\n\n\nCode\nS = 100\nK = 100\nr = 0.05\nT = 1/4\ncall = 4.58\n\nprint(\"Vol implicite (3 mois) :\", ImpliedVolBS(S, K, r, T, call))\n\n\nVol implicite (3 mois) : 0.19821832631719224\n\n\n\n\n6 mois\n\n\nCode\nS = 100\nK = 100\nr = 0.05\nT = 1/2\ncall = 5.53\n\nprint(\"Vol implicite (6 mois) :\", ImpliedVolBS(S, K, r, T, call))\n\n\nVol implicite (6 mois) : 0.15010661735297984"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html",
+    "href": "finance_quant/projets/tp_black_scholes.html",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "",
+    "text": "⬅ Retour"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#rappel-de-la-formule",
+    "href": "finance_quant/projets/tp_black_scholes.html#rappel-de-la-formule",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "1.1 Rappel de la formule",
+    "text": "1.1 Rappel de la formule\nConsidérons un call européen de maturité () (temps jusqu’à l’échéance) et de prix d’exercice (K).\nLe modèle de Black–Scholes donne :\n[ C(S,K,r,,)=S,N(d_1)-K e^{-r},N(d_2), ]\navec :\n[ d_1=, d_2=d_1-. ]"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#implémentation-de-la-formule-fermée",
+    "href": "finance_quant/projets/tp_black_scholes.html#implémentation-de-la-formule-fermée",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "1.2 Implémentation de la formule fermée",
+    "text": "1.2 Implémentation de la formule fermée\n\nQuestion 1 — Fonction Call\n\n\nCode\ndef Call(S, K, r, tau, sigma):\n    \"\"\"\n    Prix d'un call européen par la formule de Black–Scholes.\n    \"\"\"\n    d1 = (np.log(S/K) + (r + 0.5 * sigma**2) * tau) / (sigma * np.sqrt(tau))\n    d2 = d1 - sigma * np.sqrt(tau)\n    C = S * norm.cdf(d1) - K * np.exp(-r * tau) * norm.cdf(d2)\n    return C"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#idée-générale",
+    "href": "finance_quant/projets/tp_black_scholes.html#idée-générale",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "2.1 Idée générale",
+    "text": "2.1 Idée générale\nOn simule (S_), on calcule le payoff ((S_- K)^+), on moyenne et on actualise :\n[ C e^{-r} [(S_-K)^+]. ]\nSous Black–Scholes :\n[ S_= S_0,((r-^2)+ W_), W_N(0,). ]"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#implémentation",
+    "href": "finance_quant/projets/tp_black_scholes.html#implémentation",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "1.2 Implémentation",
+    "text": "1.2 Implémentation\n\n\nCode\ndef Call(S, K, r, tau, sigma):\n    \"\"\"\n    Prix d'un call européen par la formule de Black–Scholes.\n    \"\"\"\n    d1 = (np.log(S/K) + (r + 0.5 * sigma**2) * tau) / (sigma * np.sqrt(tau))\n    d2 = d1 - sigma * np.sqrt(tau)\n    C = S * norm.cdf(d1) - K * np.exp(-r * tau) * norm.cdf(d2)\n    return C"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#cas-de-test",
+    "href": "finance_quant/projets/tp_black_scholes.html#cas-de-test",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "3.1 Cas de test",
+    "text": "3.1 Cas de test\n\n3.1.1 Cas a) ()\n\n\nCode\nS = 42\nK = 40\nr = 0.1\ntau = 6\nsigma = 0.2\n\ncall_BS = Call(S, K, r, tau, sigma)\nprint(\"Prix BS :\", call_BS)\n\n\nPrix BS : 20.67722481517296\n\n\nMonte Carlo :\n\n\nCode\nfor M in [500, 5000, 50000]:\n    call_MC = MonteCarlo(r, sigma, tau, M, K, S)\n    print(f\"M = {M} → MC = {call_MC}\")\n\n\nM = 500 → MC = 21.23128208714247\nM = 5000 → MC = 20.5477103856839\nM = 50000 → MC = 20.734207230645616\n\n\n\n\n3.1.2 Cas b) ()\n\n\nCode\nS = 42\nK = 40\nr = 0.1\ntau = 3\nsigma = 0.2\n\ncall_BS = Call(S, K, r, tau, sigma)\nprint(\"Prix BS :\", call_BS)\n\n\nPrix BS : 13.362666146646749\n\n\nMonte Carlo :\n\n\nCode\nfor M in [500, 5000, 50000]:\n    call_MC = MonteCarlo(r, sigma, tau, M, K, S)\n    print(f\"M = {M} → MC = {call_MC}\")\n\n\nM = 500 → MC = 13.08872672020163\nM = 5000 → MC = 13.524290330749286\nM = 50000 → MC = 13.215553960524044"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#rappel",
+    "href": "finance_quant/projets/tp_black_scholes.html#rappel",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "4.1 Rappel",
+    "text": "4.1 Rappel\n[ =, =, =. ]"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#formules-analytiques",
+    "href": "finance_quant/projets/tp_black_scholes.html#formules-analytiques",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "4.2 Formules analytiques",
+    "text": "4.2 Formules analytiques\n\n\nCode\ndef FormulaBSGreeks(S, K, r, tau, sigma):\n    d1 = (np.log(S/K)+(r+0.5*sigma**2)*tau)/(sigma*np.sqrt(tau))\n    pdf = np.exp(-d1**2/2)/np.sqrt(2*np.pi)\n\n    delta = norm.cdf(d1)\n    gamma = pdf / (S * sigma * np.sqrt(tau))\n    vega  = S * np.sqrt(tau) * pdf\n\n    return delta, gamma, vega\n\nS = 100\nK = 110\nr = 0\nsigma = 0.2\ntau = 0.5\n\nFormulaBSGreeks(S, K, r, tau, sigma)\n\n\n(np.float64(0.27317649402256877),\n np.float64(0.023516737297119228),\n np.float64(23.51673729711923))"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#approximations",
+    "href": "finance_quant/projets/tp_black_scholes.html#approximations",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "5.1 Approximations",
+    "text": "5.1 Approximations\n[ , . ]"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#implémentation-1",
+    "href": "finance_quant/projets/tp_black_scholes.html#implémentation-1",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "2.2 Implémentation",
+    "text": "2.2 Implémentation\n\n\nCode\ndef MonteCarlo(r, sigma, tau, M, K, S0):\n    sigma_T = sigma * np.sqrt(tau)\n    Z = np.random.normal(0, sigma_T, M)\n    S_T = S0 * np.exp((r - 0.5 * sigma**2) * tau + Z)\n    payoff = np.maximum(S_T - K, 0)\n    return np.exp(-r * tau) * np.mean(payoff)"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#principe",
+    "href": "finance_quant/projets/tp_black_scholes.html#principe",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "6.1 Principe",
+    "text": "6.1 Principe\nMéthode pathwise pour Δ, likelihood ratio pour Vega."
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#implémentation-2",
+    "href": "finance_quant/projets/tp_black_scholes.html#implémentation-2",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "7.2 Implémentation",
+    "text": "7.2 Implémentation\n\n\nCode\ndef ImpliedVolBS(S, K, r, tau, call):\n    def f(sigma):\n        return Call(S, K, r, tau, sigma) - call\n    return fsolve(f, 0.2)[0]"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#définition",
+    "href": "finance_quant/projets/tp_black_scholes.html#définition",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "7.1 Définition",
+    "text": "7.1 Définition\nTrouver \\(\\sigma\\) tel que :\n\\[\nC^{BS}(S,K,r,\\sigma,\\tau) = C^{\\text{marché}}\n\\]"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#implémentation-3",
+    "href": "finance_quant/projets/tp_black_scholes.html#implémentation-3",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "7.2 Implémentation",
+    "text": "7.2 Implémentation\n\nQuestion 6 — ImpliedVolBS\n\n\nCode\ndef ImpliedVolBS(S, K, r, tau, call):\n    sigma0 = 0.2\n\n    def f(sigma):\n        return Call(S, K, r, tau, sigma) - call\n\n    return fsolve(f, sigma0)[0]"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#exemples",
+    "href": "finance_quant/projets/tp_black_scholes.html#exemples",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "7.3 Exemples",
+    "text": "7.3 Exemples\n\n\nCode\nprint(ImpliedVolBS(100, 100, 0.05, 1/4, 4.58))\nprint(ImpliedVolBS(100, 100, 0.05, 1/2, 5.53))\n\n\n0.19821832631719224\n0.15010661735297984"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#formule-fermée",
+    "href": "finance_quant/projets/tp_black_scholes.html#formule-fermée",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "1.1 Formule fermée",
+    "text": "1.1 Formule fermée\nPour un call de strike \\(K\\) et maturité \\(\\tau\\) :\n\\[\nC(S,K,r,\\sigma,\\tau) = S\\,N(d_1) - K e^{-r\\tau} N(d_2)\n\\]\nAvec :\n\\[\nd_1 = \\frac{\\ln(S/K) + (r + \\tfrac12\\sigma^2)\\tau}{\\sigma\\sqrt{\\tau}},\n\\qquad\nd_2 = d_1 - \\sigma\\sqrt{\\tau}\n\\]"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#idée",
+    "href": "finance_quant/projets/tp_black_scholes.html#idée",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "2.1 Idée",
+    "text": "2.1 Idée\nSous Black–Scholes :\n\\[\nS_\\tau = S_0 \\exp\\!\\left((r - \\tfrac12\\sigma^2)\\tau + \\sigma W_\\tau\\right),\n\\qquad W_\\tau \\sim N(0,\\tau)\n\\]\nLe prix Monte Carlo :\n\\[\nC \\approx e^{-r\\tau}\\,\\mathbb{E}[(S_\\tau - K)^+]\n\\]"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#cas-tau-6",
+    "href": "finance_quant/projets/tp_black_scholes.html#cas-tau-6",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "3.1 Cas \\(\\tau = 6\\)",
+    "text": "3.1 Cas \\(\\tau = 6\\)\n\n\nCode\nS = 42\nK = 40\nr = 0.1\ntau = 6\nsigma = 0.2\n\nprint(\"BS =\", Call(S, K, r, tau, sigma))\n\n\nBS = 20.67722481517296\n\n\nMonte Carlo :\n\n\nCode\nfor M in [500, 5000, 50000]:\n    print(M, MonteCarlo(r, sigma, tau, M, K, S))\n\n\n500 23.460288107228273\n5000 20.582232496076497\n50000 20.878285002564763"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#cas-tau-3",
+    "href": "finance_quant/projets/tp_black_scholes.html#cas-tau-3",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "3.1 Cas \\(\\tau = 3\\)",
+    "text": "3.1 Cas \\(\\tau = 3\\)\n\n\nCode\nS = 42\nK = 40\nr = 0.1\ntau = 3\nsigma = 0.2\n\nprint(\"BS =\", Call(S, K, r, tau, sigma))\n\n\nBS = 13.362666146646749\n\n\nMonte Carlo :\n\n\nCode\nfor M in [500, 5000, 50000]:\n    print(M, MonteCarlo(r, sigma, tau, M, K, S))\n\n\n500 13.882273737902427\n5000 13.358067663655005\n50000 13.36907516711849"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#définitions",
+    "href": "finance_quant/projets/tp_black_scholes.html#définitions",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "4.1 Définitions",
+    "text": "4.1 Définitions\n\\[\n\\Delta = \\frac{\\partial C}{\\partial S},\n\\qquad\n\\Gamma = \\frac{\\partial^2 C}{\\partial S^2},\n\\qquad\n\\text{Vega} = \\frac{\\partial C}{\\partial\\sigma}\n\\]"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_black_scholes.html#formules-mc",
+    "href": "finance_quant/projets/tp_black_scholes.html#formules-mc",
+    "title": "Calibration du modèle de Black-Scholes",
+    "section": "6.1 Formules MC",
+    "text": "6.1 Formules MC\nApproximation pathwise pour \\(\\Delta\\), LR pour Vega.\n\n\nCode\ndef Greeks_Monte_Carlo(r, sigma, tau, M, K, S0):\n    d1 = (np.log(S0/K)+(r+0.5*sigma**2)*tau)/(sigma*np.sqrt(tau))\n\n    sigma_T = sigma*np.sqrt(tau)\n    Z = np.random.normal(0, sigma_T, M)\n    S_T = S0*np.exp((r-0.5*sigma**2)*tau + Z)\n\n    delta_MC = np.exp(-r*tau)*np.mean((S_T &gt; K)*(S_T/S0))\n    gamma_MC = np.exp(-d1**2/2)/(S0*sigma*np.sqrt(2*np.pi*tau))\n    vega_MC  = np.exp(-r*tau)*np.mean((S_T &gt; K)*(S_T/sigma)*(np.log(S_T/S0)-(r-0.5*sigma**2)*tau))\n\n    return delta_MC, gamma_MC, vega_MC\n\nGreeks_Monte_Carlo(r, sigma, tau, 10000, K, S)\n\n\n(np.float64(0.2745168056411796),\n np.float64(0.02351673729711923),\n np.float64(26.284200966125507))"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html",
+    "href": "finance_quant/projets/tp_filtre.html",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "",
+    "text": "⬅ Retour"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#objectifs",
+    "href": "finance_quant/projets/tp_filtre.html#objectifs",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "Objectifs",
+    "text": "Objectifs\nDans ce travail, nous abordons différents aspects de la calibration de modèles stochastiques, plus précisément des modèles à volatilité stochastique (SV).\nNous travaillerons sur :\n\nLe modèle SV de Taylor : \\[\n\\begin{cases}\nr_t = \\exp(x_t / 2)\\,\\xi_t,\\\\\nx_t = \\mu + \\phi x_{t-1} + \\sigma_\\eta \\eta_t,\n\\end{cases}\n\\]\nLa linéarisation du modèle et la construction d’un modèle log-SV linéaire,\nL’étude de la loi de \\(\\log(\\xi_t^2)\\),\nLa mise en œuvre complète du filtre de Kalman (Question 5),\nL’estimation de \\((\\mu,\\phi,\\sigma_\\eta)\\) par maximisation de quasi-vraisemblance (QML),\nLa mise en œuvre d’un filtre particulaire (Sequential Monte Carlo),\nEt une application possible aux données Nasdaq."
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#modèle-linéarisé-à-filtrer",
+    "href": "finance_quant/projets/tp_filtre.html#modèle-linéarisé-à-filtrer",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "5.1 Modèle linéarisé à filtrer",
+    "text": "5.1 Modèle linéarisé à filtrer\nModèle d’état :\n\\[\nx_t = \\mu + \\phi x_{t-1} + \\sigma_\\eta \\eta_t\n\\]\nModèle d’observation :\n\\[\ny_t = x_t + \\varepsilon_t, \\qquad \\varepsilon_t \\sim N(0,\\sigma_\\varepsilon^2)\n\\]"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#implémentation-du-filtre-de-kalman",
+    "href": "finance_quant/projets/tp_filtre.html#implémentation-du-filtre-de-kalman",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "5.2 Implémentation du filtre de Kalman",
+    "text": "5.2 Implémentation du filtre de Kalman\n\n\nCode\ndef kalman_filter(y, mu, phi, sigma_eta, x0, P0, sigma_eps2=sigma_eps2):\n    T = len(y)\n    x_pred = np.zeros(T)\n    P_pred = np.zeros(T)\n    x_filt = np.zeros(T)\n    P_filt = np.zeros(T)\n    K = np.zeros(T)\n    innov = np.zeros(T)\n    F = np.zeros(T)\n\n    x_filt[0] = x0\n    P_filt[0] = P0\n\n    for t in range(1, T):\n        # Prédiction\n        x_pred[t] = mu + phi*x_filt[t-1]\n        P_pred[t] = phi**2 * P_filt[t-1] + sigma_eta**2\n\n        # Innovation\n        innov[t] = y[t] - x_pred[t]\n        F[t] = P_pred[t] + sigma_eps2\n\n        # Gain\n        K[t] = P_pred[t] / F[t]\n\n        # Mise à jour\n        x_filt[t] = x_pred[t] + K[t]*innov[t]\n        P_filt[t] = (1-K[t]) * P_pred[t]\n\n    return x_filt, P_filt, x_pred, P_pred, innov, F"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#application-avec-paramètres-vrais",
+    "href": "finance_quant/projets/tp_filtre.html#application-avec-paramètres-vrais",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "5.3 Application avec paramètres vrais",
+    "text": "5.3 Application avec paramètres vrais\n\n\nCode\nx0_kf = mu_true/(1-phi_true)\nP0_kf = sigma_eta_true**2/(1-phi_true**2)\n\nx_kf, P_kf, xp, Pp, innov, F = kalman_filter(\n    y, mu_true, phi_true, sigma_eta_true, x0_kf, P0_kf\n)"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#comparaison-x_t-vs-hatx_t-kalman",
+    "href": "finance_quant/projets/tp_filtre.html#comparaison-x_t-vs-hatx_t-kalman",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "5.4 Comparaison \\(x_t\\) vs \\(\\\\hat{x}_t\\) (Kalman)",
+    "text": "5.4 Comparaison \\(x_t\\) vs \\(\\\\hat{x}_t\\) (Kalman)\n\n\nCode\nplt.figure(figsize=(12,5))\nplt.plot(x, label=\"x_t vrai\", linewidth=2)\nplt.plot(x_kf, label=\"x_t filtré (Kalman)\", linestyle=\"--\")\nplt.title(\"Filtre de Kalman appliqué au modèle SV\")\nplt.legend()\nplt.grid()\nplt.show()"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#filtre-utilisé-pour-la-vraisemblance",
+    "href": "finance_quant/projets/tp_filtre.html#filtre-utilisé-pour-la-vraisemblance",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "6.1 Filtre utilisé pour la vraisemblance",
+    "text": "6.1 Filtre utilisé pour la vraisemblance\n\n\nCode\ndef kalman_for_likelihood(y, mu, phi, sigma_eta):\n    T = len(y)\n    \n    x0 = mu/(1-phi)\n    P0 = sigma_eta**2/(1-phi**2)\n\n    x_pred = np.zeros(T)\n    P_pred = np.zeros(T)\n    x_filt = np.zeros(T)\n    P_filt = np.zeros(T)\n    innov = np.zeros(T)\n    F = np.zeros(T)\n\n    x_filt[0] = x0\n    P_filt[0] = P0\n\n    for t in range(1, T):\n        x_pred[t] = mu + phi*x_filt[t-1]\n        P_pred[t] = phi**2 * P_filt[t-1] + sigma_eta**2\n\n        innov[t] = y[t] - x_pred[t]\n        F[t] = P_pred[t] + sigma_eps2\n\n        Kt = P_pred[t] / F[t]\n        x_filt[t] = x_pred[t] + Kt*innov[t]\n        P_filt[t] = (1-Kt) * P_pred[t]\n\n    return innov, F"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#log-vraisemblance-et-optimisation",
+    "href": "finance_quant/projets/tp_filtre.html#log-vraisemblance-et-optimisation",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "6.2 Log-vraisemblance et optimisation",
+    "text": "6.2 Log-vraisemblance et optimisation\n\n\nCode\ndef neg_loglik(params):\n    mu, phi, sigma_eta = params\n    if sigma_eta &lt;= 0 or not (-0.99 &lt; phi &lt; 0.99):\n        return 1e10\n    innov, F = kalman_for_likelihood(y, mu, phi, sigma_eta)\n    ll = -0.5*np.sum(np.log(F[1:]) + (innov[1:]**2)/F[1:])\n    return -ll\n\n\n\n\nCode\ninit = [-0.5, 0.5, 0.2]\n\nbounds = [(-2,2),(0.01,0.99),(1e-3,1)]\n\nres = minimize(neg_loglik, init, bounds=bounds)\n\nmu_hat, phi_hat, sigma_eta_hat = res.x\n\nprint(\"Paramètres vrais :\")\nprint(mu_true, phi_true, sigma_eta_true)\n\nprint(\"Paramètres estimés QML :\")\nprint(mu_hat, phi_hat, sigma_eta_hat)\n\n\nParamètres vrais :\n-0.8 0.9 0.3\nParamètres estimés QML :\n-1.7362080721370883 0.7847751786090063 0.6034159596873901"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#filtre-particulaire",
+    "href": "finance_quant/projets/tp_filtre.html#filtre-particulaire",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "7.1 Filtre particulaire",
+    "text": "7.1 Filtre particulaire\n\n\nCode\ndef loglik_obs(r_t, x_t):\n    var = np.exp(x_t)\n    return -0.5*(np.log(2*np.pi*var) + r_t**2/var)\n\ndef particle_filter(r, mu, phi, sigma_eta, N=1000):\n    T = len(r)\n    mean_x0 = mu/(1-phi)\n    var_x0 = sigma_eta**2/(1-phi**2)\n\n    particles = np.random.normal(mean_x0, np.sqrt(var_x0), size=N)\n    weights = np.ones(N)/N\n    x_hat = np.zeros(T)\n    x_hat[0] = np.average(particles, weights=weights)\n\n    for t in range(1,T):\n        particles = mu + phi*particles + sigma_eta*np.random.normal(size=N)\n        logw = np.array([loglik_obs(r[t],px) for px in particles])\n        logw -= np.max(logw)\n        w = np.exp(logw)\n        weights = w/np.sum(w)\n        x_hat[t] = np.sum(weights*particles)\n\n        cw = np.cumsum(weights)\n        u0 = np.random.uniform(0,1/N)\n        u = u0 + np.arange(N)/N\n        idx = np.searchsorted(cw,u)\n        particles = particles[idx]\n        weights[:] = 1/N\n    return x_hat"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#application",
+    "href": "finance_quant/projets/tp_filtre.html#application",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "7.2 Application",
+    "text": "7.2 Application\n\n\nCode\nx_pf = particle_filter(r, mu_true, phi_true, sigma_eta_true, N=1000)\n\nplt.figure(figsize=(12,5))\nplt.plot(x, label=\"x_t vrai\")\nplt.plot(x_pf, label=\"x_t estimé (PF)\", linestyle=\"--\")\nplt.title(\"Filtre particulaire vs. volatilité vraie\")\nplt.grid()\nplt.legend()\nplt.show()"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#a-principe-du-filtre-de-kalman",
+    "href": "finance_quant/projets/tp_filtre.html#a-principe-du-filtre-de-kalman",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "5.A — Principe du filtre de Kalman",
+    "text": "5.A — Principe du filtre de Kalman\nLe filtre de Kalman est un algorithme récursif conçu pour estimer un état caché dans un modèle linéaire et gaussien.\nIl repose sur deux idées fondamentales :\n\n• Étape de prédiction\nÀ partir de l’estimation à l’instant \\(t-1\\), on projette l’état vers le futur :\n\\[\n\\hat{x}_t^{-} = \\mu + \\phi \\hat{x}_{t-1}, \\qquad\nP_t^{-} = \\phi^2 P_{t-1} + \\sigma_\\eta^2.\n\\]\n\n\n• Étape de mise à jour\nQuand l’observation \\(y_t\\) arrive :\nInnovation : \\[\n\\nu_t = y_t - \\hat{x}_t^{-}.\n\\]\nVariance de l’innovation : \\[\nF_t = P_t^{-} + \\sigma_\\varepsilon^2.\n\\]\nGain de Kalman : \\[\nK_t = \\frac{P_t^{-}}{F_t}.\n\\]\nMise à jour : \\[\n\\hat{x}_t = \\hat{x}_t^{-} + K_t \\nu_t, \\qquad\nP_t = (1 - K_t)P_t^{-}.\n\\]\nCe filtre est optimal parmi les estimateurs linéaires lorsque les bruits sont gaussiens."
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#b-implémentation-du-filtre-de-kalman",
+    "href": "finance_quant/projets/tp_filtre.html#b-implémentation-du-filtre-de-kalman",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "5.B — Implémentation du filtre de Kalman",
+    "text": "5.B — Implémentation du filtre de Kalman\n\n\nCode\ndef kalman_filter(y, mu, phi, sigma_eta, x0, P0, sigma_eps2=sigma_eps2):\n    T = len(y)\n    x_pred = np.zeros(T)\n    P_pred = np.zeros(T)\n    x_filt = np.zeros(T)\n    P_filt = np.zeros(T)\n    K = np.zeros(T)\n    innov = np.zeros(T)\n    F = np.zeros(T)\n\n    x_filt[0] = x0\n    P_filt[0] = P0\n\n    for t in range(1, T):\n        # Prédiction\n        x_pred[t] = mu + phi*x_filt[t-1]\n        P_pred[t] = phi**2 * P_filt[t-1] + sigma_eta**2\n\n        # Innovation\n        innov[t] = y[t] - x_pred[t]\n        F[t] = P_pred[t] + sigma_eps2\n\n        # Gain\n        K[t] = P_pred[t] / F[t]\n\n        # Mise à jour\n        x_filt[t] = x_pred[t] + K[t]*innov[t]\n        P_filt[t] = (1-K[t]) * P_pred[t]\n\n    return x_filt, P_filt, x_pred, P_pred, innov, F"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#comparaison-x_t-vs-hatx_t",
+    "href": "finance_quant/projets/tp_filtre.html#comparaison-x_t-vs-hatx_t",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "5.4 Comparaison \\(x_t\\) vs \\(\\\\hat{x}_t\\)",
+    "text": "5.4 Comparaison \\(x_t\\) vs \\(\\\\hat{x}_t\\)\n\n\nCode\nplt.figure(figsize=(12,5))\nplt.plot(x, label=\"x_t vrai\", linewidth=2)\nplt.plot(x_kf, label=\"x_t filtré (Kalman)\", linestyle=\"--\")\nplt.title(\"Filtre de Kalman appliqué au modèle SV\")\nplt.legend()\nplt.grid()\nplt.show()"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#a-principe-du-filtre-particulaire",
+    "href": "finance_quant/projets/tp_filtre.html#a-principe-du-filtre-particulaire",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "7.A — Principe du filtre particulaire",
+    "text": "7.A — Principe du filtre particulaire\nContrairement au filtre de Kalman, le filtre particulaire peut gérer des modèles non linéaires et non gaussiens.\nLe modèle SV original :\n\\[\nr_t = \\exp(x_t/2)\\,\\xi_t\n\\]\nn’est ni linéaire en \\(x_t\\), ni gaussien conditionnellement.\nLe filtre particulaire approxime la loi de \\(x_t\\) par un ensemble de particules :\n\\[\n\\{x_t^{(i)}, w_t^{(i)}\\}_{i=1}^N.\n\\]\nLes étapes fondamentales sont :\n\n• Prédiction\n\\[\nx_t^{(i)} = \\mu + \\phi x_{t-1}^{(i)} + \\sigma_\\eta \\eta_t^{(i)}.\n\\]\n\n\n• Mise à jour des poids\n\\[\nw_t^{(i)} \\propto p(r_t | x_t^{(i)}).\n\\]\n\n\n• Normalisation\n\\[\nw_t^{(i)} \\leftarrow \\frac{w_t^{(i)}}{\\sum_j w_t^{(j)}}.\n\\]\n\n\n• Réechantillonnage\nOn élimine les particules faibles et on duplique celles à forte probabilité.\nCe filtre est adapté au modèle SV puisqu’il ne suppose aucune linéarité."
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#b-implémentation-du-filtre-particulaire",
+    "href": "finance_quant/projets/tp_filtre.html#b-implémentation-du-filtre-particulaire",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "7.B — Implémentation du filtre particulaire",
+    "text": "7.B — Implémentation du filtre particulaire\n\n\nCode\ndef loglik_obs(r_t, x_t):\n    var = np.exp(x_t)\n    return -0.5*(np.log(2*np.pi*var) + r_t**2/var)\n\ndef particle_filter(r, mu, phi, sigma_eta, N=1000):\n    T = len(r)\n    mean_x0 = mu/(1-phi)\n    var_x0 = sigma_eta**2/(1-phi**2)\n\n    particles = np.random.normal(mean_x0, np.sqrt(var_x0), size=N)\n    weights = np.ones(N)/N\n    x_hat = np.zeros(T)\n    x_hat[0] = np.average(particles, weights=weights)\n\n    for t in range(1,T):\n        particles = mu + phi*particles + sigma_eta*np.random.normal(size=N)\n        logw = np.array([loglik_obs(r[t],px) for px in particles])\n        logw -= np.max(logw)\n        w = np.exp(logw)\n        weights = w/np.sum(w)\n        x_hat[t] = np.sum(weights*particles)\n\n        cw = np.cumsum(weights)\n        u0 = np.random.uniform(0,1/N)\n        u = u0 + np.arange(N)/N\n        idx = np.searchsorted(cw,u)\n        particles = particles[idx]\n        weights[:] = 1/N\n    return x_hat"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#a-résumé-pédagogique-quest-ce-quun-filtre-de-kalman",
+    "href": "finance_quant/projets/tp_filtre.html#a-résumé-pédagogique-quest-ce-quun-filtre-de-kalman",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "5.A — Résumé pédagogique : qu’est-ce qu’un filtre de Kalman ?",
+    "text": "5.A — Résumé pédagogique : qu’est-ce qu’un filtre de Kalman ?\nLe filtre de Kalman est un algorithme récursif permettant d’estimer un état caché d’un système linéaire et gaussien, à partir d’observations bruitées.\nDans notre cas :\n\nl’état caché = la log-volatilité \\(x_t\\),\nl’observation = \\(y_t = \\log(r_t^2) - E[\\log(\\xi_t^2)]\\).\n\nLe filtre fournit à chaque date :\n\nune prédiction de \\(x_t\\) à partir de \\(x_{t-1}\\),\nune correction de cette prédiction, en fonction de l’observation \\(y_t\\).\n\nIl repose sur deux étapes :\n\n1️- Étape de prédiction\nOn projette \\((x_t, P_t)\\) à partir de \\((x_{t-1}, P_{t-1})\\) :\n\\[\n\\begin{aligned}\n\\hat{x}_t^- &= \\mu + \\phi\\,\\hat{x}_{t-1}, \\\\\nP_t^- &= \\phi^2 P_{t-1} + \\sigma_\\eta^2.\n\\end{aligned}\n\\]\n\n\n2️- Étape de mise à jour\nL’innovation = erreur entre observation et prédiction :\n\\[\n\\nu_t = y_t - \\hat{x}_t^-.\n\\]\nSa variance :\n\\[\nF_t = P_t^- + \\sigma_\\varepsilon^2.\n\\]\nLe gain de Kalman, qui règle le poids de l’observation :\n\\[\nK_t = \\frac{P_t^-}{F_t}.\n\\]\nEnfin, mise à jour de \\(x_t\\) :\n\\[\n\\hat{x}_t = \\hat{x}_t^- + K_t \\nu_t.\n\\]\nEt la variance :\n\\[\nP_t = (1 - K_t) P_t^-.\n\\]\nCe filtre est optimal dans la classe des estimateurs linéaires pour les systèmes AR(1)+bruit gaussien."
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#b-implémentation-du-filtre-de-kalman-exigée-en-question-5",
+    "href": "finance_quant/projets/tp_filtre.html#b-implémentation-du-filtre-de-kalman-exigée-en-question-5",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "5.B — Implémentation du filtre de Kalman (exigée en Question 5)",
+    "text": "5.B — Implémentation du filtre de Kalman (exigée en Question 5)\n\n\nCode\ndef kalman_filter(y, mu, phi, sigma_eta, x0, P0, sigma_eps2=sigma_eps2):\n    T = len(y)\n    x_pred = np.zeros(T)\n    P_pred = np.zeros(T)\n    x_filt = np.zeros(T)\n    P_filt = np.zeros(T)\n    K = np.zeros(T)\n    innov = np.zeros(T)\n    F = np.zeros(T)\n\n    x_filt[0] = x0\n    P_filt[0] = P0\n\n    for t in range(1, T):\n        # Prédiction\n        x_pred[t] = mu + phi*x_filt[t-1]\n        P_pred[t] = phi**2 * P_filt[t-1] + sigma_eta**2\n\n        # Innovation\n        innov[t] = y[t] - x_pred[t]\n        F[t] = P_pred[t] + sigma_eps2\n\n        # Gain\n        K[t] = P_pred[t] / F[t]\n\n        # Mise à jour\n        x_filt[t] = x_pred[t] + K[t]*innov[t]\n        P_filt[t] = (1-K[t]) * P_pred[t]\n\n    return x_filt, P_filt, x_pred, P_pred, innov, F"
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#a-pourquoi-un-filtre-particulaire",
+    "href": "finance_quant/projets/tp_filtre.html#a-pourquoi-un-filtre-particulaire",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "7.A — Pourquoi un filtre particulaire ?",
+    "text": "7.A — Pourquoi un filtre particulaire ?\nLe filtre de Kalman ne fonctionne que pour des modèles :\n\nlinéaires\n\ngaussiens\n\nOr le modèle original :\n\\[\nr_t = \\exp(x_t/2)\\,\\xi_t\n\\]\nn’est ni linéaire, ni gaussien dans \\(x_t\\).\nLe filtre particulaire est une méthode non paramétrique, qui approxime la loi de \\(x_t | r_{1:t}\\) avec un ensemble de particules pondérées :\n\\[\n\\{(x_t^{(i)}, w_t^{(i)})\\}_{i=1}^N.\n\\]\nLe principe :\n\n1️- Prédiction\nChaque particule suit la dynamique :\n\\[\nx_t^{(i)} = \\mu + \\phi x_{t-1}^{(i)} + \\sigma_\\eta \\eta_t^{(i)}\n\\]\n\n\n2️- Mise à jour des poids\n\\[\nw_t^{(i)} \\propto p(r_t \\mid x_t^{(i)})\n\\]\n\n\n3️- Normalisation\n\\[\n\\tilde{w}^{(i)} = \\frac{w^{(i)}}{\\sum_j w^{(j)}}\n\\]\n\n\n4- Réechantillonnage (ESS)\nOn élimine les particules trop faibles et on duplique les meilleures.\nCe filtre est adapté aux modèles non linéaires et non gaussiens, comme le SV de Taylor."
+  },
+  {
+    "objectID": "finance_quant/projets/tp_filtre.html#a-quest-ce-quun-filtre-de-kalman",
+    "href": "finance_quant/projets/tp_filtre.html#a-quest-ce-quun-filtre-de-kalman",
+    "title": "Calibration de modèles à volatilité stochastique par filtrage",
+    "section": "5.A — Qu’est-ce qu’un filtre de Kalman ?**",
+    "text": "5.A — Qu’est-ce qu’un filtre de Kalman ?**\nLe filtre de Kalman est un algorithme récursif permettant d’estimer un état caché d’un système linéaire et gaussien, à partir d’observations bruitées.\nDans notre cas :\n\nl’état caché = la log-volatilité \\(x_t\\),\nl’observation = \\(y_t = \\log(r_t^2) - E[\\log(\\xi_t^2)]\\).\n\nLe filtre fournit à chaque date :\n\nune prédiction de \\(x_t\\) à partir de \\(x_{t-1}\\),\nune correction de cette prédiction, en fonction de l’observation \\(y_t\\).\n\nIl repose sur deux étapes :\n\n1️- Étape de prédiction\nOn projette \\((x_t, P_t)\\) à partir de \\((x_{t-1}, P_{t-1})\\) :\n\\[\n\\begin{aligned}\n\\hat{x}_t^- &= \\mu + \\phi\\,\\hat{x}_{t-1}, \\\\\nP_t^- &= \\phi^2 P_{t-1} + \\sigma_\\eta^2.\n\\end{aligned}\n\\]\n\n\n2️- Étape de mise à jour\nL’innovation = erreur entre observation et prédiction :\n\\[\n\\nu_t = y_t - \\hat{x}_t^-.\n\\]\nSa variance :\n\\[\nF_t = P_t^- + \\sigma_\\varepsilon^2.\n\\]\nLe gain de Kalman, qui règle le poids de l’observation :\n\\[\nK_t = \\frac{P_t^-}{F_t}.\n\\]\nEnfin, mise à jour de \\(x_t\\) :\n\\[\n\\hat{x}_t = \\hat{x}_t^- + K_t \\nu_t.\n\\]\nEt la variance :\n\\[\nP_t = (1 - K_t) P_t^-.\n\\]\nCe filtre est optimal dans la classe des estimateurs linéaires pour les systèmes AR(1)+bruit gaussien."
   }
 ]

@@ -1,0 +1,490 @@
+---
+title: "Calibration de modèles à volatilité stochastique par filtrage"
+author: "KOUGOUM Marilene"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+[⬅ Retour](../index.qmd)
+
+## Introduction
+
+Dans ce travail, nous abordons différents aspects de la **calibration de modèles stochastiques**, plus précisément des **modèles à volatilité stochastique (SV)**.
+
+Nous travaillerons sur :
+
+- Le modèle SV de **Taylor** :
+  $$
+  \begin{cases}
+  r_t = \exp(x_t / 2)\,\xi_t,\\
+  x_t = \mu + \phi x_{t-1} + \sigma_\eta \eta_t,
+  \end{cases}
+  $$
+- La **linéarisation** du modèle et la construction d’un modèle **log-SV linéaire**,
+- L’étude de la loi de $\log(\xi_t^2)$,
+- La mise en œuvre complète du **filtre de Kalman** (Question 5),
+- L’estimation de $(\mu,\phi,\sigma_\eta)$ par **maximisation de quasi-vraisemblance (QML)**,
+- La mise en œuvre d’un **filtre particulaire (Sequential Monte Carlo)**,
+- Et une application possible aux données Nasdaq.
+
+---
+
+# 1. Simulation du modèle SV de Taylor 
+
+Le modèle stochastique de Taylor est :
+
+$$
+\begin{cases}
+r_t = \exp(x_t/2) \xi_t,\\
+x_t = \mu + \phi x_{t-1} + \sigma_\eta\,\eta_t,
+\end{cases}
+$$
+
+où :
+
+- $\xi_t,\eta_t \sim \mathcal{N}(0,1)$ sont indépendants,
+- $x_t$ est la log-volatilité,
+- $r_t$ est le rendement observé.
+
+On fixe les paramètres :
+
+- $\mu = -0.8$,
+- $\phi = 0.9$,
+- $\sigma_\eta^2 = 0.09$,
+- $T = 252$ observations.
+
+$x_0$ est tiré selon la **loi invariante** :
+
+$$
+x_0 \sim \mathcal{N}\!\left(\frac{\mu}{1-\phi}, \frac{\sigma_\eta^2}{1-\phi^2}\right).
+$$
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import norm
+from scipy.optimize import minimize
+
+np.random.seed(42)
+
+mu_true = -0.8
+phi_true = 0.9
+sigma_eta_true = np.sqrt(0.09)
+T = 252
+
+mean_x0 = mu_true/(1-phi_true)
+var_x0 = sigma_eta_true**2/(1-phi_true**2)
+x0 = np.random.normal(mean_x0, np.sqrt(var_x0))
+
+x = np.zeros(T)
+r = np.zeros(T)
+x[0] = x0
+
+for t in range(1, T):
+    eta = np.random.normal()
+    xi = np.random.normal()
+    x[t] = mu_true + phi_true*x[t-1] + sigma_eta_true*eta
+    r[t] = np.exp(x[t]/2) * xi
+```
+
+---
+
+# 2. Représentation graphique 
+
+```{python}
+plt.figure(figsize=(12,6))
+
+plt.subplot(2,1,1)
+plt.plot(x)
+plt.title("Log-volatilité simulée $x_t$")
+plt.grid()
+
+plt.subplot(2,1,2)
+plt.plot(r)
+plt.title("Rendements simulés $r_t$")
+plt.grid()
+
+plt.tight_layout()
+plt.show()
+```
+
+---
+
+# 3. Construction du modèle log-SV linéarisé
+
+On définit :
+
+$$
+y_t = \log(r_t^2) - \mathbb{E}[\log(\xi_t^2)]
+$$
+
+avec
+$$
+\mathbb{E}[\log(\xi_t^2)] \approx -1.27, \qquad
+\sigma_\varepsilon^2 = \mathbb{V}[\log(\xi_t^2)] = \frac{\pi^2}{2}.
+$$
+
+On obtient ainsi le modèle linéaire :
+
+$$
+\begin{cases}
+y_t = x_t + \varepsilon_t,\\
+x_t = \mu + \phi x_{t-1} + \sigma_\eta \eta_t.
+\end{cases}
+$$
+
+```{python}
+E_log_xi2 = -1.27
+sigma_eps2 = (np.pi**2)/2
+y = np.log(r**2) - E_log_xi2
+```
+
+---
+
+# 4. Étude de la loi de $\log(\xi_t^2)$ 
+
+La densité exacte de $\log(\xi^2)$ est :
+
+$$
+f(y) = \frac{1}{\sqrt{2\pi}} \exp\!\left(\frac{y}{2} - \frac{e^y}{2}\right).
+$$
+
+On la compare à une densité gaussienne :
+
+$$
+N(m, \sigma_\varepsilon^2), \quad m = -1.27.
+$$
+
+```{python}
+grid = np.linspace(-8,5,500)
+
+def f_log_chi2(z):
+    return (1/np.sqrt(2*np.pi))*np.exp(z/2 - np.exp(z)/2)
+
+f_exact = f_log_chi2(grid)
+f_gauss = norm.pdf(grid, loc=-1.27, scale=np.sqrt(sigma_eps2))
+
+plt.figure(figsize=(8,5))
+plt.plot(grid, f_exact, linewidth=2, label="Densité exacte de log($\\xi^2$)")
+plt.plot(grid, f_gauss, linestyle="--", label="Approximation gaussienne")
+plt.grid()
+plt.legend()
+plt.show()
+```
+
+---
+
+# 5. Filtre de Kalman 
+
+##  5.A — Qu’est-ce qu’un filtre de Kalman ?**
+
+Le **filtre de Kalman** est un algorithme récursif permettant d’estimer un état caché d’un système **linéaire** et **gaussien**, à partir d’observations bruitées.
+
+Dans notre cas :
+
+- l’état caché = la *log-volatilité* $x_t$,
+- l’observation = $y_t = \log(r_t^2) - E[\log(\xi_t^2)]$.
+
+Le filtre fournit **à chaque date** :
+
+- une *prédiction* de $x_t$ à partir de $x_{t-1}$,
+- une *correction* de cette prédiction, en fonction de l’observation $y_t$.
+
+Il repose sur deux étapes :
+
+### 1️- Étape de **prédiction**  
+On projette $(x_t, P_t)$ à partir de $(x_{t-1}, P_{t-1})$ :
+
+$$
+\begin{aligned}
+\hat{x}_t^- &= \mu + \phi\,\hat{x}_{t-1}, \\
+P_t^- &= \phi^2 P_{t-1} + \sigma_\eta^2.
+\end{aligned}
+$$
+
+### 2️- Étape de **mise à jour**  
+
+L’innovation = erreur entre observation et prédiction :
+
+$$
+\nu_t = y_t - \hat{x}_t^-.
+$$
+
+Sa variance :
+
+$$
+F_t = P_t^- + \sigma_\varepsilon^2.
+$$
+
+Le **gain de Kalman**, qui règle le poids de l’observation :
+
+$$
+K_t = \frac{P_t^-}{F_t}.
+$$
+
+Enfin, mise à jour de $x_t$ :
+
+$$
+\hat{x}_t = \hat{x}_t^- + K_t \nu_t.
+$$
+
+Et la variance :
+
+$$
+P_t = (1 - K_t) P_t^-.
+$$
+
+Ce filtre est optimal dans la classe des estimateurs linéaires pour les systèmes AR(1)+bruit gaussien.
+
+## 5.B — Implémentation du filtre de Kalman (exigée en Question 5)
+
+```{python}
+def kalman_filter(y, mu, phi, sigma_eta, x0, P0, sigma_eps2=sigma_eps2):
+    T = len(y)
+    x_pred = np.zeros(T)
+    P_pred = np.zeros(T)
+    x_filt = np.zeros(T)
+    P_filt = np.zeros(T)
+    K = np.zeros(T)
+    innov = np.zeros(T)
+    F = np.zeros(T)
+
+    x_filt[0] = x0
+    P_filt[0] = P0
+
+    for t in range(1, T):
+        # Prédiction
+        x_pred[t] = mu + phi*x_filt[t-1]
+        P_pred[t] = phi**2 * P_filt[t-1] + sigma_eta**2
+
+        # Innovation
+        innov[t] = y[t] - x_pred[t]
+        F[t] = P_pred[t] + sigma_eps2
+
+        # Gain
+        K[t] = P_pred[t] / F[t]
+
+        # Mise à jour
+        x_filt[t] = x_pred[t] + K[t]*innov[t]
+        P_filt[t] = (1-K[t]) * P_pred[t]
+
+    return x_filt, P_filt, x_pred, P_pred, innov, F
+```
+
+## 5.3 Application avec paramètres vrais
+
+```{python}
+x0_kf = mu_true/(1-phi_true)
+P0_kf = sigma_eta_true**2/(1-phi_true**2)
+
+x_kf, P_kf, xp, Pp, innov, F = kalman_filter(
+    y, mu_true, phi_true, sigma_eta_true, x0_kf, P0_kf
+)
+```
+
+## 5.4 Comparaison $x_t$ vs $\\hat{x}_t$ (Kalman)
+
+```{python}
+plt.figure(figsize=(12,5))
+plt.plot(x, label="x_t vrai", linewidth=2)
+plt.plot(x_kf, label="x_t filtré (Kalman)", linestyle="--")
+plt.title("Filtre de Kalman appliqué au modèle SV")
+plt.legend()
+plt.grid()
+plt.show()
+```
+
+---
+
+# 6. Estimation des paramètres par Quasi Maximum de Vraisemblance (QML)
+
+La log-vraisemblance est :
+
+$$
+\ell(\theta) = -\frac{1}{2}\sum_{t=1}^T\left(
+\log F_t + \frac{\nu_t^2}{F_t}
+\right),
+$$
+
+où $\nu_t$ et $F_t$ sont générés par le filtre de Kalman.
+
+## 6.1 Filtre utilisé pour la vraisemblance
+
+```{python}
+def kalman_for_likelihood(y, mu, phi, sigma_eta):
+    T = len(y)
+    
+    x0 = mu/(1-phi)
+    P0 = sigma_eta**2/(1-phi**2)
+
+    x_pred = np.zeros(T)
+    P_pred = np.zeros(T)
+    x_filt = np.zeros(T)
+    P_filt = np.zeros(T)
+    innov = np.zeros(T)
+    F = np.zeros(T)
+
+    x_filt[0] = x0
+    P_filt[0] = P0
+
+    for t in range(1, T):
+        x_pred[t] = mu + phi*x_filt[t-1]
+        P_pred[t] = phi**2 * P_filt[t-1] + sigma_eta**2
+
+        innov[t] = y[t] - x_pred[t]
+        F[t] = P_pred[t] + sigma_eps2
+
+        Kt = P_pred[t] / F[t]
+        x_filt[t] = x_pred[t] + Kt*innov[t]
+        P_filt[t] = (1-Kt) * P_pred[t]
+
+    return innov, F
+```
+
+## 6.2 Log-vraisemblance et optimisation
+
+```{python}
+def neg_loglik(params):
+    mu, phi, sigma_eta = params
+    if sigma_eta <= 0 or not (-0.99 < phi < 0.99):
+        return 1e10
+    innov, F = kalman_for_likelihood(y, mu, phi, sigma_eta)
+    ll = -0.5*np.sum(np.log(F[1:]) + (innov[1:]**2)/F[1:])
+    return -ll
+```
+
+```{python}
+init = [-0.5, 0.5, 0.2]
+
+bounds = [(-2,2),(0.01,0.99),(1e-3,1)]
+
+res = minimize(neg_loglik, init, bounds=bounds)
+
+mu_hat, phi_hat, sigma_eta_hat = res.x
+
+print("Paramètres vrais :")
+print(mu_true, phi_true, sigma_eta_true)
+
+print("Paramètres estimés QML :")
+print(mu_hat, phi_hat, sigma_eta_hat)
+```
+
+---
+
+# 7. Filtre particulaire (Bootstrap SMC)
+
+## 7.A —  Pourquoi un filtre particulaire ?
+
+Le filtre de Kalman ne fonctionne que pour des modèles :
+
+- **linéaires**  
+- **gaussiens**
+
+Or le modèle original :
+
+$$
+r_t = \exp(x_t/2)\,\xi_t
+$$
+
+n’est **ni linéaire**, **ni gaussien** dans $x_t$.
+
+Le filtre particulaire est une méthode **non paramétrique**, qui approxime la loi de $x_t | r_{1:t}$ avec un ensemble de particules pondérées :
+
+$$
+\{(x_t^{(i)}, w_t^{(i)})\}_{i=1}^N.
+$$
+
+Le principe :
+
+### 1️- **Prédiction**  
+Chaque particule suit la dynamique :
+
+$$
+x_t^{(i)} = \mu + \phi x_{t-1}^{(i)} + \sigma_\eta \eta_t^{(i)}
+$$
+
+### 2️- **Mise à jour des poids**
+
+$$
+w_t^{(i)} \propto p(r_t \mid x_t^{(i)})
+$$
+
+### 3️- **Normalisation**
+
+$$
+\tilde{w}^{(i)} = \frac{w^{(i)}}{\sum_j w^{(j)}}
+$$
+
+### 4- **Réechantillonnage (ESS)**  
+On élimine les particules trop faibles et on duplique les meilleures.
+
+Ce filtre est adapté aux modèles **non linéaires** et **non gaussiens**, comme le SV de Taylor.
+
+## 7.B — Implémentation du filtre particulaire
+
+```{python}
+def loglik_obs(r_t, x_t):
+    var = np.exp(x_t)
+    return -0.5*(np.log(2*np.pi*var) + r_t**2/var)
+
+def particle_filter(r, mu, phi, sigma_eta, N=1000):
+    T = len(r)
+    mean_x0 = mu/(1-phi)
+    var_x0 = sigma_eta**2/(1-phi**2)
+
+    particles = np.random.normal(mean_x0, np.sqrt(var_x0), size=N)
+    weights = np.ones(N)/N
+    x_hat = np.zeros(T)
+    x_hat[0] = np.average(particles, weights=weights)
+
+    for t in range(1,T):
+        particles = mu + phi*particles + sigma_eta*np.random.normal(size=N)
+        logw = np.array([loglik_obs(r[t],px) for px in particles])
+        logw -= np.max(logw)
+        w = np.exp(logw)
+        weights = w/np.sum(w)
+        x_hat[t] = np.sum(weights*particles)
+
+        cw = np.cumsum(weights)
+        u0 = np.random.uniform(0,1/N)
+        u = u0 + np.arange(N)/N
+        idx = np.searchsorted(cw,u)
+        particles = particles[idx]
+        weights[:] = 1/N
+    return x_hat
+```
+
+## 7.2 Application
+
+```{python}
+x_pf = particle_filter(r, mu_true, phi_true, sigma_eta_true, N=1000)
+
+plt.figure(figsize=(12,5))
+plt.plot(x, label="x_t vrai")
+plt.plot(x_pf, label="x_t estimé (PF)", linestyle="--")
+plt.title("Filtre particulaire vs. volatilité vraie")
+plt.grid()
+plt.legend()
+plt.show()
+```
+
+---
+
+# Conclusion 
+
+Dans ce TP, nous avons :
+
+- simulé un modèle **SV de Taylor** ;
+- construit un modèle **log-SV linéarisé** ;
+- étudié la loi de $\log(\xi_t^2)$ ;
+- **introduit et expliqué pédagogiquement le filtre de Kalman**, puis implémenté celui exigé ;
+- estimé $(\mu,\phi,\sigma_\eta)$ par **QML** ;
+- **expliqué clairement pourquoi et comment fonctionne un filtre particulaire**, puis implémenté un Bootstrap SMC.
+
