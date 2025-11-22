@@ -51,5 +51,12 @@ Vous trouverez ci après des ressources bibliographiques que je vous suggère : 
   <a href="projets/tp_filtre.qmd" class="btn">Lire</a>
 </div>
 
+<div class="project-card">
+  <img src="../Images/options_exotiques.png" class="project-img">
+  <h3>Pricing d'options exotiques</h3>
+  <p>Asiatiques, à barrieres et spreads</p>
+  <a href="projets/options_exotiques.qmd" class="btn">Lire</a>
+</div>
+
 
 </div>

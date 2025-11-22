@@ -1,0 +1,233 @@
+---
+title: "Réplication d'indice par minimisation du Tracking Error"
+author: "KOUGOUM Marilene"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+# Introduction
+
+Ce document présente une implémentation complète d’un modèle de **réplication d’indice** fondé sur :
+
+- la récupération automatique des données via *Yahoo Finance*,
+- le calcul des rendements hebdomadaires,
+- l’optimisation d’un portefeuille minimisant le **tracking error**,
+- un **backtest glissant** avec rééquilibrage régulier,
+- la comparaison des performances entre portefeuille optimisé et indice de référence.
+
+Toutes les méthodes utilisées sont encapsulées dans la classe `IndexReplication`.
+
+---
+
+# 1. Classe Python : IndexReplication
+
+```{python}
+import numpy as np
+import pandas as pd
+from scipy.optimize import minimize
+import yfinance as yf
+
+class IndexReplication:
+    def __init__(self, index_ticker, component_tickers, start_date, end_date, monthly=False):
+        self.index_ticker = index_ticker
+        self.component_tickers = component_tickers
+        self.start_date = start_date
+        self.end_date = end_date
+        self.monthly = monthly
+        self.period = 52
+        self.weights_history = []
+        self.data = None
+        self.portfolio_data = None
+        self.benchmark_data = None
+
+    def get_data(self):
+        """
+        Télécharge les données historiques de l’indice et de ses composants.
+        """
+        data = yf.download(self.component_tickers, start=self.start_date, end=self.end_date)['Close']
+        index = yf.download(self.index_ticker, start=self.start_date, end=self.end_date)['Close']
+
+        data = data.resample('W-FRI').last()
+        index = index.resample('W-FRI').last()
+
+        self.data = {"portfolio_data": data, "benchmark_data": index}
+        self.portfolio_data = data
+        self.benchmark_data = index
+        return self.data
+
+    def get_sub_data(self, start_date, end_date):
+        """
+        Extrait les données sur une sous-période.
+        """
+        data = self.data["portfolio_data"].loc[
+            (self.data["portfolio_data"].index > start_date) & 
+            (self.data["portfolio_data"].index <= end_date)
+        ]
+        index = self.data["benchmark_data"].loc[
+            (self.data["benchmark_data"].index > start_date) & 
+            (self.data["benchmark_data"].index <= end_date)
+        ]
+
+        data = data.resample('W-FRI').last()
+        index = index.resample('W-FRI').last()
+
+        self.portfolio_data = data
+        self.benchmark_data = index
+
+    @staticmethod
+    def calculate_tracking_error(weights, benchmark_returns, portfolio_returns, rho_b_p=1, period=52):
+        """
+        Calcule le tracking error entre portefeuille et benchmark.
+        """
+        covariance_matrix = np.cov(portfolio_returns, rowvar=False) * period
+        var_portfolio = weights.T @ covariance_matrix @ weights
+        var_benchmark = (np.var(benchmark_returns, axis=0) * period).iloc[0]
+
+        term = float(var_portfolio + var_benchmark - 2 * rho_b_p * np.sqrt(var_portfolio) * np.sqrt(var_benchmark))
+        if term < 0:
+            term = 1
+
+        return np.sqrt(term)
+
+    def optimize_tracking_error(self, train_benchmark, train_portfolio, tol=1e-6, max_assets=40):
+        """
+        Optimise les poids du portefeuille afin de minimiser le tracking error.
+        """
+        benchmark_returns = np.log(train_benchmark / train_benchmark.shift(1)).dropna()
+        portfolio_returns = np.log(train_portfolio / train_portfolio.shift(1)).dropna()
+
+        n_assets = portfolio_returns.shape[1]
+        initial_weights = np.ones(n_assets) / n_assets
+        bounds = [(0.0, 1.0) for _ in range(n_assets)]
+
+        def objective_with_penalty(weights):
+            binary_selection = (weights > 0).astype(int)
+            num_selected_assets = np.sum(binary_selection)
+            penalty = max(0, num_selected_assets - max_assets)/n_assets
+            tracking_error = self.calculate_tracking_error(weights, benchmark_returns, portfolio_returns, period=self.period)
+            return tracking_error + penalty
+
+        constraints = [{"type": "eq", "fun": lambda w: np.sum(w) - 1}]
+
+        result = minimize(
+            fun=objective_with_penalty,
+            x0=initial_weights,
+            bounds=bounds,
+            constraints=constraints,
+            method="SLSQP",
+            tol=tol
+        )
+
+        if result.success:
+            w_opt = result.x
+            w_opt[w_opt <= 0] = 0
+            w_opt = w_opt / w_opt.sum()
+            return {ticker: weight for ticker, weight in zip(portfolio_returns.columns, w_opt)}
+        else:
+            return {ticker: weight for ticker, weight in zip(portfolio_returns.columns, initial_weights)}
+
+    def run_backtest(self, max_assets=40):
+        """
+        Réalise un backtest glissant avec rééquilibrage annuel ou mensuel.
+        """
+        self.benchmark_data.index = pd.to_datetime(self.benchmark_data.index)
+        self.portfolio_data.index = pd.to_datetime(self.portfolio_data.index)
+
+        tracking_results = []
+        all_portfolio_returns = []
+        all_benchmark_returns = []
+
+        if self.monthly:
+            step = "1ME"
+            test_freq = "ME"
+        else:
+            step = "12ME"
+            test_freq = "YE"
+
+        start_date = self.benchmark_data.index.min()
+
+        while True:
+            train_start_date = start_date
+            train_end_date = train_start_date + pd.DateOffset(years=1) - pd.Timedelta(days=1)
+            test_start_date = train_end_date + pd.Timedelta(days=1)
+            test_end_date = test_start_date + pd.tseries.frequencies.to_offset(test_freq) - pd.Timedelta(days=1)
+
+            if test_end_date > self.benchmark_data.index.max():
+                break
+
+            train_benchmark = self.benchmark_data.loc[train_start_date:train_end_date]
+            train_portfolio = self.portfolio_data.loc[train_start_date:train_end_date]
+            test_benchmark = self.benchmark_data.loc[test_start_start_date:test_end_date]
+            test_portfolio = self.portfolio_data.loc[test_start_date:test_end_date]
+
+            if train_benchmark.empty or test_benchmark.empty:
+                break
+
+            optimized_weights = self.optimize_tracking_error(train_benchmark, train_portfolio, max_assets=max_assets)
+
+            weights = np.array(list(optimized_weights.values()))
+            self.weights_history.append(optimized_weights)
+
+            test_returns = np.log(test_benchmark / test_benchmark.shift(1)).dropna()
+            portfolio_test_returns = np.log(test_portfolio / test_portfolio.shift(1)).dropna()
+            portfolio_test_returns = portfolio_test_returns[optimized_weights.keys()]
+            portfolio_total_returns = portfolio_test_returns.to_numpy() @ weights
+
+            tracking_error = self.calculate_tracking_error(
+                weights, test_returns, portfolio_test_returns, period=self.period
+            )
+
+            tracking_results.append({
+                "Period": test_start_date.strftime("%Y-%m-%d"),
+                "Tracking Error": tracking_error
+            })
+
+            all_portfolio_returns.append(pd.Series(portfolio_total_returns, index=test_returns.index))
+            all_benchmark_returns.append(test_returns)
+
+            start_date += pd.tseries.frequencies.to_offset(step)
+
+        all_portfolio_returns = pd.concat(all_portfolio_returns, axis=0)
+        all_benchmark_returns = pd.concat(all_benchmark_returns, axis=0)
+
+        annualized_portfolio_return = (1 + all_portfolio_returns).cumprod() - 1
+        annualized_benchmark_return = (1 + all_benchmark_returns).cumprod() - 1
+
+        tracking_df = pd.DataFrame(tracking_results)
+
+        return tracking_df, annualized_portfolio_return, annualized_benchmark_return
+```
+
+---
+
+# 2. Utilisation
+
+Vous pouvez instancier et exécuter le backtest comme suit :
+
+```{python}
+replicator = IndexReplication(
+    index_ticker="^GSPC",
+    component_tickers=["AAPL","MSFT","NVDA","AMZN"],
+    start_date="2015-01-01",
+    end_date="2024-01-01"
+)
+
+replicator.get_data()
+tracking_df, portfolio, benchmark = replicator.run_backtest()
+tracking_df.head()
+```
+
+---
+
+# Conclusion
+
+Ce fichier propose une base solide pour automatiser la **réplication d’un indice** et analyser la performance d’un portefeuille optimisé selon le **tracking error**.  
+Il peut être facilement étendu : contraintes supplémentaires, budget de risque, limites de poids, ou encore intégration d’un univers plus large.
+

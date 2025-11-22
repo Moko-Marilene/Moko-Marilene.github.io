@@ -655,7 +655,7 @@
     "href": "finance_quant/index.html#section",
     "title": "Finance Quantitative",
     "section": " ",
-    "text": "Courbe de taux & modèle de Hull–White\n\n\nBootstrapping, valorisation caplets/swap­tion, calibration Hull–White\n\nLire\n\n\n\n\nModèle de Black Scholes\n\n\nPricing d’options européénnes, calcul de grecques, comparaison formules fermées/monté carlo\n\nLire\n\n\n\n\nCalibration de modèles à volatilité stochastique par filtrage\n\n\nModèle de Taylor, filtre de Kalman, filtre particulaire\n\nLire"
+    "text": "Courbe de taux & modèle de Hull–White\n\n\nBootstrapping, valorisation caplets/swap­tion, calibration Hull–White\n\nLire\n\n\n\n\nModèle de Black Scholes\n\n\nPricing d’options européénnes, calcul de grecques, comparaison formules fermées/monté carlo\n\nLire\n\n\n\n\nCalibration de modèles à volatilité stochastique par filtrage\n\n\nModèle de Taylor, filtre de Kalman, filtre particulaire\n\nLire\n\n\n\n\nPricing d’options exotiques\n\n\nAsiatiques, à barrieres et spreads\n\nLire"
   },
   {
     "objectID": "finance_quant/chapter_one.html",
@@ -1272,5 +1272,89 @@
     "title": "Calibration de modèles à volatilité stochastique par filtrage",
     "section": "5.A — Qu’est-ce qu’un filtre de Kalman ?**",
     "text": "5.A — Qu’est-ce qu’un filtre de Kalman ?**\nLe filtre de Kalman est un algorithme récursif permettant d’estimer un état caché d’un système linéaire et gaussien, à partir d’observations bruitées.\nDans notre cas :\n\nl’état caché = la log-volatilité \\(x_t\\),\nl’observation = \\(y_t = \\log(r_t^2) - E[\\log(\\xi_t^2)]\\).\n\nLe filtre fournit à chaque date :\n\nune prédiction de \\(x_t\\) à partir de \\(x_{t-1}\\),\nune correction de cette prédiction, en fonction de l’observation \\(y_t\\).\n\nIl repose sur deux étapes :\n\n1️- Étape de prédiction\nOn projette \\((x_t, P_t)\\) à partir de \\((x_{t-1}, P_{t-1})\\) :\n\\[\n\\begin{aligned}\n\\hat{x}_t^- &= \\mu + \\phi\\,\\hat{x}_{t-1}, \\\\\nP_t^- &= \\phi^2 P_{t-1} + \\sigma_\\eta^2.\n\\end{aligned}\n\\]\n\n\n2️- Étape de mise à jour\nL’innovation = erreur entre observation et prédiction :\n\\[\n\\nu_t = y_t - \\hat{x}_t^-.\n\\]\nSa variance :\n\\[\nF_t = P_t^- + \\sigma_\\varepsilon^2.\n\\]\nLe gain de Kalman, qui règle le poids de l’observation :\n\\[\nK_t = \\frac{P_t^-}{F_t}.\n\\]\nEnfin, mise à jour de \\(x_t\\) :\n\\[\n\\hat{x}_t = \\hat{x}_t^- + K_t \\nu_t.\n\\]\nEt la variance :\n\\[\nP_t = (1 - K_t) P_t^-.\n\\]\nCe filtre est optimal dans la classe des estimateurs linéaires pour les systèmes AR(1)+bruit gaussien."
+  },
+  {
+    "objectID": "finance_quant/projets/options_exotiques.html",
+    "href": "finance_quant/projets/options_exotiques.html",
+    "title": "Options exotiques : asiatiques, barrières et spreads",
+    "section": "",
+    "text": "⬅ Retour"
+  },
+  {
+    "objectID": "finance_quant/projets/options_exotiques.html#introduction",
+    "href": "finance_quant/projets/options_exotiques.html#introduction",
+    "title": "Options exotiques : asiatiques, barrières et spreads",
+    "section": "Introduction",
+    "text": "Introduction\nDans ce document, nous implémentons et illustrons la valorisation d’options exotiques dans le cadre du modèle de Black–Scholes :\n\noptions européennes (call) comme brique de base ;\nstratégies de call spread et butterfly spread ;\nsimulation de trajectoires du sous-jacent sous Black–Scholes ;\noption asiatique par Monte Carlo (moyenne sur une fenêtre \\([T-\\delta, T]\\)) ;\noption barrière (up-and-out, down-and-out) ;\ncalcul des Greeks (Delta, Gamma, Vega, Theta, Rho) par différences finies,\npour les options asiatiques et barrières.\n\nToutes les fonctions sont regroupées dans une classe Python Optional_Excotic."
+  },
+  {
+    "objectID": "finance_quant/projets/options_exotiques.html#exemple-numérique",
+    "href": "finance_quant/projets/options_exotiques.html#exemple-numérique",
+    "title": "Options exotiques : asiatiques, barrières et spreads",
+    "section": "2.1 Exemple numérique",
+    "text": "2.1 Exemple numérique\n\n\nCode\nS0 = 100\nK = 100\nT = 1.0\nr = 0.02\nsigma = 0.2\n\ncall_price = opt.black_scholes_call(S0, K, T, r, sigma)\ncall_price\n\n\nnp.float64(8.916037278572539)"
+  },
+  {
+    "objectID": "finance_quant/projets/options_exotiques.html#call-spread",
+    "href": "finance_quant/projets/options_exotiques.html#call-spread",
+    "title": "Options exotiques : asiatiques, barrières et spreads",
+    "section": "3.1 Call spread",
+    "text": "3.1 Call spread\nUn call spread (bull spread) consiste à :\n\nacheter un call de strike \\(K_1\\),\nvendre un call de strike \\(K_2 &gt; K_1\\).\n\nLe payoff à maturité est :\n\\[\n\\Pi_{\\text{spread}}(S_T) = \\max(S_T - K_1, 0) - \\max(S_T - K_2, 0).\n\\]\nLe prix est simplement la différence de deux prix de call Black–Scholes.\n\n\nCode\nK1 = 90\nK2 = 110\n\ncs_price = opt.call_spread(S0, K1, K2, T, r, sigma)\ncs_price\n\n\nnp.float64(9.86264005848053)"
+  },
+  {
+    "objectID": "finance_quant/projets/options_exotiques.html#butterfly-spread",
+    "href": "finance_quant/projets/options_exotiques.html#butterfly-spread",
+    "title": "Options exotiques : asiatiques, barrières et spreads",
+    "section": "3.2 Butterfly spread",
+    "text": "3.2 Butterfly spread\nUn butterfly spread (ou stratégie papillon) est une stratégie d’options à risque limité et gain limité, utilisée principalement pour parier sur une faible volatilité du sous-jacent.\nLa position classique consiste à utiliser trois calls européens de strikes différents : - +1 call strike \\(K_1\\)\n- −2 calls strike \\(K_2\\)\n- +1 call strike \\(K_3\\)\navec \\(K_1 &lt; K_2 &lt; K_3\\) et souvent \\(K_2 = (K_1 + K_3)/2\\).\n\n\nCode\nK1 = 90\nK2 = 100\nK3 = 110\n\nbf_price = opt.butterfly_spread(S0, K1, K2, K3, T, r, sigma)\nbf_price\n\n\nnp.float64(1.918299415796433)\n\n\n\nCall spread (bull spread)\nLe call spread est utilisé lorsque l’investisseur :\n\nanticipe une hausse modérée du sous-jacent ;\nsouhaite réduire le coût d’entrée grâce à la vente du call \\(K_2\\) ;\naccepte un gain plafonné au-dessus de \\(K_2\\) ​ C’est une stratégie directionnelle haussière, plus économique que l’achat simple d’un call.\n\n\n\nButterfly spread\nLe butterfly spread est utilisé lorsque l’investisseur :\n\npense que le sous-jacent va peu évoluer d’ici l’échéance ;\nveut profiter d’une volatilité implicite élevée en vendant deux calls ;\nsouhaite conserver un risque limité grâce aux deux calls achetés.\n\nC’est une stratégie non directionnelle, centrée sur un niveau de prix précis, qui gagne lorsque le marché reste calme."
+  },
+  {
+    "objectID": "finance_quant/projets/options_exotiques.html#pricing-par-monte-carlo",
+    "href": "finance_quant/projets/options_exotiques.html#pricing-par-monte-carlo",
+    "title": "Options exotiques : asiatiques, barrières et spreads",
+    "section": "5.1 Pricing par Monte Carlo",
+    "text": "5.1 Pricing par Monte Carlo\n\n\nCode\nS0 = 100\nK = 100\nT = 1.0\nr = 0.02\nsigma = 0.2\ndelta = 0.25    # fenêtre d’average : dernier quart de la vie de l'option\nn_paths = 10_000\nn_steps = 252\n\nprice_asian, paths_asian, averages, expectation = opt.asian_option_monte_carlo(\n    S0, K, T, r, sigma, n_paths, n_steps, delta, option_type=\"call\", seed=123\n)\nprice_asian\n\n\nnp.float64(8.057439373265455)"
+  },
+  {
+    "objectID": "finance_quant/projets/options_exotiques.html#exemple-numérique-1",
+    "href": "finance_quant/projets/options_exotiques.html#exemple-numérique-1",
+    "title": "Options exotiques : asiatiques, barrières et spreads",
+    "section": "6.1 Exemple numérique",
+    "text": "6.1 Exemple numérique\n\n\nCode\nS0 = 100\nK = 100\nT = 1.0\nr = 0.02\nsigma = 0.2\nbarrier = 130\nn_paths = 20_000\nn_steps = 252\n\nbarrier_price = opt.barrier_option(\n    S0, K, T, r, sigma,\n    n_paths, n_steps,\n    barrier, option_type=\"call\", barrier_type=\"up-and-out\", seed=123\n)\nbarrier_price\n\n\nnp.float64(3.3006744151781695)"
+  },
+  {
+    "objectID": "finance_quant/projets/options_exotiques.html#exemple-delta-gamma-vega-theta-rho",
+    "href": "finance_quant/projets/options_exotiques.html#exemple-delta-gamma-vega-theta-rho",
+    "title": "Options exotiques : asiatiques, barrières et spreads",
+    "section": "7.1 Exemple : Delta, Gamma, Vega, Theta, Rho",
+    "text": "7.1 Exemple : Delta, Gamma, Vega, Theta, Rho\n\n\nCode\nS0 = 100\nK = 100\nT = 1.0\nr = 0.02\nsigma = 0.2\ndelta_window = 0.25\nn_paths = 15_000\nn_steps = 252\nepsilon = 1e-2\n\ngreeks_asian = {\n    \"Delta\": opt.calculate_greeks_asiatique(\n        opt.asian_option_monte_carlo, S0, K, T, r, sigma,\n        delta=delta_window, n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"delta\", seed=123\n    ),\n    \"Gamma\": opt.calculate_greeks_asiatique(\n        opt.asian_option_monte_carlo, S0, K, T, r, sigma,\n        delta=delta_window, n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"gamma\", seed=123\n    ),\n    \"Vega\": opt.calculate_greeks_asiatique(\n        opt.asian_option_monte_carlo, S0, K, T, r, sigma,\n        delta=delta_window, n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"vega\", seed=123\n    ),\n    \"Theta\": opt.calculate_greeks_asiatique(\n        opt.asian_option_monte_carlo, S0, K, T, r, sigma,\n        delta=delta_window, n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"theta\", seed=123\n    ),\n    \"Rho\": opt.calculate_greeks_asiatique(\n        opt.asian_option_monte_carlo, S0, K, T, r, sigma,\n        delta=delta_window, n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"rho\", seed=123\n    ),\n}\npd.DataFrame.from_dict(greeks_asian, orient=\"index\", columns=[\"Valeur\"])\n\n\n\n\n\n\n\n\n\nValeur\n\n\n\n\nDelta\n0.575380\n\n\nGamma\n0.018270\n\n\nVega\n36.256141\n\n\nTheta\n5.889691\n\n\nRho\n42.663436\n\n\n\n\n\n\n\nQuestion : quels Greeks semblent les plus stables numériquement avec cet epsilon ?"
+  },
+  {
+    "objectID": "finance_quant/projets/options_exotiques.html#exemple-delta-gamma-vega-theta-rho-barrière-up-and-out",
+    "href": "finance_quant/projets/options_exotiques.html#exemple-delta-gamma-vega-theta-rho-barrière-up-and-out",
+    "title": "Options exotiques : asiatiques, barrières et spreads",
+    "section": "8.1 Exemple : Delta, Gamma, Vega, Theta, Rho (barrière up-and-out)",
+    "text": "8.1 Exemple : Delta, Gamma, Vega, Theta, Rho (barrière up-and-out)\n\n\nCode\nS0 = 100\nK = 100\nT = 1.0\nr = 0.02\nsigma = 0.2\nbarrier = 130\nn_paths = 20_000\nn_steps = 252\nepsilon = 1e-2\n\n# On crée un petit wrapper pour respecter la signature attendue par calculate_greeks_barrier\ndef barrier_price_fn(S, K, T, r, sigma, barrier, option_type, barrier_type,\n                     n_paths, n_steps, seed=None):\n    return opt.barrier_option(S, K, T, r, sigma,\n                              n_paths, n_steps, barrier,\n                              option_type=option_type,\n                              barrier_type=barrier_type,\n                              seed=seed)\n\ngreeks_barrier = {\n    \"Delta\": opt.calculate_greeks_barrier(\n        barrier_price_fn, S0, K, T, r, sigma, barrier,\n        option_type=\"call\", barrier_type=\"up-and-out\",\n        n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"delta\", seed=123\n    ),\n    \"Gamma\": opt.calculate_greeks_barrier(\n        barrier_price_fn, S0, K, T, r, sigma, barrier,\n        option_type=\"call\", barrier_type=\"up-and-out\",\n        n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"gamma\", seed=123\n    ),\n    \"Vega\": opt.calculate_greeks_barrier(\n        barrier_price_fn, S0, K, T, r, sigma, barrier,\n        option_type=\"call\", barrier_type=\"up-and-out\",\n        n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"vega\", seed=123\n    ),\n    \"Theta\": opt.calculate_greeks_barrier(\n        barrier_price_fn, S0, K, T, r, sigma, barrier,\n        option_type=\"call\", barrier_type=\"up-and-out\",\n        n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"theta\", seed=123\n    ),\n    \"Rho\": opt.calculate_greeks_barrier(\n        barrier_price_fn, S0, K, T, r, sigma, barrier,\n        option_type=\"call\", barrier_type=\"up-and-out\",\n        n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"rho\", seed=123\n    ),\n}\npd.DataFrame.from_dict(greeks_barrier, orient=\"index\", columns=[\"Valeur\"])\n\n\n\n\n\n\n\n\n\nValeur\n\n\n\n\nDelta\n0.049868\n\n\nGamma\n-6.735741\n\n\nVega\n-19.610038\n\n\nTheta\n-1.868288\n\n\nRho\n9.062284\n\n\n\n\n\n\n\nQuestion : comment comparer la sensibilité (Delta, Vega, etc.) d’une option barrière avec celle d’un call européen standard ?"
+  },
+  {
+    "objectID": "finance_quant/projets/options_exotiques.html#option-barrière-par-monte-carlo",
+    "href": "finance_quant/projets/options_exotiques.html#option-barrière-par-monte-carlo",
+    "title": "Options exotiques : asiatiques, barrières et spreads",
+    "section": "# 6. Option barrière par Monte Carlo",
+    "text": "# 6. Option barrière par Monte Carlo\nUne option barrière est une option dont la validité dépend du franchissement d’un niveau prédéfini appelé barrière. Elle s’annule (knock-out) ou s’active (knock-in) selon que le sous-jacent atteint ce niveau au cours de sa vie. Parmi les options barrière les plus courantes, on distingue notamment les versions knock-out suivantes :\n\nUp-and-out : l’option est annulée si le prix du sous-jacent franchit la barrière par le haut au moins une fois avant l’échéance.\nDown-and-out : l’option est annulée si le prix du sous-jacent franchit la barrière par le bas au cours de sa vie.\n\nDans ces deux cas, l’option cesse d’exister si le sous-jacent atteint la barrière, ce qui réduit son coût par rapport à une option classique mais introduit une dépendance forte au chemin suivi par le prix.\nNous considérons ici une option barrière de type up-and-out ou down-and-out :\n\nup-and-out : l’option s’annule si \\(S_t\\) franchit la barrière \\(B\\) par le haut ;\ndown-and-out : l’option s’annule si \\(S_t\\) franchit \\(B\\) par le bas.\n\nPayoff d’un call barrière à maturité, en notant \\(I_T\\) l’indicateur d’absence de franchissement :\n\\[\n\\text{payoff} = I_T \\cdot \\max(S_T - K, 0).\n\\]"
+  },
+  {
+    "objectID": "finance_quant/projets/options_exotiques.html#illustration-delta-gamma-vega-theta-rho",
+    "href": "finance_quant/projets/options_exotiques.html#illustration-delta-gamma-vega-theta-rho",
+    "title": "Options exotiques : asiatiques, barrières et spreads",
+    "section": "7.1 Illustration : Delta, Gamma, Vega, Theta, Rho",
+    "text": "7.1 Illustration : Delta, Gamma, Vega, Theta, Rho\n\n\nCode\nS0 = 100\nK = 100\nT = 1.0\nr = 0.02\nsigma = 0.2\ndelta_window = 0.25\nn_paths = 15_000\nn_steps = 252\nepsilon = 1e-2\n\ngreeks_asian = {\n    \"Delta\": opt.calculate_greeks_asiatique(\n        opt.asian_option_monte_carlo, S0, K, T, r, sigma,\n        delta=delta_window, n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"delta\", seed=123\n    ),\n    \"Gamma\": opt.calculate_greeks_asiatique(\n        opt.asian_option_monte_carlo, S0, K, T, r, sigma,\n        delta=delta_window, n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"gamma\", seed=123\n    ),\n    \"Vega\": opt.calculate_greeks_asiatique(\n        opt.asian_option_monte_carlo, S0, K, T, r, sigma,\n        delta=delta_window, n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"vega\", seed=123\n    ),\n    \"Theta\": opt.calculate_greeks_asiatique(\n        opt.asian_option_monte_carlo, S0, K, T, r, sigma,\n        delta=delta_window, n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"theta\", seed=123\n    ),\n    \"Rho\": opt.calculate_greeks_asiatique(\n        opt.asian_option_monte_carlo, S0, K, T, r, sigma,\n        delta=delta_window, n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"rho\", seed=123\n    ),\n}\npd.DataFrame.from_dict(greeks_asian, orient=\"index\", columns=[\"Valeur\"])\n\n\n\n\n\n\n\n\n\nValeur\n\n\n\n\nDelta\n0.575380\n\n\nGamma\n0.018270\n\n\nVega\n36.256141\n\n\nTheta\n5.889691\n\n\nRho\n42.663436"
+  },
+  {
+    "objectID": "finance_quant/projets/options_exotiques.html#illustration-delta-gamma-vega-theta-rho-barrière-up-and-out",
+    "href": "finance_quant/projets/options_exotiques.html#illustration-delta-gamma-vega-theta-rho-barrière-up-and-out",
+    "title": "Options exotiques : asiatiques, barrières et spreads",
+    "section": "8.1 Illustration : Delta, Gamma, Vega, Theta, Rho (barrière up-and-out)",
+    "text": "8.1 Illustration : Delta, Gamma, Vega, Theta, Rho (barrière up-and-out)\n\n\nCode\nS0 = 100\nK = 100\nT = 1.0\nr = 0.02\nsigma = 0.2\nbarrier = 130\nn_paths = 20_000\nn_steps = 252\nepsilon = 1e-2\n\n# On crée un petit wrapper pour respecter la signature attendue par calculate_greeks_barrier\ndef barrier_price_fn(S, K, T, r, sigma, barrier, option_type, barrier_type,\n                     n_paths, n_steps, seed=None):\n    return opt.barrier_option(S, K, T, r, sigma,\n                              n_paths, n_steps, barrier,\n                              option_type=option_type,\n                              barrier_type=barrier_type,\n                              seed=seed)\n\ngreeks_barrier = {\n    \"Delta\": opt.calculate_greeks_barrier(\n        barrier_price_fn, S0, K, T, r, sigma, barrier,\n        option_type=\"call\", barrier_type=\"up-and-out\",\n        n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"delta\", seed=123\n    ),\n    \"Gamma\": opt.calculate_greeks_barrier(\n        barrier_price_fn, S0, K, T, r, sigma, barrier,\n        option_type=\"call\", barrier_type=\"up-and-out\",\n        n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"gamma\", seed=123\n    ),\n    \"Vega\": opt.calculate_greeks_barrier(\n        barrier_price_fn, S0, K, T, r, sigma, barrier,\n        option_type=\"call\", barrier_type=\"up-and-out\",\n        n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"vega\", seed=123\n    ),\n    \"Theta\": opt.calculate_greeks_barrier(\n        barrier_price_fn, S0, K, T, r, sigma, barrier,\n        option_type=\"call\", barrier_type=\"up-and-out\",\n        n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"theta\", seed=123\n    ),\n    \"Rho\": opt.calculate_greeks_barrier(\n        barrier_price_fn, S0, K, T, r, sigma, barrier,\n        option_type=\"call\", barrier_type=\"up-and-out\",\n        n_paths=n_paths, n_steps=n_steps,\n        epsilon=epsilon, greek=\"rho\", seed=123\n    ),\n}\npd.DataFrame.from_dict(greeks_barrier, orient=\"index\", columns=[\"Valeur\"])\n\n\n\n\n\n\n\n\n\nValeur\n\n\n\n\nDelta\n0.049868\n\n\nGamma\n-6.735741\n\n\nVega\n-19.610038\n\n\nTheta\n-1.868288\n\n\nRho\n9.062284\n\n\n\n\n\n\n\nQuestion : comment comparer la sensibilité (Delta, Vega, etc.) d’une option barrière avec celle d’un call européen standard ?"
   }
 ]
