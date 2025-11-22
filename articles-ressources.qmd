@@ -1,0 +1,93 @@
+---
+title: "Ressources"
+format:
+  html:
+    toc: false
+---
+
+
+[⬅ Retour à la page d'accueil](index.qmd)
+
+
+<div id="ressources" style="font-family: Arial, sans-serif; line-height: 1.6; max-width: 900px; margin: auto; padding: 20px;">
+
+<h1 style="text-align:center; margin-bottom: 40px;">📚 Ressources Utiles</h1>
+
+<!-- ======================= -->
+<!--   FINANCE QUANTITATIVE  -->
+<!-- ======================= -->
+<h2 style="color:#003366; border-bottom: 2px solid #003366; padding-bottom: 5px;">
+     Finance Quantitative — Ressources
+</h2>
+
+<ul>
+    <li>
+        <strong>Jean Blanc — Cours M2 : Probabilités et Finance</strong><br>
+        <a href="https://math.maths.univ-evry.fr/jeanblanc/cours/M2_cours.pdf" target="_blank">
+            https://math.maths.univ-evry.fr/jeanblanc/cours/M2_cours.pdf
+        </a>
+    </li>
+
+    <li>
+        <strong>John Hull</strong> — <em>Options, Futures and Other Derivatives</em> (8ᵉ édition)
+    </li>
+
+    <li>
+        <strong>Lorenzo Bergomi</strong> — <em>Stochastic Volatility Modeling</em>
+    </li>
+
+    <li>
+        <strong>Contrôle stochastique</strong><br>
+        Huyên Pham — <em>Continuous-Time Stochastic Control and Optimization with Financial Applications</em><br>
+        <span style="font-size:0.9em; color:#555;">
+            (Recommandé par notre enseignant de contrôle stochastique au M2MO.)
+        </span>
+    </li>
+</ul>
+
+<!-- ======================= -->
+<!--   GESTION DES RISQUES   -->
+<!-- ======================= -->
+<h2 style="color:#663300; border-bottom: 2px solid #663300; padding-bottom: 5px; margin-top: 40px;">
+     Gestion des Risques & Régulation — Ressources
+</h2>
+
+<p style="font-size:0.95em; color:#444; margin-top:-10px;">
+    Utilisés par la majorité des étudiants de la filière Gestion de Risques à l’ENSAI  
+    (même si l’enseignant a changé).  
+    Très complets et particulièrement utiles.
+</p>
+
+<ul>
+    <li>
+        <strong>Thierry Roncalli — Copula & Risk Management (ENSAI)</strong><br>
+        <a href="http://www.thierry-roncalli.com/download/Lecture-Notes-Copula-Ensai.pdf" target="_blank">
+            http://www.thierry-roncalli.com/download/Lecture-Notes-Copula-Ensai.pdf
+        </a>
+    </li>
+
+    <li>
+        <strong>Thierry Roncalli — Risk Management Course</strong><br>
+        <a href="http://www.thierry-roncalli.com/RiskManagementCourse.html" target="_blank">
+            http://www.thierry-roncalli.com/RiskManagementCourse.html
+        </a>
+    </li>
+</ul>
+
+<!-- ======================= -->
+<!--   MODÉLISATION STAT     -->
+<!-- ======================= -->
+<h2 style="color:#004d26; border-bottom: 2px solid #004d26; padding-bottom: 5px; margin-top: 40px;">
+    Modélisation Statistique & Data Science — Ressources
+</h2>
+
+<ul>
+    <li>
+        <strong>Cours de Séries Temporelles — ENS Paris-Saclay</strong><br>
+        <a href="https://www.math.u-bordeaux.fr/~hzhang/m2/st/TS1.pdf" target="_blank">
+            https://www.math.u-bordeaux.fr/~hzhang/m2/st/TS1.pdf
+        </a>
+    </li>
+</ul>
+
+</div>

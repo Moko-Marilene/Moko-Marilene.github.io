@@ -1,4 +1,0 @@
----
-title: "Marilene-website "
-subtitle: "Quantitative finance / Stochastic modelling/ Risk management / Data science"
----

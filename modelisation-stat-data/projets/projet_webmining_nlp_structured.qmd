@@ -1,0 +1,1035 @@
+---
+title: "Projet Web Mining & NLP : Analyse de flux RSS et Modélisation"
+author: "KOUGOUM Marilene"
+format:
+  html:
+    toc: true
+    code-fold: true
+jupyter: python3
+---
+
+
+[⬅ Retour](../index.qmd)
+
+
+
+# Introduction
+
+Ce projet de **Web Mining et NLP** vise à extraire, analyser et modéliser des informations textuelles issues de flux RSS.  
+Nous appliquons plusieurs techniques :
+
+- Collecte et parsing de flux RSS  
+- Nettoyage et prétraitement linguistique  
+- Extraction de mots-clés  
+- Analyse de sentiments  
+- Classification et vectorisation  
+- Visualisation des tendances textuelles  
+
+---
+
+# 1. Importation des librairies et collecte des données
+
+
+##  Installation des packages et données nécessaires
+
+
+```{python}
+!wget https://people.irisa.fr/Guillaume.Gravier/teaching/ENSAI/data/francetvinfo.json
+!wget https://people.irisa.fr/Guillaume.Gravier/teaching/ENSAI/data/tvinfo-sources.json
+!pip install feedparser
+!pip install newspaper3k
+!pip install newspaper3k
+!pip install lxml[html_clean]
+!python-m spacy download fr_core_news_md
+```
+
+
+```{python}
+import spacy
+```
+
+
+
+##  Acquisition de données par écoute d’un flux RSS
+
+
+### Question 1
+
+
+##### Q.1.1- Importons nos differentes bases de travail
+
+
+```{python}
+import json
+
+## On a ici notre base contenant contenant les sources des flux RSS du site francetvinfo.fr
+with open("tvinfo-sources.json", 'r') as f:
+  fichier_source =json.load(f)
+```
+
+
+```{python}
+## Ici, on dispose de la base contenant des articles du site francetvinfo.fr
+
+with open("francetvinfo.json", 'r') as f:
+  data_info =json.load(f)
+```
+
+
+##### Q.1.2- Analysons la base de données existante francetvinfo.json, regardons sa structure et les informations qu'elle contient
+
+
+```{python}
+## le type de notre base
+print(type(data_info))    ## C'est un dictionnaire
+print('\n')
+
+## la taille de notre base de données
+print(len(data_info))     ## 2097
+print('\n')
+
+## On parcoure 5 éléments de notre dictionnaire
+for i, (key, value) in enumerate(data_info.items()):
+    if i < 5:  # Limiter à 5 éléments
+        print(f"Clé: {key} -> Valeur: {value}")
+        print(type(value))
+    else:
+        break
+```
+
+
+On constate que notre base de données est un dictionnaire contenant 2097 éléments.
+
+Chacun des elements de ce dictionnaire est un article issu du site francetvinfo.fr dont la clé represente le lien URL de l'article et la valeur est un  dictionnaire contenant les informations de l'article notamment :  
+  -  son titre : 'title'  
+  -sa date de publication : 'date'  
+  -Son auteur : 'author'  
+  -Sa catégorie : 'category'  
+  -son contenu : 'content'  
+  -le lien de son image d'illustration : 'image_link'
+
+
+##### Q.1.2-
+
+
+  
+##### Q.1.2.1- Analysons au préalable le contenu de la base tvinfo-sources.json
+
+
+```{python}
+## le type de notre base
+print(type(fichier_source))  ### C'est un dictionnaire
+print('\n')
+
+## la taille de notre base de données
+print(len(fichier_source))  ### 3
+print('\n')
+
+## On parcoure les 3 éléments de notre dictionnaire
+for i, (key, value) in enumerate(fichier_source.items()):
+    print(f"Clé: {key} -> Valeur: {value}")
+    print(type(value))
+```
+
+
+Notre base fichier_source est un dictionnaire composé de 3 éléments. Chaque élément associe une clé, représentant une localisation géographique ou un secteur d'activité, à une valeur qui correspond au flux RSS lié.
+
+
+##### Q.1.2.2- Identifions les informations disponibles dans nos flux RSS et les éléments correspondants dans la structure de données retournées.
+
+
+```{python}
+import ssl
+import feedparser as fp
+from pprint import pprint
+
+## Prémunissons nous contre le blocage de la commande SSL
+ssl._create_default_https_context = ssl._create_unverified_context
+
+## Recuperons ensuite nos flux RSS
+urls =  [url for url in fichier_source.values()]
+
+## Parcourons chaque URL de flux RSS et,
+for url in urls:
+  data = fp.parse(url)
+  for item in data.entries:
+    ## Affichons la structure de l'article (clé-valeur) pour le premier élément seulement
+      pprint(item)
+      print("\n")
+      break
+
+```
+
+
+En observant les structures des premiers articles pour chacun de nos 3 flux, on observe que chacun des items pour ces liens ont vraisemblablement la même structure, et contiennent: l'identification, le lien, la date de publication, un resumé sommaire, le titre et le contenu des articles ...
+
+
+##### Q.1.3- pour chacun des flux RSS listés dans le fichier tvinfo-sources.json effectuons les opérations suivantes:
+
+  - lisons les données du flux RSS  
+  - scannons les articles et repérons ceux qui ne sont pas déjà a présents dans la base de données
+
+
+```{python}
+## Créons une fonction qui permettrait de  scanner les articles et repérer ceux qui ne sont pas déjà présents dans la base de données
+
+def check_new_articles(fichier_source):
+
+  """
+  Cette fonction scanne les articles dans les flux RSS présents dans 'fichier_source' et identifie ceux qui ne sont pas déjà présents
+  dans la base de données 'data_info'.
+
+  Parameters :
+  - fichier_source : Dictionnaire contenant les catégories de flux RSS (clé) et leurs URL (valeur).
+
+  Retour :
+  - new_links : Liste des liens des articles qui ne sont pas encore dans la base de données 'data_info'.
+  """
+
+  new_links = []
+  ## On parcoure les données dans chacun des flux du fichier source
+  for url in [value for value in fichier_source.values()]:
+    ## On lit chacun des flux RSS
+    print(url)
+    data = fp.parse(url)
+    lien_source = [item.link for item in data.entries]
+    print("le nombre de liens dans la source", len(lien_source))
+    for item in data.entries:
+      ### scannons les articles et reperons ceux qui ne sont pas déjà présents dans la base de données data-info
+      lien_article = item.link
+      if lien_article not in [liens_deja_p for liens_deja_p in data_info.keys()]:
+        new_links.append(lien_article)
+    print("le nombre de nouveaux articles est: ", len(new_links))
+
+  return new_links
+```
+
+
+```{python}
+new_links=check_new_articles(fichier_source)
+```
+
+
+Nos flux RSS nous renvoient au total vers 60 articles. Et, le code ci dessus nous inquique que tous ces 60 articles ne sont pas présent dans notre base d'articles existants francetv-info.json(data_info)
+
+
+### Q.2. -
+
+
+
+
+Nous avons choisi l'article dont le lien est le suivant: https://www.francetvinfo.fr/france/grand-est/bas-rhin/strasbourg/nouvel-an-un-adolescent-meurt-a-strasbourg-percute-par-un-vehicule-en-fuite_6988709.html#xtor=RSS-3-[general].
+
+Après inspection de la page web associée, nous constatons que sa structure repose sur un code HTML bien organisé :
+
+- Le titre de l'article est situé dans une balise de type h1 avec une classe nommée "c-title".
+
+- Le contenu de l'article se trouve dans une section principale identifiée par une balise div avec une classe "c-body".
+
+Pour accéder à ce contenu, il est possible d'utiliser des bibliothèques adaptées à l'analyse et au traitement des pages HTML que nous avons vu l'année derniere en compléments d'info.
+ On pourrait notamment se servir de BeautifulSoup ou encore de Selenuim au cas où notre contenu serait généré dynamiquement avec JavaScript.
+
+Cette inspection préalable rend la tâche d'extraction de données fastidieuse et pourrait davantage l'être pour des pages avec des structures complexes.  
+ Le recours à la librairie newspaper represente  une alternative plus simple à l'utisation de ces bibliothèques . En effet, elle permet d'automatiser la recherche et l'extraction des informations clés tels que le contenu de l'article même pour des pages avec des structures complexes.
+
+
+
+
+
+### Question 3 : Mettons à jour notre base de données data_info avec les articles contenus dans les flux RSS à notre dispositions
+
+
+```{python}
+## Importons  newpaper
+import newspaper as np
+```
+
+
+```{python}
+def complete_data_info(data_info,fichier_source):
+
+  """
+  data_info correspond à la base des articles à completer
+  fichier_source correspond au fichier json contenant les liens des flux RSS
+
+   La fonction parcourt chaque flux RSS dans 'fichier_source', télécharge et parse
+   les articles associés à chaque flux, puis ajoute ses informations à 'data_info'.
+
+  la fonction retourne la base de données complétée avec les nouveaux articles
+  """
+  ### On parcoure nos flux RSS
+  for _, (key, url) in enumerate(fichier_source.items()):
+    ### On parse nos flux RSS
+    data = fp.parse(url)
+    ### On recupère les les liens de chacune de nos pages
+    for item in data.entries:
+      html = item.link
+      article = np.Article(html)
+      article.download()
+      article.parse()
+      value_to_add = dict(title = article.title, date = article.publish_date, author = article.authors, category = key, content = article.text, image_link = article.top_image)
+      data_info[item.link] = value_to_add
+  return data_info
+```
+
+
+```{python}
+## On affiche la taille initiale
+len(data_info)
+```
+
+
+```{python}
+## On applique notre fonction
+data_info_complete = complete_data_info(data_info,fichier_source)
+```
+
+
+```{python}
+## On afficle la taille de notre base complétée
+print(len(data_info_complete))
+```
+
+
+```{python}
+print(type(data_info_complete))
+```
+
+
+### Q.4. - Comment se prémunir d'une eventuelle suppression des images illustratives de nos articles sur les sites web?
+
+Étant donné que la bibliothèque newspaper permet d'accéder facilement aux URLs des images illustratives, il est possible de prendre les mesures suivantes pour conserver ces images :
+
+- **Identifier et vérifier les URLs des images**
+-**Télécharger et sauvegarder les images localement** : Télécharger les images à partir de leurs URLs et les stocker localement en suivant une structure organisée.
+-**Associer les chemins locaux aux articles** : Lier les images téléchargées aux articles correspondants dans notre base de données.
+
+On pourrait donc ainsi conserver une copie des images illustratives, assurant leur disponibilité même si elles sont supprimées du site source.
+
+
+### La question 5 a été omise dans l'énoncé du projet
+
+
+### Q.6.-  Donnons une idée d’une (ou plusieurs) autre(s) source(s) que l’on pourrait-on écouter pour collecter des informations complémentaires sur ces articles ?
+
+
+Afin de collecter davantage d'informations sur nos articles, une ressource pertinente pourrait être le contenu des commentaires relatifs à ces articles ainsi que les likes associés.
+
+**Extraction des commentaires**  
+ Les commentaires relatifs aux articles peuvent être extraits en utilisant des bibliothèques comme **BeautifulSoup** ou **Selenium**, déjà mentionnées plus haut.
+
+**Quelles informations pertinentes peut-on tirer du contenu des commentaires d'un article ?**
+- Les commentaires permettent d'évaluer le ressenti des lecteurs vis-à-vis d'un article.
+- Pour cela, on pourrait exploiter le travail réalisé lors du TP2 en classe, notamment en utilisant la bibliothèque SentiWordNet pour calculer les scores de polarité moyens (positifs et négatifs) des commentaires associé à l'article.  
+
+**Quelles informations pertinentes peut-on tirer des likes ?**  
+Sachant que tous les lecteurs ne commentent pas, leur avis peut être reflété par les likes attribués aux commentaires existants. Ainsi, afin de refleter de maniere plus vraissemblable le ressenti des lecteurs par rapport à un article, on pourrait calculer une moyenne arithmétique pondérée des scores de polarité (positifs ou négatifs) des commentaires, en utilisant le nombre de likes comme poids.
+
+
+On pourrait également scraper d'autres informations utiles et qui ne sont pas disponibles dans notre base de données actuelle telles que le temps de lecture...
+
+
+#  Extraction d’information
+
+
+##  Extraction des entités nommées
+
+
+```{python}
+import spacy
+!python -m spacy download fr_core_news_md
+### On charge notre pipeline
+process = spacy.load("fr_core_news_md")
+```
+
+
+### Q.7
+
+
+#### Q.7.1- Expliquons à quoi correspondent les étiquettes IOB ?
+
+ Les étiquettes IOB (Inside, Outside, Beginning)  utilisées dans l'énoncé correspondent à un format utilisé pour annoter les entités dans un texte lors de la tâche de reconnaissance d'entités. Elles permettent de marquer les différentes parties d'une entité dans un texte.
+- L'étiquette  **B** (Beginning) marque le début d'une entité.
+-  L'étiquette **I** (Inside) marque les mots qui font partie d'une entité déjà commencée.
+- L'étiquette **O** (Outside) marque un mot qui n'appartient à aucune entité
+
+
+
+
+#### Q.7.2-  Expliquons brièvement une technique (description de la tâche, du modèle) pour la détection des entités nommées
+
+La détection des entités nommées est une tâche de traitement du langage naturel (NLP) qui consiste à identifier et classifier des entités comme des personnes, des lieux, des organisations, etc., dans un texte.
+
+- Présentons brèvement le modèle **BERT**
+
+Une technique courante pour détecter les entités nommées repose sur l'utilisation de modèles pré-entraînés tels que BERT (Bidirectional Encoder Representations from Transformers). BERT est un modèle de langage basé sur l'architecture des Transformers qui repose sur un apprentissage bidirectionnel, ce qui lui permet de comprendre le contexte des mots en prenant en compte à la fois les mots précédents et suivants. Contrairement aux modèles unidirectionnels, BERT analyse un texte dans les deux sens, ce qui améliore considérablement sa compréhension du langage.  
+Il d'abord pré-entraîné sur une large base de textes, puis il est tuné sur des données spécifiques pour des tâches comme la classification des entités.
+
+
+```{python}
+# process text with pipeline
+res = process("Jean Dupont est maire de Plouguemeur")
+# list e that were detected
+#for e in res.ents:
+  #print(e.text, e.start, e.end, e.label_)
+
+for token in res:
+  print(token, token.ent_iob_, token.ent_type_, token.is_sent_start)
+```
+
+
+### Q.8.-  Ecrivons un programme qui traite l’ensemble des textes que nous  aurons chargé depuis le fichier francetvinfo.json mis à jour  et stock pour chaque article les entités trouvées et les informations afférentes.
+
+
+```{python}
+import pandas as pd
+import spacy
+
+def find_entities(data_info_complete):
+  """
+  Notre fonction prend en entrée la base de données complétée (mise à jour)
+
+  Fonctionnement :
+  Elle parcoure chacun des articles de ladite base,
+  elle recupere pour chacun d'eux, le titre, le lien et le contenu( qu'elle va  processer).
+
+  Notre fonction retourne une liste de dictionnaires,
+  chacun des dictionnaires correspond à un article de la base et comporte 3 paires clé-valeur que sont:
+
+    - la clé 'title' dont la valeur est effectivement le titre de l'article
+    - la clé 'entities' dont la valeur est une liste de dictionnaires. Chacun des dictionnaires est relatif
+    à une entité comporte 4 paires clé-valeur qui fournissent les informations sur cette entité : entité,
+    début, fin et label.
+    - la clé 'links' dont la valeur est le lien de l'article.
+  """
+  contents = []
+  titles = []
+  links = []
+  all_articles = []
+
+  # Créons les data frames pour les titres et pour les contenus des articles
+  for _, (key, value) in enumerate(data_info_complete.items()):
+      titles.append(value['title'])
+      contents.append(value["content"])
+      links.append(key)
+
+  # Créons d'un DataFrame  avec les colonnes titre , contenu et liens.
+  df_infos_articles = pd.DataFrame({
+    "title": titles,
+    "content": contents,
+    "links": links
+  })
+
+  # Parcourons chaque document dans df_contents et traitons le contenu (texte) associé
+  for i, doc in enumerate(process.pipe(df_infos_articles["content"], disable=["pos", "parser"])):
+      # On créé un dictionnaire pour chaque article
+      dic_articles = {"title": df_infos_articles["title"][i], "entities": [], "links": df_infos_articles["links"][i]}
+
+      ## On extrait nos entités pour le contenu de chaque article
+      for e in doc.ents:
+          dic_articles["entities"].append({
+              "entite": e.text,
+              "debut": e.start,
+              "fin": e.end,
+              "label": e.label_
+          })
+
+      ## Ajoutons l'article avec ses entités à la liste
+      all_articles.append(dic_articles)
+
+  return all_articles
+
+```
+
+
+```{python}
+## On appelle notre fonction sur la base de données complétée
+all_articles = find_entities(data_info_complete)
+```
+
+
+```{python}
+print(len(all_articles))
+```
+
+
+```{python}
+## On visualise le premier element retourné par notre fonction
+all_articles[0]
+```
+
+
+## Analyse des entités nommées
+
+
+### Q.9. - Pour chaque type d’entité, déterminons les 20 plus fréquentes dans la collection que nous avons extraite précédemment. On mémorisera ces entités dans trois listes distinctes.
+
+
+```{python}
+from collections import Counter
+
+def surepresent_entities(all_articles):
+  """
+  Notre fonction extrait les entités nommées les plus fréquentes de type
+  PERSONNE (PER), LOCALISATION (LOC) et ORGANISATION (ORG) à partir notre liste d'entités construite
+  précédemment (qu'elle prend en entrée), et retourne les 20 entités les plus récurrentes pour chaque type (dans 3 listes distinctes).
+
+  - Elle parcourt chaque article de notre liste construite precedemment et extrait les entités nommées.
+  - Elle trie les entités en fonction de leur type ('PER', 'LOC', 'ORG').
+  - Elle compte la fréquence de chaque entité à l'aide de la classe Counter.
+
+  Elle Renvoie les 20 entités les plus fréquentes pour chaque type (dans 3 listes distinctes).
+
+  """
+  per = []
+  loc = []
+  org = []
+  for article in all_articles: ## On parcoure nos articles
+    entities_article = [value for value in article.values()]
+    entities_articles = entities_article[1]  ## On extrait les entités associés que nous avions récupérés dans la fonction précédente
+    for entity in entities_articles: ## On identifie le type de chaque entité et on la met dans la liste adéquate
+      if entity['label'] == 'PER':
+        per.append(entity['entite'])
+      elif entity['label'] == 'LOC':
+        loc.append(entity['entite'])
+      elif entity['label'] == 'ORG':
+        org.append(entity['entite'])
+  # Comptons les fréquences des entités pour chaque type
+  per_counter = Counter(per)
+  loc_counter = Counter(loc)
+  org_counter = Counter(org)
+
+  # Obtenir les 20 entités les plus récurrentes pour chaque type
+  top_20_per = per_counter.most_common(20)
+  top_20_loc = loc_counter.most_common(20)
+  top_20_org = org_counter.most_common(20)
+
+  return top_20_per, top_20_loc, top_20_org
+
+```
+
+
+```{python}
+### On appelle notre fonction
+top_20_per, top_20_loc, top_20_org = surepresent_entities(all_articles)
+```
+
+
+```{python}
+### Top 20 des personnes
+top_20_per
+```
+
+
+```{python}
+## Top 20 des localisations
+top_20_loc
+```
+
+
+```{python}
+## Top 20 des organisations
+top_20_org
+
+```
+
+
+De l'illustration ci dessus, on constate que spacy admet tout de même des limites. Il peut en effet, produire des résultats ambigus ou incohérents.  On remarque notamment:  
+- **Incohérence dans la classification des entités** : la COVID-19 est classée comme une personne, et même temps comme une organisation.
+- **Double identification des entités similaires** : 'France' et 'la France' sont identifiées comme  étant deux localisations differentes.
+
+
+### Q.10 - Ecrivons une fonction qui prend en entrée une paire d’entités et les types correspondant et retourne les co-occurrences de ces deux entités au sein d’un même document (article) dans notre collection d'articles **"all_articles"** construite à Q.8.
+
+
+```{python}
+def entities_co_occ(entite_1, entite_2,type_ent_1, type_ent_2, article):
+
+  """
+    Cette fonction permet de déterminer si une paire d'entités (entite_1 et entite_2) co-occurrent dans un article donné.
+
+    - L'argument 'article' est un dictionnaire où chaque élément représente un article et contient des informations sur
+      les entités identifiées dans cet article.
+    - Les entités sont recherchées selon leurs types (type_ent_1 et type_ent_2) et leurs noms respectifs (entite_1 et entite_2).
+
+    La fonction vérifie si les deux entités spécifiées apparaissent ensemble dans l'article.
+    Si c'est le cas, le compteur de co-occurrence est incrémenté de 1.
+
+    Retour :
+    - occ_ent_1_ent_2 : Le nombre de fois où les deux entités co-occurrent dans cet article.
+      La fonction retourne 1 si les entités co-occurrent, sinon elle retourne 0.
+    """
+
+  entities_article = [value for value in article.values()][1] ##  On récupère la liste des entités dans l'article
+  occ_ent_1_ent_2 = 0
+
+  occ_ent_1 = any(entity['label'] == type_ent_1 and entity['entite'] == entite_1  for entity in entities_article)
+  occ_ent_2 = any(entity['label'] == type_ent_2 and entity['entite'] == entite_2  for entity in entities_article)
+
+  if occ_ent_1 and occ_ent_2 :
+      occ_ent_1_ent_2 += 1
+  return  occ_ent_1_ent_2
+```
+
+
+```{python}
+## Pour l'illustration, on choisit le premier article de notre base mise à jour
+all_articles[0]
+```
+
+
+```{python}
+## Illustration
+occ_1 = entities_co_occ('Claire', 'Claire Carrère-Godebout','PER','PER', all_articles[0])
+occ_1
+```
+
+
+### Q.11. -   En partant des listes de la question 8, on utilisera la fonction de la question précédente pour chercher les paires d’entités de type différents qui apparaissent le plus souvent ensemble dans notre collection d'articles mise à jour.
+
+Pour rendre la tâche moins complexe et chronophage, nous restreindrons notre ensemble de paires d'entités aux listes top_20_per et top_20_loc construites à Q.9 et representant respectivement les 20 personnes et 20 lieux les plus mentionnées dans notre collection d'articles.
+
+
+```{python}
+def find_pairs_entities(entity_1, entity_2,type_ent_1, type_ent_2,all_articles):
+
+    """
+
+    Notre fonction permet de determiner le nombre de co-occurences d'une paire d'entités dans notre collection d'articles mise à jour.
+
+    Elle  prend en entrée lesdites entités, leurs types et notre liste d'articles
+    (celle où pour chaque article on a stocké les entités associés) construite à la question 8.
+
+    Elle parcourt chacun des articles de la liste fournie et utilise la fonction de la question précédente pour identifier les co-occurrences de
+    cette paire dans l'article et met à jour chaque fois un compteur que nous avons préalablement initialisé.
+
+    Elle retourne  finalement le nombre de co-occurences de notre paire d'entités dans la collection d'articles.
+    """
+    occ =0
+    for article in all_articles: ## On parcourt nos articles
+      occ_1 = entities_co_occ(entity_1, entity_2,type_ent_1, type_ent_2, article) ## On appelle notre fonction de la question précedente
+      occ += occ_1
+    return occ
+```
+
+
+```{python}
+## Illustration: on veut voir le nombre de co-occurrence des mots : 'Emmanuel Macron' et 'Mayotte' dans notre collection
+test = find_pairs_entities('Emmanuel Macron', 'Mayotte','PER','LOC',all_articles)
+test
+```
+
+
+```{python}
+def top_20_max_co_occurrences(top_20_per, top_20_loc, top_20_org, all_articles):
+
+    """
+      Cette fonction permet de générer les co-occurrences pour chaque paire d'entités parmi les entités fournies
+      (personnes, lieux, organisations) dans notre collection d'articles.
+
+      Elle prend en entrée :
+      - top_20_per : liste d'entités de type PER
+      - top_20_loc : liste d'entités de type LOC
+      - top_20_org : liste d'entités de type ORG
+      - all_articles : la liste d'articles où chaque article contient des entités identifiées
+
+      Le processus implique de calculer les co-occurrences pour les différentes combinaisons de paires d'entités :
+      - Personnes et Lieux
+      - Personnes et Organisations
+      - Lieux et Organisations
+
+      Pour chaque combinaison d'entités, la fonction `process_pairs` est utilisée pour compter le nombre de co-occurrences de chaque paire
+      dans l'ensemble des articles.
+
+      Elle retourne :
+      - co_occurence : une liste des co-occurrences pour chaque paire d'entités
+      - co_words : une liste des paires d'entités avec leurs types respectifs
+      """
+
+
+    def process_pairs(entities_1, entities_2, type_1, type_2):
+        co_words = []
+        co_occurence = []
+
+        for elt_1 in entities_1:
+            for elt_2 in entities_2:
+                occ = find_pairs_entities(elt_1[0], elt_2[0], type_1, type_2, all_articles)
+                ## Ajoutons la paire d'entités avec leurs types
+                co_occurence.append(occ)
+                co_words.append(((elt_1[0], type_1), (elt_2[0], type_2)))
+
+        return co_words, co_occurence
+
+    co_words_per_loc, co_occurence_per_loc = process_pairs(top_20_per, top_20_loc, 'PER', 'LOC')
+    co_words_per_org, co_occurence_per_org = process_pairs(top_20_per, top_20_org, 'PER', 'ORG')
+    co_words_loc_org, co_occurence_loc_org = process_pairs(top_20_loc, top_20_org, 'LOC', 'ORG')
+
+    ## Combinons tous les résultats
+    co_words = co_words_per_loc + co_words_per_org + co_words_loc_org
+    co_occurence = co_occurence_per_loc + co_occurence_per_org + co_occurence_loc_org
+
+    return co_occurence, co_words
+
+
+```
+
+
+```{python}
+## Illustration
+co_occurence, co_words = top_20_max_co_occurrences(top_20_per, top_20_loc, top_20_org, all_articles)
+```
+
+
+```{python}
+import pandas as pd
+
+# Créons un DataFrame pour afficher les paires d'entités et leurs cooccurrences,
+# triées par nombre de cooccurrences décroissantes. Affichons 20 premières paires.
+
+
+df = pd.DataFrame({'Pair': co_words, 'Cooccurrence': co_occurence})
+df_sorted = df.sort_values(by='Cooccurrence', ascending=False).head(20)
+print(df_sorted.to_string(index=False))
+
+```
+
+
+### Q.12. - Reprenons l’analyse précédente en nous interessant aux co-occurrences au sein d’une même phrase pour plus de précision.
+
+
+#### Q.12.1 - Ecrivons une fonction qui prend en entrée une paire d’entités et les types correspondant et verifie pour chaque phrase d'un article donné s'il y a co-occurence de cette paire au sein de la phrase. Et, qui retourne en fin de compte le nombre de co-occurences trouvés au sein des phrases du document.
+
+
+```{python}
+""" Nous avons constaté pendant l'exécution de nos codes que, lorsqu'on processait nos articles à l'intérieur des fonctions,
+ceci etait très chronophage et fastidieux, raison pour laquelle nous avons décidé de le faire à l'extérieur des  fonctions afin
+d'avoir à le faire une seule fois et d'executer nos fonctions par la suite autant de fois qu'on veut les tester sans grand gêne.
+"""
+```
+
+
+```{python}
+## On processe le contenu des articles de notre collection
+content_articles = [list(data_info_complete.values())[i]['content'] for i in range(len(data_info_complete)) ]
+content_articles_processed = []
+for doc in process.pipe(content_articles):
+  content_articles_processed.append(doc)
+
+```
+
+
+```{python}
+## On stock le contenu procéssé dans un data frame
+import pandas as pd
+content_articles_processed_df = pd.DataFrame()
+
+content_articles_processed_df['title_article'] = [list(data_info_complete.values())[i]['title'] for i in range(len(data_info_complete))]
+content_articles_processed_df['content_article_processed'] = content_articles_processed
+content_articles_processed_df['link_article'] = [list(data_info_complete.keys())[i]for i in range(len(data_info_complete))]
+print(content_articles_processed_df.shape)
+content_articles_processed_df.head()
+```
+
+
+```{python}
+list_content_article = content_articles_processed_df['content_article_processed'].tolist()
+```
+
+
+```{python}
+def entities_occ_sent_article(entite_1, entite_2, type_ent_1, type_ent_2, content_article):
+
+  """
+    Notre fonction compte le nombre  de co-occurrence de la paire (entité_1 et entité_2) dans les phrases où il existe au moins un verbe du contenu
+    du contenu d'un article. (nous avons fait le choix d'ajouter cette condition afin de rendre l'exécution des codes des questions à venir moins
+    chronophage).
+    Elle retourne le nombre de ces co-occurrences.
+
+    Paramètres :
+    - entite_1 : la première entité à rechercher.
+    - entite_2 : la deuxième entité à rechercher.
+    - type_ent_1 : Le type de la première entité .
+    - type_ent_2 : Le type de la deuxième entité .
+    - content_article : le contenu procéssé d'un article de notre collection.
+
+    Retour :
+    - Un entier représentant le nombre de phrases où les deux entités coexistent avec au moins un verbe.
+    """
+  number_co_occ = 0
+
+  # Nous parcourons chaque phrase dans l'article
+  for s in content_article.sents:
+
+    # Nous vérifions s'il y a un verbe dans la phrase
+    if any(token.pos_ == "VERB" for token in s):
+
+      # Nous vérifions la présence des deux entités dans la phrase
+      occ_ent_1 = any(entity.label_ == type_ent_1 and entity.text == entite_1  for entity in s.ents)
+      occ_ent_2 = any(entity.label_ == type_ent_2 and entity.text == entite_2  for entity in s.ents)
+      if occ_ent_1 and occ_ent_2:
+        number_co_occ += 1
+  return number_co_occ
+```
+
+
+```{python}
+## Pour notre illustration, nous avons choisi le contenu du deuxieme article de notre base
+content_article = list_content_article[1]
+content_article
+```
+
+
+```{python}
+## Illustration
+co_occ = entities_occ_sent_article('Victor', 'Jacques-Olivier Travers','PER','PER', content_article)
+co_occ
+
+```
+
+
+#### Q.12.2 - Ecrivons à présent  une fonction qui prend en entrée une paire d’entités et les types correspondant et compte le nombre de co-occurence de ces paires au sein de toutes les phrases de notre collection d'articles mise à jour.
+
+
+```{python}
+def entities_occ_sent_all_articles(entity_1, entity_2,type_ent_1, type_ent_2,list_content_article):
+
+    """
+      Notre fonction permet de compter le nombre total de co-occurrences des entités spécifiées
+      (entité_1 et entité_2) dans les phrases de notre collection d'articles. Elle fait appel à la fonction 'entities_occ_sent_article'
+      pour analyser chaque article et déterminer combien de fois les deux entités apparaissent dans la même phrase
+      avec au moins un verbe.
+
+      Paramètres :
+      - entity_1 :  la première entité à rechercher.
+      - entity_2 :  la deuxième entité à rechercher.
+      - type_ent_1 : Le type de la première entité
+      - type_ent_2 : Le type de la deuxième entité
+      - list_content_article : le contenu procéssé de toutes les articles de notre collection.
+
+      Retour :
+      - Un entier représentant le nombre total de co-occurrences dans les phrases de l'ensemble des articles.
+      """
+    co_occ_ent1_ent2 =0
+
+    for content_article in list_content_article: ## On parcourt nos articles
+      co_occ_ent1_ent2_article = entities_occ_sent_article(entity_1, entity_2,type_ent_1, type_ent_2, content_article) ## On appelle notre fonction de la question précedente
+      if co_occ_ent1_ent2_article > 0:
+        co_occ_ent1_ent2 += co_occ_ent1_ent2_article
+    return co_occ_ent1_ent2
+```
+
+
+```{python}
+## Illustration
+co_occ = entities_occ_sent_all_articles('Victor', 'Jacques-Olivier Travers','PER','PER', list_content_article)
+co_occ
+```
+
+
+```{python}
+def top_20_max_co_occurrences(top_20_per, top_20_loc, top_20_org, list_content_article):
+
+    """
+          Cette fonction calcule les co-occurrences entre toutes les paires d'entités
+          des deux listes passées en entrée (entities_1 et entities_2). Elle renvoie les paires d'entités
+          et leurs co-occurrences respectives.
+
+          Paramètres :
+           - top_20_per :  liste d'entités de type PER
+           - top_20_loc :  liste d'entités de type LOC
+           - top_20_org :  liste d'entités de type PORG
+
+          Retour :
+          - Une liste des paires d'entités et une liste de leurs co-occurrences respectives.
+    """
+
+    ## On définit ici une sous fonction pour générer les cooccurrences pour chaque paire d'entités
+    def process_pairs(entities_1, entities_2, type_1, type_2):
+        co_words = []
+        co_occurence = []
+
+        for elt_1 in entities_1:
+            for elt_2 in entities_2:
+                occ = entities_occ_sent_all_articles(elt_1[0], elt_2[0], type_1, type_2, list_content_article)
+                ## Ajoutons la paire d'entités avec leurs types
+                co_occurence.append(occ)
+                co_words.append(((elt_1[0], type_1), (elt_2[0], type_2)))
+
+        return co_words, co_occurence
+
+    ## Nous traitons toutes les combinaisons possibles d'entités
+    co_words_per_loc, co_occurence_per_loc = process_pairs(top_20_per, top_20_loc, 'PER', 'LOC')
+    co_words_per_org, co_occurence_per_org = process_pairs(top_20_per, top_20_org, 'PER', 'ORG')
+    co_words_loc_org, co_occurence_loc_org = process_pairs(top_20_loc, top_20_org, 'LOC', 'ORG')
+
+    ## Nous combinons les résultats de toutes les combinaisons
+    co_words = co_words_per_loc + co_words_per_org + co_words_loc_org
+    co_occurence = co_occurence_per_loc + co_occurence_per_org + co_occurence_loc_org
+
+    ## Nous retournons la liste des co-occurrences et des paires d'entités avec les types associés
+    return co_occurence, co_words
+
+
+
+```
+
+
+```{python}
+## Nous avons choisi d'illustrer notre fonction avec les 5 premiers éléments des listes d'entités de type PER,LOC et ORG les plus recurrentes dans nos articles
+co_occurence, co_words = top_20_max_co_occurrences(top_20_per[:6], top_20_loc[:6], top_20_org[:6], list_content_article)
+```
+
+
+```{python}
+## On crée un DataFrame à partir des paires d'entités et de leurs cooccurrences,
+# On trie les paires en fonction de la fréquence de cooccurrence et affiche les 20 premières.
+
+df = pd.DataFrame({'Paire d_entité': co_words, 'Cooccurrence': co_occurence})
+df_sorted = df.sort_values(by='Cooccurrence', ascending=False).head(20)
+print(df_sorted.to_string(index=False))
+```
+
+
+### Q.13. -  Ecrivons une fonction qui prend en entrée deux entités et leurs types respectifs et qui analyse l’ensemble des documents où ces entités apparaissent dans la même phrase de manière à établir la liste des verbes (on prendra le lemme du verbe) qui apparaissent entre ces deux entités dans ces phrases.
+
+
+```{python}
+def verbs_between_entities(entity_1, entity_2, type_ent_1, type_ent_2, list_content_article):
+
+    """
+      Notre fonction permet d'extraire les verbes présents entre deux entités spécifiées
+      dans un ensemble d'articles. Elle parcourt chaque article, identifie les phrases contenant
+      les entités ciblées et extrait les verbes qui se trouvent entre ces entités dans la même phrase.
+
+      Paramètres :
+      - entity_1 : Le texte représentant la première entité à rechercher.
+      - entity_2 : Le texte représentant la deuxième entité à rechercher.
+      - type_ent_1 : Le type de la première entité (ex. 'PERSON', 'ORG').
+      - type_ent_2 : Le type de la deuxième entité (ex. 'PERSON', 'ORG').
+      - list_content_article : Une liste d'articles où chaque article est une collection de phrases (spacy Doc).
+
+      Retour :
+      - Une liste de verbes (sous forme de lemme) trouvés entre les deux entités dans les articles.
+      """
+
+    verbs_between_entities = []
+    ## Parcourons tous les articles dans la liste fournie
+    for i in  range(len(list_content_article)):
+      content_article = list_content_article[i]
+
+      ## Parcourons toutes les phrases de l'article
+      for s in content_article.sents:
+
+        ## Vérifions si les deux entités sont présentes dans la phrase
+        occ_ent_1 = any(entity.label_ == type_ent_1 and entity.text == entity_1  for entity in s.ents)
+        occ_ent_2 = any(entity.label_ == type_ent_2 and entity.text == entity_2  for entity in s.ents)
+
+        ## Si les deux entités sont présentes, on calcule les indices des entités dans la phrase
+        if occ_ent_1 and occ_ent_2:
+          start_s_indexes = s.start
+          entity_1_end = [e.end for e in s.ents if e.label_ == type_ent_1 and e.text == entity_1][0] - start_s_indexes
+          entity_1_start = [e.start for e in s.ents if e.label_ == type_ent_1 and e.text == entity_1][0] - start_s_indexes
+          entity_2_start = [e.start for e in s.ents if e.label_ == type_ent_2 and e.text == entity_2][0] - start_s_indexes
+          entity_2_end = [e.end for e in s.ents if e.label_ == type_ent_2 and e.text == entity_2][0] - start_s_indexes
+
+          ## On extrait les tokens entre les entités, desquels on recupère les verbes
+          if entity_1_end < entity_2_start:
+            sub_tokens = s[entity_1_end :entity_2_start]
+            for token in sub_tokens:
+                if token.pos_ == "VERB":
+                  verbs_between_entities.append(token.lemma_)
+          if entity_2_end < entity_1_start:
+            sub_tokens = s[entity_2_end :entity_1_start]
+            for token in sub_tokens:
+              if token.pos_ == "VERB":
+                verbs_between_entities.append(token.lemma_)
+    return verbs_between_entities
+```
+
+
+```{python}
+## Illustration 1
+verbs_between_entities('Victor', 'Jacques-Olivier Travers','PER','PER', list_content_article)
+```
+
+
+```{python}
+## Illustration 2
+verbs_between_entities('Emmanuel Macron' ,'la France', 'PER','LOC', list_content_article)
+```
+
+
+### Q.14.- En utilisant la fonction de la question précédente, déterminons quelques couples d’entités et un verbe associé qui vous paraissent faire sens.
+
+
+```{python}
+## On stock les paires d'entités dont le nombre  co-occurence dans les phrases de notre collection d'articles dans une liste est élévé.
+paire_d_entite_list = df_sorted['Paire d_entité'].tolist()
+
+```
+
+
+```{python}
+### On affiche nos paires d'entités avec la liste des verbes qui apparaissent entre elles dans les phrases de notre collection d'article
+f = pd.DataFrame(columns=['Entité 1', 'Entité 2', 'Verbes'])
+
+for i in range(len(paire_d_entite_list )):
+  entity1 = paire_d_entite_list[i][0][0]
+  entity2 = paire_d_entite_list[i][1][0]
+  verbs = verbs_between_entities(entity1, entity2, paire_d_entite_list[i][0][1], paire_d_entite_list[i][1][1], list_content_article)
+  f.loc[len(f)] = [entity1, entity2, verbs]
+
+f
+```
+
+
+#### Certains verbes semblent établir une relation logique ou cohérente entre les paires d'entités mentionnée ci haut. On distingue entre autre:
+
+- **Emmanuel Macron - Français**
+Verbe associé : "présider"
+
+Le verbe "présider" est cohérent, car il reflète le rôle central d’Emmanuel Macron en tant que président de la République, qui dirige et prend des décisions impactant directement les Français.
+
+
+- **France - Covid-19**
+Verbe associé : "hospitaliser"
+
+Le verbe "hospitaliser" est cohérent, car il reflète une conséquence directe de la pandémie en France, mettant en avant les hospitalisations liées aux cas graves de Covid-19.  
+
+
+- **Allemagne - AFP**
+Verbe associé : "annoncer"
+
+Le verbe "annoncer" est pertinent, car l'AFP(Agence France-Presse), en tant que source d'information majeure, relaie de façon reccurrente des annonces officielles en lien avec l'Allemagne.
+
+
+### Q.15.
+
+
+#### Q.15.1 -  Précisons en quoi les couples et verbes identifiés  peuvent être utiles pour trouver de nouvelles relations entre deux entités
+
+Les couples d'entités et les verbes associés aident à identifier et comprendre les relations entre différentes entités dans notre  collection d'articles. Dans le cadre de notre exercice, les verbes qui apparaissent fréquemment entre certaines paires d'entités peuvent révéler des relations implicites. Par exemple, des verbes comme "inquiéter", "annoncer" ou "toucher" apparaissent entre les entités Allemagne et AFP, cela peut suggérer une relation implicite entre ces entités, comme "relater des événements" ou "faire état de préoccupations".
+Cela permet de révéler des relations nouvelles dans nos textes, même lorsqu'elles ne sont pas explicitement formulées.  
+
+
+
+
+
+
+
+#### Q.15.2 -  Précisons en quoi les couples et verbes identifiés  peuvent être utiles pour  grouper des relations de même natures entre deux entités
+
+On pourrait regrouper des relations de même nature en identifiant des verbes similaires. Pour quantifier cette similarité, on peut utiliser des outils comme le **cosine similarity** vu en TP 1.
+
+ Il s'agira ensuite de se fixer un seuil au delà duquel on admettra qu'il y a assez de similarité entre les verbes et ainsi regrouper les relations.
+
+
+### Q.16.- Expliquons comment on pourrait  affiner cette analyse en utilisant l’arbre de dépendance syntaxique
+
+Au lieu de s'appuyer uniquement sur les verbes, on pourrait aussi tenir compte de la structure syntaxique des phrases pour mieux identifier les relations sous-jacentes.
+
+Dans le contexte de notre exercice,nous avions précédemment identifié comme cohérente la relation entre les entités  Emmanuel Macron - Français et le verbe "présider".  
+"Présider" pourrait être lié à Emmanuel Macron en tant que **sujet** et à "Français" en tant que **complément d'objet direct**. L'arbre de dépendance syntaxique permettrait ainsi de préciser que Macron, en tant que président, prend des décisions qui influencent directement les Français. Cette structure grammaticale aiderait donc à affiner l'identification de la relation de leadership ou de direction entre Emmanuel Macron et les Français, en mettant en lumière la façon dont ces entités sont liées dans la phrase. Cette analyse nous permettrait donc de mieux comprendre les nuances de la relation, au-delà du simple verbe, en prenant en compte la fonction grammaticale des mots dans la phrase.
+
+
+```

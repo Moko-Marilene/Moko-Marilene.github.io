@@ -18,7 +18,8 @@ format:
 ---
 
 
-Vous trouverez ci après des ressources bibliographiques que je vous suggère : [➡ Ressources](...\ressources.qmd)
+Vous trouverez ci après des ressources bibliographiques que je vous suggère :[➡ Ressources](../articles-ressources.qmd)
+
 
 
 ### Partie II — Travaux, applications et études

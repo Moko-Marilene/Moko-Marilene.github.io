@@ -115,5 +115,50 @@
   },
   "modelisation-stat-data/projets/Optimization_for_machine_learning_clean.qmd": {
     "Optimization_for_machine_learning_clean.html": "af7a3cdf"
+  },
+  "modelisation-stat-data/projets/projet_webmining_nlp_structured.qmd": {
+    "projet_webmining_nlp_structured.html": "f7b5781f"
+  },
+  "nlp_env/Lib/site-packages/cffi/recompiler.py": {
+    "recompiler.html": "0799dd6a"
+  },
+  "nlp_env/Lib/site-packages/httpcore-1.0.9.dist-info/licenses/LICENSE.md": {
+    "LICENSE.html": "50b375e2"
+  },
+  "nlp_env/Lib/site-packages/httpx-0.28.1.dist-info/licenses/LICENSE.md": {
+    "LICENSE.html": "90e9a59f"
+  },
+  "nlp_env/Lib/site-packages/idna-3.11.dist-info/licenses/LICENSE.md": {
+    "LICENSE.html": "25a89dd2"
+  },
+  "nlp_env/Lib/site-packages/nltk-3.9.2.dist-info/licenses/AUTHORS.md": {
+    "AUTHORS.html": "02c5c681"
+  },
+  "nlp_env/Lib/site-packages/numpy/random/LICENSE.md": {
+    "LICENSE.html": "1896a926"
+  },
+  "nlp_env/Lib/site-packages/pandas/tests/indexes/datetimes/test_indexing.py": {
+    "test_indexing.html": "eb3cc7c3"
+  },
+  "nlp_env/Lib/site-packages/pandas/tests/indexes/period/test_constructors.py": {
+    "test_constructors.html": "6c13db16"
+  },
+  "nlp_env/Lib/site-packages/pandas/tests/indexes/period/test_indexing.py": {
+    "test_indexing.html": "0cfe4fc9"
+  },
+  "nlp_env/Lib/site-packages/pyzmq-27.1.0.dist-info/licenses/LICENSE.md": {
+    "LICENSE.html": "2de8d40c"
+  },
+  "nlp_env/Lib/site-packages/soupsieve-2.8.dist-info/licenses/LICENSE.md": {
+    "LICENSE.html": "718f9cec"
+  },
+  "nlp_env/Lib/site-packages/wasabi/tests/test-data/wasabi-test-notebook.ipynb": {
+    "wasabi-test-notebook.html": "63e44fb6"
+  },
+  "articles-ressources.qmd": {
+    "articles-ressources.html": "d685d759"
+  },
+  "nlp_env/Lib/site-packages/networkx/drawing/tests/test_latex.py": {
+    "test_latex.html": "71e66d70"
   }
 }

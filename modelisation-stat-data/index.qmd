@@ -12,7 +12,8 @@ format:
 
 #### Series temporelles
 La littérature propose de nombreux modèles consacrés aux séries temporelles, parmi lesquels les modèles AR et ARIMA, les variantes ARIMAX ou FARIMA,les modèles GARCH pour la volatilité conditionnelle.  
-Nous renvoyons d’ailleurs, dans la section *Ressources*, à plusieurs références permettant d’explorer ces méthodes. [➡ Ressources](...\ressources.qmd)
+Nous renvoyons d’ailleurs, dans la section *Ressources*, à plusieurs références permettant d’explorer ces méthodes. [➡ Ressources](../articles-ressources.qmd)
+
 
 #### Le modèle Prophet ?
 
@@ -40,6 +41,21 @@ Dans le cadre théorique de ce chapitre, nous avons choisi de présenter **Proph
   <h3>Optimisation numérique</h3>
   <p> Descente de gradient, accelaration de Nesterov : avec et sans friction, comparaison de performances sur la fonction de Rosenbrock</p>
   <a href="projets/Optimization_for_machine_learning_clean.qmd" class="btn">Lire</a>
+</div>
+
+<div class="project-card">
+  <img src="../Images/webmining.png" class="project-img">
+  <h3>Webmining et Traitement de langage naturel</h3>
+  <p> Collecte et parsing de flux RSS, analyse de sentiment, classification et vectorisation, visualisation des tendances textuelles</p>
+  <a href="projets/projet_webmining_nlp_structured.qmd" class="btn">Lire</a>
+</div>
+
+
+<div class="project-card">
+  <img src="../Images/spectral_clusturing.png" class="project-img">
+  <h3>Classification discriminante & Clustering</h3>
+  <p> Clusturing spectral, Analyse linéaire discriminante, analyse quadratique discriminante</p>
+  <a href="projets/spectral_clustering.pdf" class="btn">Lire</a>
 </div>
 
 
