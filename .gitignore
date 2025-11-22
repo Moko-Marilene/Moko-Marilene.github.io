@@ -1,2 +1,9 @@
 /.quarto/
 **/*.quarto_ipynb
+
+# Environnement Python
+nlp_env/
+
+# Gros fichiers / embeddings
+modelisation-stat-data/projets/glove.6B.50d.txt
+modelisation-stat-data/projets/data/
