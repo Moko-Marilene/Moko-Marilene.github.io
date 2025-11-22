@@ -1,5 +1,7 @@
 ---
 title: "Chapitre 4 : Le Risque de Contrepartie et le CVA"
+author:
+  - "KOUGOUM Marilene"
 format:
   html:
     toc: true

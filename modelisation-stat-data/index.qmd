@@ -1,0 +1,53 @@
+---
+title: "Modélisation statistique & Data science"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+### Partie I — Cadre Théorique 
+
+---
+
+#### Series temporelles
+La littérature propose de nombreux modèles consacrés aux séries temporelles, parmi lesquels les modèles AR et ARIMA, les variantes ARIMAX ou FARIMA,les modèles GARCH pour la volatilité conditionnelle.  
+Nous renvoyons d’ailleurs, dans la section *Ressources*, à plusieurs références permettant d’explorer ces méthodes. [➡ Ressources](...\ressources.qmd)
+
+#### Le modèle Prophet ?
+
+Dans le cadre théorique de ce chapitre, nous avons choisi de présenter **Prophet**, un modèle développé par Facebook (Meta). Nous l’avons utilisé dans un projet appliqué et l’avons trouvé particulièrement intéressant pour la prévision de séries financières, notamment en raison de sa capacité à gérer automatiquement tendance, saisonnalité et changements structurels.
+
+#### 📘 Chapitres disponibles 
+
+#####  [Chapitre 1 : Modèle prophet](chapter_prophet.qmd)
+
+---
+
+
+### Partie II — Travaux, applications et études
+
+---
+
+## <span class="section-title"> </span>
+
+<div class="project-grid">
+
+<!-- Projet 1 -->
+
+<div class="project-card">
+  <img src="../Images/Rosenbrock.png" class="project-img">
+  <h3>Optimisation numérique</h3>
+  <p> Descente de gradient, accelaration de Nesterov : avec et sans friction, comparaison de performances sur la fonction de Rosenbrock</p>
+  <a href="projets/Optimization_for_machine_learning_clean.qmd" class="btn">Lire</a>
+</div>
+
+
+<div class="project-card">
+  <img src="../Images/Prophet.png" class="project-img">
+  <h3>Prophet: Stock price prédiction (CAC40)</h3>
+  <p>Prophet, ajout de variables exogènes, ajout d'événements calendaires...</p>
+  <a href="projets/prophet_with_comments.qmd" class="btn">Lire</a>
+</div>
+
+</div>

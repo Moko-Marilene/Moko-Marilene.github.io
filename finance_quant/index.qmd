@@ -6,7 +6,7 @@ format:
     toc-depth: 3
 ---
 
-### Partie I — Cadre Théorique : Présentation des instruments financiers de base
+### Partie I — Cadre théorique
 
 ---
 
@@ -57,6 +57,22 @@ Vous trouverez ci après des ressources bibliographiques que je vous suggère : 
   <p>Asiatiques, à barrieres et spreads</p>
   <a href="projets/options_exotiques.qmd" class="btn">Lire</a>
 </div>
+
+
+<div class="project-card">
+  <img src="../Images/tracking error.png" class="project-img">
+  <h3>Replication d'incides</h3>
+  <p>Tracking Error, Backtest et rééquilibrage, évolution dans le temps de la tracking error</p>
+  <a href="projets/index_replication.qmd" class="btn">Lire</a>
+</div>
+
+<div class="project-card">
+  <img src="../Images/Markovitz.png" class="project-img">
+  <h3>Optimisation de portefeuille: Markowitz</h3>
+  <p>Optimization Markowitz,Cpital Market line, Portefeuille de Marché, transition vers le contrôle optimal</p>
+  <a href="projets/markowitz_user_code.qmd" class="btn">Lire</a>
+</div>
+
 
 
 </div>

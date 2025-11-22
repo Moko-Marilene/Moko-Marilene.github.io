@@ -1,5 +1,7 @@
 ---
 title: "Chapitre 1 : Introduction à la Gestion des Risques Bancaires"
+author:
+  - "KOUGOUM Marilene"
 format:
   html:
     toc: true

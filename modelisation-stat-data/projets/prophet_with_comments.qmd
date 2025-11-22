@@ -1,0 +1,338 @@
+---
+title: "Time Series Project : Modeling CAC40 Using Prophet"
+author: "KOUGOUM Marilene"
+format: html
+---
+
+
+[⬅ Retour](index.qmd)
+
+# Introduction
+
+Ce rapport présente une modélisation complète du CAC40 à l’aide du modèle **Prophet**.  
+Après un nettoyage rigoureux de la base de données, l’analyse porte sur :
+- la structure temporelle du CAC40,
+- la gestion des valeurs manquantes,
+- la pertinence d’un modèle additif,
+- l’intégration de variables exogènes (macroéconomiques et techniques),
+- l’ajout d’événements calendaires majeurs,
+- l’évaluation de la performance du modèle.
+
+
+
+---
+
+# 1. Chargement des données
+
+```{r}
+library(ggplot2)
+library(quantmod)
+library(dplyr)
+library(prophet)
+
+fichier <- "C:/Users/mokom/My_website/Marilene-ws/modelisation-stat-data/projets/my_data.csv"
+close_df <- read.csv(fichier)
+head(close_df)
+```
+
+La base de données contient :
+- des indicateurs macroéconomiques (inflation, chômage, PIB…),
+- des indicateurs techniques (SMA, WMA, momentum…),
+- des indices étrangers (US unemployment, US rates…),
+- le prix de clôture du CAC40.
+
+Ces variables seront utilisées pour capturer les dynamiques sous-jacentes de marché.
+
+---
+
+# 2. Visualisation du CAC40
+
+```{r}
+close_df$Date <- as.Date(close_df$Date, "%Y-%m-%d")
+
+ggplot(close_df, aes(Date, Close)) +
+  geom_line(color="blue") +
+  labs(title="Prix de clôture du CAC40", x="Date", y="Close") +
+  theme_minimal()
+```
+
+Le graphique met en évidence :
+- une **tendance haussière de long terme**,  
+- des **périodes de forte volatilité** (crises financières, COVID, tensions géopolitiques),  
+- des cycles de marché qui justifient l’usage d’un modèle flexible comme Prophet.
+
+---
+
+# 3. Analyse des valeurs manquantes
+
+```{r}
+library(naniar)
+vis_miss(close_df)
+```
+
+Les données révèlent :
+- une forte proportion de valeurs manquantes dans *IRCB_us* (taux interbancaire US).
+
+Cette variable étant importante pour capturer les conditions monétaires américaines, son imputation est cruciale.
+
+---
+
+# 4. Corrélations et justification de l’imputation ( facultatif car Prophet gère très bien les valeurs manquantes)
+
+```{r}
+library(corrplot)
+
+numeric_data <- close_df |> select(where(is.numeric))
+correlations <- cor(numeric_data, use="complete.obs")
+correlations[abs(correlations) <= 0.5] <- 0
+
+corrplot(correlations, method="circle", type="upper")
+```
+
+Les corrélations montrent que *IRCB_us* est fortement liée à :
+- UNR_us (chômage US),
+- IRS (taux européens),
+- SMA/WMA techniques.
+
+Ce schéma suggère que les valeurs manquantes sont **MAR** (Missing At Random), ce qui permet une imputation via modèle supervisé.
+
+---
+
+# 5. Imputation par arbre CART
+
+```{r}
+library(rpart)
+library(rpart.plot)
+
+variables_explicatives <- c("UNR_us","IRCB","UNR","IRS","SMA_5","SMA_10","SMA_20","WMA_5","WMA_10","WMA_20")
+
+train_data <- close_df[!is.na(close_df$IRCB_us), c("IRCB_us", variables_explicatives)]
+
+tree_model <- rpart(IRCB_us ~ ., data=train_data, method="anova")
+rpart.plot(tree_model)
+
+predict_missing <- predict(tree_model, newdata=close_df[is.na(close_df$IRCB_us), variables_explicatives])
+close_df$IRCB_us[is.na(close_df$IRCB_us)] <- predict_missing
+```
+
+Commentaire :  
+L’imputation par arbre (CART) est pertinente ici car :
+- elle capture les **interactions non linéaires**,
+- elle est robuste à la multicolinéarité,
+- elle respecte la structure complexe des variables macro-financières.
+
+---
+
+# 6. Vérification de l’adéquation d’un modèle additif
+
+Prophet est un modèle **additif**.  
+On vérifie si la série peut être raisonnablement modélisée comme :
+
+> tendance + saisonnalité + effets spéciaux + bruit
+
+La méthode du **test des bandes** (minima / maxima annuels) permet d’évaluer si la structure est compatible.
+
+```{r}
+close_df$Year <- format(close_df$Date, "%Y")
+
+annual_min_max_df <- close_df |> 
+  group_by(Year) |> 
+  summarise(Minima=min(Close), Maxima=max(Close))
+```
+
+Puis ajustement linéaire :
+
+```{r}
+lm_min <- lm(Minima ~ as.numeric(Year), data=annual_min_max_df)
+lm_max <- lm(Maxima ~ as.numeric(Year), data=annual_min_max_df)
+```
+
+
+Test statistique :
+
+```{r}
+annual_min_max_df_long <- tidyr::pivot_longer(annual_min_max_df, cols=c("Minima","Maxima"), names_to="Type", values_to="Close")
+lm_combined <- lm(Close ~ as.numeric(Year) * Type, data=annual_min_max_df_long)
+summary(lm_combined)
+```
+
+Résultat :  
+Les pentes ne sont pas significativement différentes → la tendance est cohérente → **modèle additif adapté**.
+
+---
+
+# 7. Séparation Train/Test
+
+```{r}
+train <- close_df |> filter(Date >= "2000-01-01", Date <= "2022-12-31")
+test  <- close_df |> filter(Date >= "2023-01-01", Date <= "2024-10-30")
+```
+
+---
+
+# 8. Définition des événements calendaires
+
+Les marchés boursiers réagissent fortement à :
+- élections présidentielles,
+- élections législatives,
+- réunions majeures,
+- crises financières,
+- jours fériés.
+
+Ces événements sont intégrés dans Prophet :
+
+```{r}
+library(lubridate)
+library(timeDate)
+special_events <- data.frame(
+  ds = as.Date(c("2002-04-21", "2002-05-05", "2007-04-22", "2007-05-06",
+                 "2012-04-22", "2012-05-06", "2017-04-23", "2017-05-07",
+                 "2002-06-09", "2002-06-16", "2007-06-10", "2007-06-17",
+                 "2012-06-10", "2012-06-17", "2017-06-11", "2017-06-18",
+                 "2008-09-15", "2022-04-10", "2022-04-24", "2022-06-12", "2022-06-19")),
+  event = c("1er tour présidentielles 2002", "2e tour présidentielles 2002", 
+            "1er tour présidentielles 2007", "2e tour présidentielles 2007", 
+            "1er tour présidentielles 2012", "2e tour présidentielles 2012", 
+            "1er tour présidentielles 2017", "2e tour présidentielles 2017", 
+            "1er tour législatives 2002", "2e tour législatives 2002", 
+            "1er tour législatives 2007", "2e tour législatives 2007", 
+            "1er tour législatives 2012", "2e tour législatives 2012", 
+            "1er tour législatives 2017", "2e tour législatives 2017",
+            "Faillite de Lehman Brothers", 
+            "1er tour présidentielles 2022", "2e tour présidentielles 2022", 
+            "1er tour législatives 2022", "2e tour législatives 2022"))
+
+
+special_events_prophet <- special_events %>% 
+  mutate(
+    holiday = event,  
+    lower_window = -7,  # 7 jours avant l'événement
+    upper_window = 7    # 7 jour après l'événement
+  )
+
+# Jours fériés pour les USA entre 2000 et 2022
+us_holidays <- timeDate::holidayNYSE(2000:2022)  # Jours fériés pour les USA
+
+# Convertir les jours fériés en format date
+us_holidays_df <- data.frame(
+  ds = as.Date(us_holidays),  # Convertir les jours fériés en Date
+  holiday = "US_Holiday"      # Nom des jours fériés
+)
+
+# Combiner les jours fériés et les événements spéciaux
+holidays_combined <- bind_rows(special_events_prophet, us_holidays_df)
+
+```
+
+Notre intuition est la suivante :  
+- Les **élections** génèrent incertitude → volatilité → répercussions sur les marchés.  
+- La **faillite de Lehman Brothers** est un choc majeur → doit absolument être explicitement modélisée.
+
+---
+
+# 9. Construction du modèle Prophet
+
+```{r}
+m <- prophet(
+  holidays = holidays_combined,
+  yearly.seasonality = TRUE,
+  weekly.seasonality = TRUE,
+  changepoint_prior_scale = 0.05,
+  seasonality_prior_scale = 10,
+  interval_width = 0.95
+)
+```
+
+Ajout des variables exogènes :
+
+```{r}
+m <- add_regressor(m, 'UNR_us')
+m <- add_regressor(m, 'CPI_us')
+m <- add_regressor(m, 'UNR')
+m <- add_regressor(m, 'GDP')
+m <- add_regressor(m, 'WMA_20')
+```
+
+**Commentaire économique sur les variables retenues :**
+
+- **UNR_us / UNR** : les taux de chômage influencent les anticipations macroéconomiques → sentiment de marché.  
+- **CPI_us** : l’inflation impacte les taux réels → valorisation des actions.  
+- **GDP** : mesure du cycle économique → croissance → profits anticipés des entreprises.  
+- **WMA_20** : indicateur technique capturant la dynamique récente (poids décroissants).  
+  Très utile pour capter le *momentum* du CAC40.
+
+---
+
+# 10. Entraînement du modèle
+
+```{r}
+train <- train |> rename(ds=Date, y=Close) |> 
+  select(ds, y, UNR_us, CPI_us, UNR, GDP, WMA_20)
+
+m <- fit.prophet(m, train)
+```
+
+---
+
+# 11. Prédictions
+
+```{r}
+future <- test |> rename(ds=Date) |> 
+  select(ds, UNR_us, CPI_us, UNR, GDP, WMA_20)
+
+forecast <- predict(m, future)
+forecast_train <- predict(m, train)
+```
+
+---
+
+# 12. Évaluation visuelle
+
+### Train
+
+```{r}
+train_pred <- data.frame(ds=forecast_train$ds, yhat=forecast_train$yhat, y=train$y)
+
+ggplot(train_pred, aes(ds)) +
+  geom_line(aes(y=y), color="blue") +
+  geom_line(aes(y=yhat), color="red") +
+  geom_vline(xintercept=as.numeric(m$changepoints), linetype="dashed", color="green") +
+  labs(title="Train : vraies vs prédites + changepoints")
+```
+
+
+## Composantes du modèle de prophet
+```{r}
+prophet_plot_components(m, forecast_train)
+```
+
+
+### Performances sur l'équipe de test
+```{r}
+future <- test |> 
+  rename(ds = Date) |> 
+  select(ds, UNR_us, CPI_us, UNR, GDP, WMA_20)
+
+forecast <- predict(m, future)
+
+```
+
+
+```{r}
+mse  <- mean((forecast$yhat - test$Close)^2)
+rmse <- sqrt(mse)
+mae  <- mean(abs(forecast$yhat - test$Close))
+r2   <- 1 - sum((forecast$yhat - test$Close)^2) / sum((test$Close - mean(test$Close))^2)
+mase <- mean(abs(forecast$yhat - test$Close)) / mean(abs(diff(test$Close)))
+
+cat("MSE  :", mse,  "\n")
+cat("RMSE :", rmse, "\n")
+cat("MAE  :", mae,  "\n")
+cat("R²   :", r2,   "\n")
+cat("MASE :", mase, "\n")
+
+```
+
+---
+
+

@@ -1,5 +1,7 @@
 ---
 title: "Chapitre 3 : Le Risque de Crédit"
+author:
+  - "KOUGOUM Marilene"
 format:
   html:
     toc: true

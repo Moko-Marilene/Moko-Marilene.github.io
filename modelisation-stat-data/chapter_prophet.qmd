@@ -1,0 +1,120 @@
+---
+title: "Chapitre : Le Modèle Prophet"
+author:
+  - "KOUGOUM Marilene"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+
+[⬅ Retour](index.qmd)
+
+## Introduction au modèle Prophet
+
+Le modèle **Prophet**, développé par Facebook (Meta), est un outil de prévision spécialement conçu pour les séries temporelles présentant :
+
+- de fortes tendances,
+- des effets saisonniers marqués,
+- des ruptures ou changements de régime,
+- des données manquantes,
+- des périodes irrégulières (jours fériés, jours non ouvrés…).
+
+Prophet est un modèle flexible, robuste et particulièrement simple d’utilisation, pensé pour être accessible aux analystes tout en donnant des performances proches de modèles plus sophistiqués.
+
+---
+
+# 1. Philosophie du modèle
+
+Contrairement aux modèles ARIMA ou GARCH, Prophet repose sur une approche **décompositionnelle** :
+
+> Une série temporelle = tendance + saisonnalité + effets calendaires + bruit.
+
+Il se présente sous la forme :
+
+$$
+y(t) = g(t) + s(t) + h(t) + \varepsilon(t)
+$$
+
+où :
+
+- **\(g(t)\)** : la tendance (croissance / décroissance),
+- **\(s(t)\)** : les composantes saisonnières annuelles, hebdomadaires ou quotidiennes,
+- **\(h(t)\)** : les effets de jours particuliers (vacances, jours fériés…),
+- **\(\varepsilon(t)\)** : un terme d’erreur.
+
+Cette structure rend Prophet particulièrement adapté aux données économiques, financières, marketing ou web-analytics.
+
+---
+
+# 2. La tendance : croissance linéaire ou logistique
+
+Prophet modélise la tendance avec deux approches possibles :
+
+###  Croissance linéaire
+Simple et adaptée lorsque la série évolue régulièrement :
+
+$$
+g(t) = k t + m
+$$
+
+###  Croissance logistique
+Adaptée aux données qui saturent (ex : nombre d’utilisateurs, volumes limités) :
+
+$$
+g(t) = \frac{C}{1 + \exp(-k(t - m))}
+$$
+
+avec \(C\) la capacité maximale.
+
+Prophet détecte automatiquement les **changements de tendance** ("changepoints").
+
+---
+
+# 3. Saisonnières : Fourier + régressions
+
+Les effets saisonniers de Prophet sont modélisés par une série de termes périodiques :
+
+$$
+s(t) = \sum_{n=1}^N a_n \cos\left(\frac{2\pi n t}{P}\right)
++ b_n \sin\left(\frac{2\pi n t}{P}\right)
+$$
+
+où :
+
+- \(P\) = période (7 jours, 365 jours, etc.),
+- \(N\) = ordre de Fourier.
+
+Prophet inclut par défaut :
+
+- une saisonnalité **annuelle**,
+- une saisonnalité **hebdomadaire**,
+- éventuellement une **saisonnalité quotidienne**.
+
+---
+
+# 4. Jours fériés et effets spéciaux
+
+Prophet gère naturellement les jours calendaires spécifiques :
+
+- jours fériés nationaux,
+- jours d’annonce économique,
+- fêtes religieuses,
+- événements ponctuels (COVID, chocs…).
+
+Ces jours sont inclus comme variables explicatives :
+
+$$
+h(t) = \sum_j \delta_j \mathbb{1}_{\{t \in \text{vacances}_j\}}
+$$
+
+Cette fonctionnalité est essentielle pour les séries financières où les jours de non-cotation ou les annonces macroéconomiques influencent fortement les prix.
+
+---
+
+# 5. Prophet: Que faut-il retenir?
+
+Prophet présente plusieurs atouts qui en font un outil pratique pour la prévision. Il est simple à utiliser et ne nécessite pas une expertise avancée en séries temporelles. Contrairement à des modèles comme ARIMA, il supporte naturellement les données manquantes et les séries irrégulières, ce qui le rend robuste dans de nombreux contextes appliqués. Prophet s’adapte également aux ruptures de tendance : le modèle identifie automatiquement les changements structurels et réajuste la dynamique. Par ailleurs, il reste facilement interprétable, puisque chaque composante — tendance, saisonnalité, événements — peut être visualisée séparément. Enfin, il offre la possibilité d’incorporer des variables explicatives supplémentaires, telles que des indicateurs techniques ou macroéconomiques, ce qui enrichit la qualité des prévisions.
+
+Cependant, Prophet présente aussi certaines limites. Il est généralement moins performant lorsque les données sont très volatiles ou bruitées, comme c’est souvent le cas des données financières haute fréquence. De plus, il capture moins bien les dépendances à court terme : sur ce point, des modèles comme ARIMA ou des approches plus avancées telles que les réseaux LSTM peuvent fournir de meilleures performances. Ainsi, bien que Prophet soit un outil flexible et accessible, il ne constitue pas toujours la solution optimale pour des séries financières très réactives ou fortement autocorrélées.

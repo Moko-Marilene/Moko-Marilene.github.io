@@ -14,19 +14,89 @@ execute:
 
 # Introduction
 
-Ce document présente une implémentation complète d’un modèle de **réplication d’indice** fondé sur :
+Ce document présente une implémentation d’un modèle de **réplication d’indice**. Il se résume en :
 
-- la récupération automatique des données via *Yahoo Finance*,
+- la récupération de données via *Yahoo Finance*,
 - le calcul des rendements hebdomadaires,
 - l’optimisation d’un portefeuille minimisant le **tracking error**,
 - un **backtest glissant** avec rééquilibrage régulier,
-- la comparaison des performances entre portefeuille optimisé et indice de référence.
+- la visualisation de l'evolution de la tracking error dans le temps.
+---
+
+
+
+
+# 1. Réplication d’indice et tracking error
+
+La réplication d’indice vise à construire un portefeuille dont les rendements suivent le plus fidèlement possible ceux d’un indice de référence.  
+Si l’on note $R_t^{(I)}$ le rendement de l’indice et $R_t^{(P)} = w^\top R_t$ celui du portefeuille répliquant, l’objectif est de choisir les poids
+$w = (w_1,\dots,w_n)$ pour que les deux séries soient aussi proches que possible.
+
+## Tracking Error
+
+La qualité de la réplication est mesurée par le **tracking error (TE)** :
+
+$$
+\text{TE} = \sqrt{ \mathbb{V}\big( R_t^{(P)} - R_t^{(I)} \big) }.
+$$
+
+En développant la variance, on obtient :
+
+$$
+\text{TE}^2 
+= \sigma_P^2 + \sigma_I^2 - 2 \rho_{I,P} \, \sigma_P \sigma_I,
+$$
+
+où $\sigma_P^2 = w^\top \Sigma w$ est la variance du portefeuille,  
+$\sigma_I^2 = \mathbb{V}(R_t^{(I)})$ celle de l’indice,  
+et $\rho_{I,P}$ la corrélation entre les deux.  
+
+## Rendements log et covariance
+
+Les rendements sont des **log-rendements** :
+
+$$
+r_t = \ln\left(\frac{S_t}{S_{t-1}}\right),
+$$
+
+et la matrice de covariance empirique $\Sigma$ est calculée sur une fenêtre de données (période d'entraînement).
+
+Le rendement du portefeuille répliquant s’écrit donc :
+
+$$
+R_t^{(P)} = \sum_{i=1}^n w_i R_{t,i}.
+$$
+
+## Problème d’optimisation
+
+La réplication consiste à résoudre :
+
+$$
+\min_{w} \ \text{TE}(w)
+$$
+
+sous contraintes :
+
+- $\displaystyle \sum_i w_i = 1$ (budget totalement investi),
+- $w_i \ge 0$ (pas de vente à découvert),
+- nombre d’actifs limité (géré par une pénalité sur les poids non nuls).
+
+Cela conduit à une **réplication parcimonieuse**, utilisant un nombre restreint d’actifs tout en maintenant une bonne proximité avec l’indice.
+
+## Backtest glissant (rolling window)
+
+L'approche utilisée dans l'implémentation procède de façon dynamique :
+
+1. une année de données sert à estimer les paramètres et optimiser les poids ;
+2. ces poids sont appliqués à la période suivante ;
+3. la fenêtre glisse dans le temps, et l’opération se répète.
+
+Ce processus simule une stratégie de réplication et permet d'observer l’évolution du tracking error dans le temps.
+
 
 Toutes les méthodes utilisées sont encapsulées dans la classe `IndexReplication`.
 
----
-
-# 1. Classe Python : IndexReplication
+# 2. Code python : classe IndexReplication:
 
 ```{python}
 import numpy as np
@@ -164,7 +234,7 @@ class IndexReplication:
 
             train_benchmark = self.benchmark_data.loc[train_start_date:train_end_date]
             train_portfolio = self.portfolio_data.loc[train_start_date:train_end_date]
-            test_benchmark = self.benchmark_data.loc[test_start_start_date:test_end_date]
+            test_benchmark = self.benchmark_data.loc[test_start_date:test_end_date]
             test_portfolio = self.portfolio_data.loc[test_start_date:test_end_date]
 
             if train_benchmark.empty or test_benchmark.empty:
@@ -207,9 +277,9 @@ class IndexReplication:
 
 ---
 
-# 2. Utilisation
+# 3. Illustration
 
-Vous pouvez instancier et exécuter le backtest comme suit :
+On instancie et exécute le backtest comme suit :
 
 ```{python}
 replicator = IndexReplication(
@@ -225,6 +295,26 @@ tracking_df.head()
 ```
 
 ---
+
+# 4. Visualisation des performances
+
+Une fois les données du backtest récupérées, il est important de visualiser l’évolution  la tracking error dans le temps.
+## Tracking error dans le temps
+```{python}
+import matplotlib.pyplot as plt
+plt.figure(figsize=(12,5))
+plt.plot(tracking_df["Period"], tracking_df["Tracking Error"], marker="o")
+plt.xticks(rotation=45)
+plt.title("Tracking Error par période")
+plt.xlabel("Date de début de la période")
+plt.ylabel("Tracking Error annualisé")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+```
+
+
 
 # Conclusion
 

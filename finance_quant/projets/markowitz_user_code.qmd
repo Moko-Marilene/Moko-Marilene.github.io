@@ -1,0 +1,328 @@
+---
+title: "Optimisation de Portefeuille : Modèle de Markowitz"
+author: "KOUGOUM Marilene"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+[⬅ Retour](../index.qmd)
+
+
+## Introduction
+
+Dans ce travail, nous présentons le **modèle de Markowitz** pour l'optimisation de portefeuille.
+
+L'idée centrale est la suivante : un investisseur ne regarde pas seulement le **rendement espéré**, mais aussi le **risque** associé à ce rendement.  
+Dans le cadre de Markowitz :
+
+- le **rendement** est mesuré par le **rendement moyen** du portefeuille ;
+- le **risque** est mesuré par la **variance** (ou l'écart-type) des rendements ;
+- la corrélation entre les actifs joue un rôle clé : combiner des actifs corrélés imparfaitement permet de **diversifier** le risque.
+
+L'objectif du modèle est de **trouver des combinaisons de poids** sur un ensemble d'actifs qui offrent le **meilleur compromis rendement / risque**.  
+On parle alors de **frontière efficiente** : l’ensemble des portefeuilles qui, pour un niveau de risque donné, offrent le rendement le plus élevé possible (ou, pour un rendement donné, minimisent le risque).
+
+Dans ce TP, nous allons :
+
+1. Télécharger des données d’actifs via *Yahoo Finance* ;
+2. Calculer les **rendements** et les **paramètres** du modèle (rendements moyens, matrice de covariance) ;
+3. Formuler mathématiquement le **problème de Markowitz** ;
+4. Résoudre ce problème numériquement pour un **rendement cible** donné ;
+5. Tracer une **frontière efficiente**;
+6. Ajouter le **portefeuille de marché** et la **Capital Market Line** .
+
+
+---
+
+# 1. Chargement des données
+
+```{python}
+import yfinance as yf
+import pandas as pd
+import numpy as np
+from scipy.optimize import minimize
+import matplotlib.pyplot as plt
+```
+
+```{python}
+assets = [
+    "AAPL","EEM","TLT","HYG","GLD","LDOS","LLY","AMD","USO","VNQ","BTC-USD"
+]
+
+start_date = "2015-01-01"
+end_date = "2025-01-10"
+
+data = yf.download(assets, start=start_date, end=end_date, group_by="ticker")
+```
+
+---
+
+# 2. Paramètres du modèle 
+
+## 2.1 Log‑rendements, rendement espéré, covariance
+
+Les log-rendements sont définis par :
+
+$$
+R_{t} = \ln\left(\frac{S_t}{S_{t-1}}\right).
+$$
+
+
+- Rendement espéré :  
+  $$\mu_p = w^T \mu.$$
+- Variance du portefeuille :  
+  $$\sigma_p^2 = w^T \Sigma w.$$
+
+
+```{python}
+returns = pd.DataFrame()
+for asset in assets:
+    try:
+        if 'Close' in data[asset]:
+            returns[asset] = np.log(data[asset]['Close'] / data[asset]['Close'].shift(1))
+    except KeyError:
+        print(f"Données manquantes pour {asset}")
+
+returns = returns.dropna()
+returns.head()
+```
+
+```{python}
+mu = []
+for asset in assets:
+    first_value = data[asset]['Close'].iloc[1]
+    last_value = data[asset]['Close'].iloc[-3]
+    r_p = np.log(last_value / first_value)
+    mu_an = (r_p + 1)**(1/10) - 1
+    mu.append(mu_an)
+
+sigma = returns.cov().to_numpy()
+c = returns.corr().to_numpy()
+sigma = 252*sigma
+```
+
+## 2.2 Matrice de corrélation
+
+```{python}
+corr = returns.corr()
+plt.imshow(corr, cmap="viridis")
+plt.colorbar()
+plt.xticks(range(len(assets)), assets, rotation=45)
+plt.yticks(range(len(assets)), assets)
+plt.title("Matrice de corrélation")
+plt.show()
+```
+
+---
+
+# 3. Théorie du portefeuille de Markowitz
+
+On résout :
+
+$$
+\min_w \; w^T \Sigma w
+$$
+
+sous la contrainte:
+
+$$
+\sum_i w_i = 1, \qquad w_i \ge 0, \qquad w^T \mu \ge \mu_{	ext{target}}.
+$$
+
+
+## 3.1 Définition du problème
+
+```{python}
+mu_target = 0.2
+n_assets = len(mu)
+
+def portfolio_variance(weights):
+    return weights.T @ sigma @ weights
+
+def weight_sum_constraint(weights):
+    return np.sum(weights) - 1
+
+def target_return_constraint(weights, mu_target):
+    return weights.T @ mu - mu_target
+```
+
+---
+
+
+
+# 4. Frontière efficiente, portefeuille de marché et Capital Market Line (CML)
+
+
+### Frontière efficiente
+
+La **frontière efficiente** représente l’ensemble des portefeuilles optimaux au sens de Markowitz :  
+pour un niveau de risque donné, ils offrent le **rendement espéré maximal**, et pour un rendement donné, ils offrent le **risque minimal**.
+
+Les portefeuilles qui ne satisfont pas ce compromis optimal se trouvent **en dessous** de la frontière et sont donc inefficients.
+
+---
+
+##  Portefeuille de marché
+
+Lorsqu’un **actif sans risque** rémunéré au taux $\( r_f \)$ est disponible, l’investisseur peut combiner :
+
+- un actif sans risque,
+- un portefeuille risqué.
+
+Le **portefeuille de marché** est alors le portefeuille risqué qui **maximise le ratio de Sharpe**.  
+Il est tangent à la frontière efficiente.
+
+---
+
+###  Ratio de Sharpe
+
+###  Ratio de Sharpe
+
+Le **ratio de Sharpe** mesure combien de rendement supplémentaire un portefeuille génère **pour chaque unité de risque prise**.
+
+Il compare :
+
+- le **rendement excédentaire**, c’est-à-dire la différence entre le rendement du portefeuille et le taux sans risque :
+
+$$
+\mu_p - r_f,
+$$
+
+- au **risque total**, mesuré par la volatilité du portefeuille :
+
+$$
+\sigma_p.
+$$
+
+Le ratio s’écrit donc :
+
+$$
+\text{Sharpe}(w)
+= 
+\frac{\mu_p - r_f}{\sigma_p}.
+$$
+
+
+---
+
+###  Capital Market Line (CML)
+
+La **Capital Market Line** (CML) décrit l’ensemble des portefeuilles **optimaux** dans un marché où un actif sans risque existe.  
+Elle relie :
+
+- le taux sans risque $r_f$,
+- au portefeuille de marché $(\sigma_M, \mu_M)$.
+
+Son équation est :
+
+$$
+\mu = r_f + \frac{\mu_M - r_f}{\sigma_M}\,\sigma.
+$$
+
+où :
+
+- $\sigma$ = volatilité du portefeuille,
+- $\mu$ = rendement attendu,
+- $\sigma_M, \mu_M$ = volatilité et rendement du portefeuille de marché.
+
+Les portefeuilles **sur la CML** sont strictement dominants :  
+ils offrent le meilleur rendement possible pour un niveau de risque donné.
+
+---
+
+###  Synthèse visuelle
+
+La frontière efficiente représente la limite optimale **sans actif sans risque**,  
+tandis que la CML représente les portefeuilles optimaux **avec actif sans risque**.
+
+Le portefeuille de marché est le portefeuille risqué que l’investisseur rationnel retient dans ce cadre.
+
+
+```{python}
+def efficient_portfolio(mu_target, range_=(-0.1, None)):
+    init_weights = np.ones(n_assets) / n_assets
+    constraints = [
+        {'type': 'eq', 'fun': weight_sum_constraint},
+        {'type': 'ineq', 'fun': lambda w: target_return_constraint(w, mu_target)}
+    ]
+    bounds = [range_ for _ in range(n_assets)]
+    result = minimize(portfolio_variance, init_weights, bounds=bounds, method='SLSQP', constraints=constraints)
+    if result.success:
+        opt_w = result.x
+        return np.sqrt(portfolio_variance(opt_w)), opt_w
+    return None, None
+
+rf = 0.03
+mu_targets = np.linspace(0.01, 0.2, 100)
+front_vol = []
+front_returns = []
+
+for mu_t in mu_targets:
+    vol, w = efficient_portfolio(mu_t)
+    if vol:
+        front_vol.append(vol)
+        front_returns.append(mu_t)
+
+sharpe = (np.array(front_returns)-rf)/np.array(front_vol)
+idx = np.argmax(sharpe)
+market_vol = front_vol[idx]
+market_ret = front_returns[idx]
+market_weights = efficient_portfolio(market_ret)[1]
+
+sigma_line = np.linspace(0, max(front_vol)*1.1, 200)
+cml_line = rf + (market_ret-rf)/market_vol * sigma_line
+```
+
+```{python}
+plt.figure(figsize=(10,6))
+
+plt.plot(front_vol, front_returns, label="Frontière efficiente", color="blue")
+plt.plot(sigma_line, cml_line, label="Capital Market Line", color="red", linestyle="--")
+plt.scatter([market_vol], [market_ret], color="green", label="Portefeuille de marché", s=80)
+plt.scatter([0], [rf], color="black", label="Taux sans risque", s=50)
+
+plt.xlabel("Volatilité (Risque)")
+plt.ylabel("Rendement annualisé")
+plt.title("Frontière efficiente et Capital Market Line")
+plt.legend()
+plt.grid()
+plt.show()
+
+print("Portefeuille du marché :")
+print("Volatilité :", market_vol)
+print("Rendement :", market_ret)
+print("Poids :", market_weights)
+```
+
+---
+
+# Conclusion
+
+Ce TP construit :
+
+- les paramètres $\( \mu \)$ et $\( \Sigma \)$,
+- la frontière efficiente,
+- le portefeuille de marché,
+- la Capital Market Line.
+
+Il s'agit ici d’un **modèle statique** :  
+
+Cependant, dans le monde réel :
+
+- les prix évoluent dans le temps,  
+- les rendements changent,  
+- les portefeuilles doivent être réajustés,  
+- des coûts de transaction s’ajoutent,  
+- le risque doit être contrôlé dynamiquement.
+
+Pour modéliser ces situations, on devra passer à un cadre **dynamique**, où les poids du portefeuille deviennent un **processus** qui évolue au cours du temps.
+
+Cela nous conduira naturellement aux **problèmes de contrôle optimal** (en temps discret ou continu),  
+que nous  étudierons dans les prochains TDs.

@@ -82,5 +82,38 @@
   },
   "finance_quant/projets/options_exotiques.qmd": {
     "options_exotiques.html": "43c5a14b"
+  },
+  "finance_quant/projets/index_replication.qmd": {
+    "index_replication.html": "3d83b1c5"
+  },
+  "finance_quant/projets/markowitz_optimisation_portefeuille.qmd": {
+    "markowitz_optimisation_portefeuille.html": "25351b9f"
+  },
+  "finance_quant/projets/Markowitz_final.qmd": {
+    "Markowitz_final.html": "0589107a"
+  },
+  "finance_quant/projets/Markowitz_structured.qmd": {
+    "Markowitz_structured.html": "ebc31f3e"
+  },
+  "finance_quant/projets/markowitz_user_code.qmd": {
+    "markowitz_user_code.html": "765dcda3"
+  },
+  "modelisation-stat-data/index.qmd": {
+    "index.html": "df7e0c8a"
+  },
+  "modelisation-stat-data/modelisation stat-data.qmd": {
+    "modelisation stat-data.html": "633d01d5"
+  },
+  "modelisation-stat-data/chapter_prophet.qmd": {
+    "chapter_prophet.html": "90702e1a"
+  },
+  "modelisation-stat-data/projets/prophet_with_comments.qmd": {
+    "prophet_with_comments.html": "176911db"
+  },
+  "modelisation-stat-data/projets/homework_opt_ml.qmd": {
+    "homework_opt_ml.html": "700cd2e1"
+  },
+  "modelisation-stat-data/projets/Optimization_for_machine_learning_clean.qmd": {
+    "Optimization_for_machine_learning_clean.html": "af7a3cdf"
   }
 }

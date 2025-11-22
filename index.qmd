@@ -29,9 +29,9 @@ format:
 </div>
 
 <div class="axis-card">
-  <h3>Modélisation stat</h3>
-  <p>Analyse des séries financières, Théorie des valeurs extrêmes, Modèles de durée...</p>
-  <a href="modelisation stat.qmd" class="axis-btn">→ Explorer</a>
+  <h3>Modélisation stat & Data science</h3>
+  <p>Analyse des séries financières, Théorie des valeurs extrêmes, Optimisation numérique,NLP...</p>
+  <a href="modelisation-stat-data/index.qmd" class="axis-btn">→ Explorer</a>
 </div>
 
 </div>

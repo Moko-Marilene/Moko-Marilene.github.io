@@ -6,7 +6,7 @@ format:
     toc-depth: 3
 ---
 
-### Partie I — Cadre Théorique du Banking Risk Management
+### Partie I — Cadre théorique: Banking risk management
 
 Dans cette première partie, nous présentons les bases de la gestion des risques bancaires.
 Elle rassemble les concepts, définitions et éléments méthodologiques de base. 
@@ -53,8 +53,8 @@ Cette synthèse n’a pas vocation à être exhaustive : elle propose un cadre d
 
 <div class="project-card">
   <img src="../Images/stat_extreme.png" class="project-img">
-  <h3>Gestion de risques multiples : théorie des copules</h3>
-  <p>Modélisation de dependances via copules,Triangle de crédit, Calcul de VaR, intervalle de confiance.</p>
+  <h3>Statistique des risques extrêmes</h3>
+  <p>VaR historique, Gaussienne, EMWA, usage de la théorie des valeurs extrêmes (GPD, GEV), VaR-dynamique (AR-GARCH)</p>
   <a href="projets/stat_extreme_corrige.qmd" class="btn">Lire</a>
 </div>
 

@@ -1,5 +1,7 @@
 ---
 title: "Chapitre 2 : Le Risque de Marché"
+author:
+  - "KOUGOUM Marilene"
 format:
   html:
     toc: true

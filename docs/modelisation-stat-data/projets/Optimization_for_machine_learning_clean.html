@@ -1,0 +1,1810 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="KOUGOUM Marilene">
+
+<title>Optimization for Machine Learning – Projet –</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-e31584831b205ffbb2d98406f31c2a5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../logo.png" alt="" class="navbar-logo light-content">
+    <img src="../../logo.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title"></span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Accueil</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../finance_quant/index.html"> 
+<span class="menu-text">Finance Quantitative</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../risques/index.html"> 
+<span class="menu-text">Risque &amp; Régulation</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../modelisation-stat-data/index.html"> 
+<span class="menu-text">Modélisation stat &amp; Data science</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../articles-ressources.qmd"> 
+<span class="menu-text">Ressources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">À propos</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#i.-first-order-method-nesterov-with-and-without-speed-restart" id="toc-i.-first-order-method-nesterov-with-and-without-speed-restart" class="nav-link active" data-scroll-target="#i.-first-order-method-nesterov-with-and-without-speed-restart">## I. FIRST ORDER METHOD : NESTEROV WITH AND WITHOUT SPEED RESTART</a>
+  <ul class="collapse">
+  <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">CONTEXT</a></li>
+  <li><a href="#i.1.-implementation-of-nesterov-accelerated-gradient-method-with-speed-restart-and-nesterov-accelerated-gradient-method-with-vanishing-friction-without-restartb-3." id="toc-i.1.-implementation-of-nesterov-accelerated-gradient-method-with-speed-restart-and-nesterov-accelerated-gradient-method-with-vanishing-friction-without-restartb-3." class="nav-link" data-scroll-target="#i.1.-implementation-of-nesterov-accelerated-gradient-method-with-speed-restart-and-nesterov-accelerated-gradient-method-with-vanishing-friction-without-restartb-3.">I.1. Implementation of Nesterov accelerated gradient method with speed restart and Nesterov accelerated gradient method with vanishing friction (without restart),(b = 3).</a></li>
+  <li><a href="#nesterov-accelerated-gradient-with-speed-restart" id="toc-nesterov-accelerated-gradient-with-speed-restart" class="nav-link" data-scroll-target="#nesterov-accelerated-gradient-with-speed-restart"><strong>Nesterov Accelerated Gradient with Speed Restart</strong></a></li>
+  <li><a href="#i.2.-comparison-of-both-algorithms-on-the-rosenbrock-function-in-dimension-2" id="toc-i.2.-comparison-of-both-algorithms-on-the-rosenbrock-function-in-dimension-2" class="nav-link" data-scroll-target="#i.2.-comparison-of-both-algorithms-on-the-rosenbrock-function-in-dimension-2">I.2. Comparison of both algorithms on the Rosenbrock function in dimension 2</a></li>
+  <li><a href="#i.3.-determining-the-best-algorithm-discussion-and-interpretation" id="toc-i.3.-determining-the-best-algorithm-discussion-and-interpretation" class="nav-link" data-scroll-target="#i.3.-determining-the-best-algorithm-discussion-and-interpretation">I.3. Determining the Best Algorithm: Discussion and Interpretation</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  </ul></li>
+  <li><a href="#ii.-a-scaling-law-for-the-stepsize-of-gradient-method" id="toc-ii.-a-scaling-law-for-the-stepsize-of-gradient-method" class="nav-link" data-scroll-target="#ii.-a-scaling-law-for-the-stepsize-of-gradient-method">II. A SCALING LAW FOR THE STEPSIZE OF GRADIENT METHOD</a>
+  <ul class="collapse">
+  <li><a href="#context-1" id="toc-context-1" class="nav-link" data-scroll-target="#context-1">CONTEXT</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Optimization for Machine Learning – Projet</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>KOUGOUM Marilene </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<hr>
+<p><a href="../../modelisation-stat-data/index.html">⬅ Retour</a></p>
+<div id="a2e24dec" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.optim <span class="im">as</span> optim</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+<section id="i.-first-order-method-nesterov-with-and-without-speed-restart" class="level2">
+<h2 class="anchored" data-anchor-id="i.-first-order-method-nesterov-with-and-without-speed-restart">## I. FIRST ORDER METHOD : NESTEROV WITH AND WITHOUT SPEED RESTART</h2>
+<section id="context" class="level3">
+<h3 class="anchored" data-anchor-id="context">CONTEXT</h3>
+<hr>
+<p>In the field of numerical optimization, the gradient descent algorithm is a widely used first-order method and has been the main focus of the first part of this course. We have studied its properties, particularly its convergence rate, depending on the regularity of the objective function.</p>
+<p>The Nesterov accelerated gradient algorithm also belongs to the family of first-order methods. It is an improvement of the classical gradient descent that aims to accelerate convergence and approach the optimal convergence rates theoretically achievable by first-order algorithms, as established in the literature (Nemirovski &amp; Yudin, 1983; Nesterov’s Book ).</p>
+<p>In this first part of our project, we will implement different variants of Nesterov’s algorithm and apply them to a dataset in order to analyze their behavior and performance.</p>
+<hr>
+</section>
+<section id="i.1.-implementation-of-nesterov-accelerated-gradient-method-with-speed-restart-and-nesterov-accelerated-gradient-method-with-vanishing-friction-without-restartb-3." class="level3">
+<h3 class="anchored" data-anchor-id="i.1.-implementation-of-nesterov-accelerated-gradient-method-with-speed-restart-and-nesterov-accelerated-gradient-method-with-vanishing-friction-without-restartb-3.">I.1. Implementation of Nesterov accelerated gradient method with speed restart and Nesterov accelerated gradient method with vanishing friction (without restart),(b = 3).</h3>
+<hr>
+<section id="nesterov-with-vanishing-friction-presentation-of-the-method" class="level5">
+<h5 class="anchored" data-anchor-id="nesterov-with-vanishing-friction-presentation-of-the-method"><strong>Nesterov with vanishing friction : Presentation of the method</strong></h5>
+<hr>
+<p>This variant of the <strong>Nesterov Accelerated Gradient (NAG)</strong> introduces a time-varying momentum to <strong>model</strong> a system with vanishing friction.<br>
+It follows:</p>
+<p><span class="math display">\[
+\begin{aligned}
+y_k &amp;= x_k + \beta_{k-1}(x_k - x_{k-1}),\\
+x_{k+1} &amp;= y_k - \eta \nabla f(y_k).
+\end{aligned}
+\]</span></p>
+<p>with <span class="math inline">\(\beta_{k} = 1 - \frac{b}{k}\)</span>.</p>
+<p>It approximates the continuous-time dynamic:</p>
+<p><span class="math display">\[
+\ddot{x}(t) + \frac{b}{t}\dot{x}(t) + \nabla f(x(t)) = 0.
+\]</span></p>
+<p>For the case <strong><span class="math inline">\(b = 3\)</span></strong> implemented here, it was stated in the course that: - for a <strong>convex and differentiable</strong> function, the convergence rate is <span class="math inline">\(O(1/k^2)\)</span>; - for a <strong>strongly convex</strong> function, the rate improves to <span class="math inline">\(O(1/k^3)\)</span>.</p>
+<hr>
+</section>
+<section id="nesterov-with-vanishing-friction-code-implemented-see-in-the-notebook" class="level5">
+<h5 class="anchored" data-anchor-id="nesterov-with-vanishing-friction-code-implemented-see-in-the-notebook"><strong>Nesterov with vanishing friction : Code implemented (see in the notebook)</strong></h5>
+<hr>
+<div id="e96917e8" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nesterov_vanishing_friction(f, x0, steps<span class="op">=</span><span class="dv">2000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>, b<span class="op">=</span><span class="fl">3.0</span>):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> x0.clone().detach()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x0.clone().detach()</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    x.requires_grad_(<span class="va">True</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> []</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    path <span class="op">=</span> []</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, steps<span class="op">+</span><span class="dv">1</span>):</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        beta <span class="op">=</span> <span class="fl">1.0</span> <span class="op">-</span> b<span class="op">/</span>k</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> x <span class="op">+</span> beta <span class="op">*</span> (x <span class="op">-</span> x_prev)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        y.requires_grad_(<span class="va">True</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> f(y)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        grad <span class="op">=</span> torch.autograd.grad(loss, y)[<span class="dv">0</span>]</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>            x_next <span class="op">=</span> y <span class="op">-</span> lr <span class="op">*</span> grad</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        values.append(loss.item())</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        path.append(x_next.detach().clone())</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        x_prev <span class="op">=</span> x.clone().detach()</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> x_next.clone().detach()</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        x.requires_grad_(<span class="va">True</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, values, path</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="nesterov-accelerated-gradient-method-with-speed-restart-preentation-of-the-method" class="level5">
+<h5 class="anchored" data-anchor-id="nesterov-accelerated-gradient-method-with-speed-restart-preentation-of-the-method"><strong>Nesterov accelerated gradient method with speed restart : Preentation of the method</strong></h5>
+<hr>
+</section>
+</section>
+<section id="nesterov-accelerated-gradient-with-speed-restart" class="level3">
+<h3 class="anchored" data-anchor-id="nesterov-accelerated-gradient-with-speed-restart"><strong>Nesterov Accelerated Gradient with Speed Restart</strong></h3>
+<p>Although in the <strong>convex case</strong> the Nesterov method improves the convergence rate compared to classical gradient descent, in the <strong>strongly convex case</strong>, the convergence remains of order <span class="math inline">\(O(1/k^3)\)</span> , which is <strong>less satisfactory</strong> than the <strong>linear rate</strong> obtained with gradient descent.</p>
+<p>This can be explained by the fact that, in the <strong>vanishing friction</strong> version, the decreasing damping term may cause <strong>oscillations</strong> near the minimum, which slow down convergence.</p>
+<p>To address this issue, a variant called <strong>Speed Restart</strong> is introduced. The idea is to <strong>reset the momentum</strong> whenever the update speed decreases, according to the condition:</p>
+<p>$ |x_{k+1} - x_k| &lt; |x_k - x_{k-1}|. $</p>
+<p>When this condition is satisfied, the algorithm <strong>restarts with zero momentum</strong>, improving stability and often leading to <strong>faster convergence</strong>.<br>
+However, it is important to note that <strong>no theoretical guarantee</strong> for the algorithmic version of speed restart.</p>
+<hr>
+<section id="nesterov-accelerated-gradient-method-with-speed-restart-implementation-of-the-method-see-in-the-notebook" class="level5">
+<h5 class="anchored" data-anchor-id="nesterov-accelerated-gradient-method-with-speed-restart-implementation-of-the-method-see-in-the-notebook"><strong>Nesterov accelerated gradient method with speed restart : Implementation of the method (see in the notebook)</strong></h5>
+<hr>
+<div id="7f72b440" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> nesterov_speed_restart(f, x0, steps<span class="op">=</span><span class="dv">2000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>, b<span class="op">=</span><span class="fl">4.0</span>, kmin<span class="op">=</span><span class="dv">5</span>):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> x0.clone().detach()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x0.clone().detach()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    x.requires_grad_(<span class="va">True</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> []</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    path <span class="op">=</span> []</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(steps):</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        beta <span class="op">=</span> j <span class="op">/</span> (j <span class="op">+</span> b) <span class="cf">if</span> j <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="fl">0.0</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        y <span class="op">=</span> x <span class="op">+</span> beta <span class="op">*</span> (x <span class="op">-</span> x_prev)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        y.requires_grad_(<span class="va">True</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> f(y)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        grad <span class="op">=</span> torch.autograd.grad(loss, y)[<span class="dv">0</span>]</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>            x_next <span class="op">=</span> y <span class="op">-</span> lr <span class="op">*</span> grad</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        values.append(loss.item())</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        path.append(x_next.detach().clone())</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> k <span class="op">&gt;=</span> <span class="dv">2</span>:</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>            speed_now <span class="op">=</span> torch.norm(x_next <span class="op">-</span> x)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>            speed_prev <span class="op">=</span> torch.norm(x <span class="op">-</span> x_prev)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> speed_now <span class="op">&lt;</span> speed_prev <span class="kw">and</span> j <span class="op">&gt;=</span> kmin:</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>                j <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>                j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>            j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>        x_prev <span class="op">=</span> x.clone().detach()</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> x_next.clone().detach()</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        x.requires_grad_(<span class="va">True</span>)</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, values, path</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+</section>
+<section id="i.2.-comparison-of-both-algorithms-on-the-rosenbrock-function-in-dimension-2" class="level3">
+<h3 class="anchored" data-anchor-id="i.2.-comparison-of-both-algorithms-on-the-rosenbrock-function-in-dimension-2">I.2. Comparison of both algorithms on the Rosenbrock function in dimension 2</h3>
+<hr>
+<section id="exploratory-analysis-of-the-rosenbrock-function" class="level5">
+<h5 class="anchored" data-anchor-id="exploratory-analysis-of-the-rosenbrock-function">Exploratory Analysis of the Rosenbrock Function</h5>
+<p>Before comparing the performance of the two optimization algorithms, we first analyze the <strong>Rosenbrock function</strong> that we want to minimize.</p>
+<p>The Rosenbrock function, also known as the <strong>banana function</strong>, is defined in dimension 2 as:</p>
+<p><span class="math display">\[
+f(x, y) = (1 - x)^2 + 100(y - x^2)^2.
+\]</span></p>
+<p>It has a <strong>global minimum</strong> at <span class="math inline">\((x^*, y^*) = (1, 1)\)</span> where <span class="math inline">\(f(x^*, y^*) = 0\)</span>.</p>
+<p>This function is smooth but <strong>non-convex</strong> (which places it outside the theoretical guarantees discussed in the course and for the optimization methods studied), with a narrow and curved valley that makes it challenging for gradient-based algorithms. We visualize it below to better understand its landscape and the difficulty it poses for optimization methods.</p>
+<hr>
+<div id="f15c4b26" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rosenbrock(x, y):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (<span class="dv">1</span> <span class="op">-</span> x)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">100</span> <span class="op">*</span> (y <span class="op">-</span> x<span class="op">**</span><span class="dv">2</span>)<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a grid</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>x_vals <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">200</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>y_vals <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">200</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>X, Y <span class="op">=</span> np.meshgrid(x_vals, y_vals)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> rosenbrock(X, Y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="236a1394" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 3D surface plot ---</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>, projection<span class="op">=</span><span class="st">'3d'</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>ax.plot_surface(X, Y, Z, cmap<span class="op">=</span><span class="st">'viridis'</span>, edgecolor<span class="op">=</span><span class="st">'none'</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Rosenbrock Function - 3D Surface"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'x'</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">'y'</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>ax.set_zlabel(<span class="st">'f(x, y)'</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Contour plot ---</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>ax2 <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>contours <span class="op">=</span> ax2.contour(X, Y, Z, levels<span class="op">=</span>np.logspace(<span class="op">-</span><span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">20</span>), cmap<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>ax2.set_title(<span class="st">"Rosenbrock Function - Contour Plot"</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>ax2.set_xlabel(<span class="st">'x'</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>ax2.set_ylabel(<span class="st">'y'</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>ax2.plot(<span class="dv">1</span>, <span class="dv">1</span>, <span class="st">'r*'</span>, markersize<span class="op">=</span><span class="dv">10</span>, label<span class="op">=</span><span class="st">'Global minimum (1, 1)'</span>)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>ax2.legend()</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Optimization_for_machine_learning_clean_files/figure-html/cell-6-output-1.png" width="934" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<p>As shown in the figure, the Rosenbrock function forms a narrow, elongated, and curved valley leading to the global minimum at (1, 1).</p>
+<p>On the sides of the valley, the slopes are very steep, meaning that the gradient takes large values. In this case, if the learning rate is too high, these large gradient values can cause first-order algorithms to overshoot the valley and jump from one side to the other without stabilizing near the minimum; resulting in oscillations.</p>
+<p>Conversely, at the bottom of the valley, the slopes become very flat, so the gradient is almost zero. The updates then become extremely small, leading to very slow convergence.</p>
+<p>These behaviors, typical of first-order methods (such as gradient descent and Nesterov variants), make the Rosenbrock function particularly challenging to optimize. It therefore serves as an good benchmark for evaluating the convergence speed and stability of such algorithms.</p>
+<hr>
+</section>
+<section id="test-of-the-algorithms-on-a-given-initialization" class="level5">
+<h5 class="anchored" data-anchor-id="test-of-the-algorithms-on-a-given-initialization">Test of the algorithms on a given initialization</h5>
+<hr>
+<div id="5a7e69bd" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rosenbrock_torch(x):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (<span class="dv">1</span> <span class="op">-</span> x[<span class="dv">0</span>])<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">100</span> <span class="op">*</span> (x[<span class="dv">1</span>] <span class="op">-</span> x[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span>)<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialization</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>x0 <span class="op">=</span> torch.tensor([<span class="fl">2.0</span>, <span class="fl">2.0</span>], dtype<span class="op">=</span>torch.float32)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Execution of methods</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>x_vf, values_vf, path_vf <span class="op">=</span> nesterov_vanishing_friction(rosenbrock_torch, x0, steps<span class="op">=</span><span class="dv">2000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>, b<span class="op">=</span><span class="fl">3.0</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>x_sr, values_sr, path_sr <span class="op">=</span> nesterov_speed_restart(rosenbrock_torch, x0, steps<span class="op">=</span><span class="dv">2000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>, b<span class="op">=</span><span class="fl">3.0</span>, kmin<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Result with Vanishing Friction algoritm (without speed restart) :"</span>, x_vf)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Résult with Speed Restart   :"</span>, x_sr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Result with Vanishing Friction algoritm (without speed restart) : tensor([1.0004, 1.0007], requires_grad=True)
+Résult with Speed Restart   : tensor([1.0000, 0.9999], requires_grad=True)</code></pre>
+</div>
+</div>
+<div id="95e73ceb" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Convergence curves ---</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>plt.plot(values_vf, label<span class="op">=</span><span class="st">'Nesterov Vanishing Friction'</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>plt.plot(values_sr, label<span class="op">=</span><span class="st">'Nesterov Speed Restart'</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">'log'</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Iterations'</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Function value'</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Convergence on the Rosenbrock function'</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Optimization_for_machine_learning_clean_files/figure-html/cell-8-output-1.png" width="679" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="20a81ca4" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Trajectories of both algorithms on Rosenbrock contour lines ---</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>path_vf <span class="op">=</span> np.array([[p[<span class="dv">0</span>].item(), p[<span class="dv">1</span>].item()] <span class="cf">for</span> p <span class="kw">in</span> path_vf])</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>path_sr <span class="op">=</span> np.array([[p[<span class="dv">0</span>].item(), p[<span class="dv">1</span>].item()] <span class="cf">for</span> p <span class="kw">in</span> path_sr])</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="dv">5</span>))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>plt.contour(X, Y, Z, levels<span class="op">=</span>np.logspace(<span class="op">-</span><span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">20</span>), cmap<span class="op">=</span><span class="st">'viridis'</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>plt.plot(path_vf[:,<span class="dv">0</span>], path_vf[:,<span class="dv">1</span>], <span class="st">'b-'</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Nesterov Vanishing Friction'</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>plt.plot(path_sr[:,<span class="dv">0</span>], path_sr[:,<span class="dv">1</span>], <span class="st">'orange'</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Nesterov Speed Restart'</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>plt.scatter(<span class="dv">2</span>, <span class="dv">2</span>, color<span class="op">=</span><span class="st">'black'</span>, label<span class="op">=</span><span class="st">'Start point'</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="dv">1</span>, <span class="dv">1</span>, <span class="st">'r*'</span>, markersize<span class="op">=</span><span class="dv">10</span>, label<span class="op">=</span><span class="st">'Global minimum (1,1)'</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x'</span>)<span class="op">;</span> plt.ylabel(<span class="st">'y'</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Trajectories on Rosenbrock contour lines'</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span> plt.grid(<span class="va">True</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Optimization_for_machine_learning_clean_files/figure-html/cell-9-output-1.png" width="536" height="449" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<p>Both algorithms converge toward the global minimum $ (1,1) $.<br>
+The <strong>Vanishing Friction</strong> method reaches $ [1.0004,, 1.0007] $ with an oscillatory trajectory,<br>
+while the <strong>Speed Restart</strong> variant reaches $ [1.0000,, 0.9999] $ with a smoother trajectory.</p>
+<p>These results confirm the correct implementation of both methods and their expected behaviors. They will be compared in more detail below.</p>
+<hr>
+</section>
+<section id="procedure-of-comparison" class="level5">
+<h5 class="anchored" data-anchor-id="procedure-of-comparison">Procedure of comparison</h5>
+<hr>
+<p>To compare both methods, it is important to limit experimental bias.<br>
+Thus, for each comparison criterion, both algorithms are evaluated under the <strong>same conditions</strong> <em>(fixed learning rate and random seed)</em> to ensure reproducibility and fairness in testing.</p>
+<ul>
+<li><p><strong>Sensitivity to initialization:</strong><br>
+The Rosenbrock function exhibits steep slopes and a narrow valley.<br>
+The algorithms are initialized at different locations: on a steep slope, inside the valley, and on a flatter region.<br>
+For each configuration, we compute the <strong>empirical mean</strong> of<br>
+<span class="math inline">\(|F(x_k) - F^*|\)</span> and $ |x_k - x^*|$ at the terminal points, i.e., the final solutions proposed by each algorithm.<br>
+These quantities allow us to compare their ability to approach the global minimum.</p></li>
+<li><p><strong>Convergence speed:</strong><br>
+For the same initialization points, we measure the <strong>number of iterations required</strong> for<br>
+<span class="math inline">\(|F(x_k) - F^*|\)</span> and $ |x_k - x^*|$ to reach <strong>1% of their initial value</strong>.<br>
+In addition, we record the <strong>total execution time</strong> needed to achieve the same threshold,<br>
+which helps differentiate algorithms that converge quickly in iterations but are computationally expensive.<br>
+The results are then <strong>averaged</strong> for each method to obtain a synthetic measure of convergence speed.</p></li>
+</ul>
+<p>The <strong>convergence stability</strong> is not investigated here, since the <strong>Speed Restart</strong> method is designed to reduce oscillations in the loss function.</p>
+<p>It is important to note that these results are <strong>dependent on the chosen experimental conditions</strong>.</p>
+<hr>
+<div id="bdea1320" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate_algorithms(inits, steps<span class="op">=</span><span class="dv">2000</span>, lr<span class="op">=</span><span class="fl">1e-3</span>, b<span class="op">=</span><span class="fl">3.0</span>, tol_frac<span class="op">=</span><span class="fl">0.01</span>):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> {<span class="st">"vf"</span>: {}, <span class="st">"sr"</span>: {}}</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name, p <span class="kw">in</span> inits.items():</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        x0 <span class="op">=</span> torch.tensor(p, dtype<span class="op">=</span>torch.float32)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        f0 <span class="op">=</span> rosenbrock_torch(x0).item()</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        target_f <span class="op">=</span> f_star <span class="op">+</span> tol_frac <span class="op">*</span> <span class="bu">abs</span>(f0 <span class="op">-</span> f_star)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># --- Vanishing friction ---</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        start <span class="op">=</span> time.time()</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        x_vf, values_vf, _ <span class="op">=</span> nesterov_vanishing_friction(rosenbrock_torch, x0, steps, lr, b)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        t_vf <span class="op">=</span> time.time() <span class="op">-</span> start</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        f_end_vf <span class="op">=</span> rosenbrock_torch(x_vf).item()</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        dist_vf <span class="op">=</span> torch.norm(x_vf <span class="op">-</span> x_star).item()</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        iter_vf <span class="op">=</span> <span class="bu">next</span>((i <span class="cf">for</span> i, v <span class="kw">in</span> <span class="bu">enumerate</span>(values_vf) <span class="cf">if</span> v <span class="op">&lt;=</span> target_f), steps)</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># --- Speed restart ---</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>        start <span class="op">=</span> time.time()</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        x_sr, values_sr, _ <span class="op">=</span> nesterov_speed_restart(rosenbrock_torch, x0, steps, lr, b, kmin<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        t_sr <span class="op">=</span> time.time() <span class="op">-</span> start</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        f_end_sr <span class="op">=</span> rosenbrock_torch(x_sr).item()</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>        dist_sr <span class="op">=</span> torch.norm(x_sr <span class="op">-</span> x_star).item()</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        iter_sr <span class="op">=</span> <span class="bu">next</span>((i <span class="cf">for</span> i, v <span class="kw">in</span> <span class="bu">enumerate</span>(values_sr) <span class="cf">if</span> v <span class="op">&lt;=</span> target_f), steps)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># --- Store results ---</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>        results[<span class="st">"vf"</span>][name] <span class="op">=</span> {</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"init"</span>: p,</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">"|F-F*|"</span>: <span class="bu">abs</span>(f_end_vf <span class="op">-</span> f_star),</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"||x-x*||"</span>: dist_vf,</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"iters_30%"</span>: iter_vf,</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>            <span class="st">"time"</span>: t_vf</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>        results[<span class="st">"sr"</span>][name] <span class="op">=</span> {</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>            <span class="st">"init"</span>: p,</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>            <span class="st">"|F-F*|"</span>: <span class="bu">abs</span>(f_end_sr <span class="op">-</span> f_star),</span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>            <span class="st">"||x-x*||"</span>: dist_sr,</span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>            <span class="st">"iters_30%"</span>: iter_sr,</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>            <span class="st">"time"</span>: t_sr</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>        <span class="co"># --- Print results ---</span></span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">--- Initialization: </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>p<span class="sc">}</span><span class="ss">) ---"</span>)</span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Vanishing Friction → |F-F*|=</span><span class="sc">{</span>results[<span class="st">'vf'</span>][name][<span class="st">'|F-F*|'</span>]<span class="sc">:.2e}</span><span class="ss">, "</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"||x-x*||=</span><span class="sc">{</span>results[<span class="st">'vf'</span>][name][<span class="st">'||x-x*||'</span>]<span class="sc">:.2e}</span><span class="ss">, "</span></span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"iters=</span><span class="sc">{</span>iter_vf<span class="sc">}</span><span class="ss">, time=</span><span class="sc">{</span>t_vf<span class="sc">:.3f}</span><span class="ss">s"</span>)</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Speed Restart      → |F-F*|=</span><span class="sc">{</span>results[<span class="st">'sr'</span>][name][<span class="st">'|F-F*|'</span>]<span class="sc">:.2e}</span><span class="ss">, "</span></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"||x-x*||=</span><span class="sc">{</span>results[<span class="st">'sr'</span>][name][<span class="st">'||x-x*||'</span>]<span class="sc">:.2e}</span><span class="ss">, "</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"iters=</span><span class="sc">{</span>iter_sr<span class="sc">}</span><span class="ss">, time=</span><span class="sc">{</span>t_sr<span class="sc">:.3f}</span><span class="ss">s"</span>)</span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="b1fcf5b7" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>x_star <span class="op">=</span> torch.tensor([<span class="fl">1.0</span>, <span class="fl">1.0</span>])</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>f_star <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ---  diverse initializations (slopes, valley, flat areas) ---</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>inits <span class="op">=</span> {</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"steep_slope_1"</span>: [<span class="fl">2.0</span>, <span class="fl">2.0</span>],</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"steep_slope_2"</span>: [<span class="op">-</span><span class="fl">1.5</span>, <span class="fl">1.0</span>],</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"valley_1"</span>: [<span class="fl">0.8</span>, <span class="fl">1.2</span>],</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"valley_2"</span>: [<span class="fl">1.2</span>, <span class="fl">0.8</span>],</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"flat_region"</span>: [<span class="op">-</span><span class="fl">1.0</span>, <span class="op">-</span><span class="fl">1.0</span>],</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"transition_zone"</span>: [<span class="fl">0.5</span>, <span class="fl">0.5</span>]</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="a4cefc2c" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Run experiment ---</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> evaluate_algorithms(inits)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+--- Initialization: steep_slope_1 ([2.0, 2.0]) ---
+Vanishing Friction → |F-F*|=1.28e-07, ||x-x*||=7.99e-04, iters=15, time=1.265s
+Speed Restart      → |F-F*|=2.30e-09, ||x-x*||=1.07e-04, iters=6, time=1.501s
+
+--- Initialization: steep_slope_2 ([-1.5, 1.0]) ---
+Vanishing Friction → |F-F*|=1.11e-05, ||x-x*||=7.44e-03, iters=74, time=1.234s
+Speed Restart      → |F-F*|=1.92e-09, ||x-x*||=9.81e-05, iters=68, time=1.698s
+
+--- Initialization: valley_1 ([0.8, 1.2]) ---
+Vanishing Friction → |F-F*|=8.25e-08, ||x-x*||=6.43e-04, iters=2, time=1.371s
+Speed Restart      → |F-F*|=5.99e-09, ||x-x*||=1.73e-04, iters=1, time=1.705s
+
+--- Initialization: valley_2 ([1.2, 0.8]) ---
+Vanishing Friction → |F-F*|=1.32e-07, ||x-x*||=8.14e-04, iters=2, time=1.440s
+Speed Restart      → |F-F*|=1.50e-09, ||x-x*||=8.66e-05, iters=2, time=1.646s
+
+--- Initialization: flat_region ([-1.0, -1.0]) ---
+Vanishing Friction → |F-F*|=1.46e-06, ||x-x*||=2.71e-03, iters=5, time=1.262s
+Speed Restart      → |F-F*|=1.75e-09, ||x-x*||=9.35e-05, iters=4, time=1.568s
+
+--- Initialization: transition_zone ([0.5, 0.5]) ---
+Vanishing Friction → |F-F*|=1.02e-06, ||x-x*||=2.26e-03, iters=63, time=1.353s
+Speed Restart      → |F-F*|=1.58e-09, ||x-x*||=8.89e-05, iters=69, time=1.946s</code></pre>
+</div>
+</div>
+<hr>
+<div id="3bc5b5c2" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Compute empirical means ---</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>vf_mean <span class="op">=</span> np.mean([[v[<span class="st">"|F-F*|"</span>], v[<span class="st">"||x-x*||"</span>], v[<span class="st">"iters_30%"</span>], v[<span class="st">"time"</span>]] <span class="cf">for</span> v <span class="kw">in</span> results[<span class="st">"vf"</span>].values()], axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>sr_mean <span class="op">=</span> np.mean([[v[<span class="st">"|F-F*|"</span>], v[<span class="st">"||x-x*||"</span>], v[<span class="st">"iters_30%"</span>], v[<span class="st">"time"</span>]] <span class="cf">for</span> v <span class="kw">in</span> results[<span class="st">"sr"</span>].values()], axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== Mean Results over 6 initializations ==="</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Vanishing Friction → |F-F*|=</span><span class="sc">{</span>vf_mean[<span class="dv">0</span>]<span class="sc">:.2e}</span><span class="ss">, ||x-x*||=</span><span class="sc">{</span>vf_mean[<span class="dv">1</span>]<span class="sc">:.2e}</span><span class="ss">, "</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"iters=</span><span class="sc">{</span>vf_mean[<span class="dv">2</span>]<span class="sc">:.0f}</span><span class="ss">, time=</span><span class="sc">{</span>vf_mean[<span class="dv">3</span>]<span class="sc">:.3f}</span><span class="ss">s"</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Speed Restart      → |F-F*|=</span><span class="sc">{</span>sr_mean[<span class="dv">0</span>]<span class="sc">:.2e}</span><span class="ss">, ||x-x*||=</span><span class="sc">{</span>sr_mean[<span class="dv">1</span>]<span class="sc">:.2e}</span><span class="ss">, "</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"iters=</span><span class="sc">{</span>sr_mean[<span class="dv">2</span>]<span class="sc">:.0f}</span><span class="ss">, time=</span><span class="sc">{</span>sr_mean[<span class="dv">3</span>]<span class="sc">:.3f}</span><span class="ss">s"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== Mean Results over 6 initializations ===
+Vanishing Friction → |F-F*|=2.32e-06, ||x-x*||=2.44e-03, iters=27, time=1.321s
+Speed Restart      → |F-F*|=2.51e-09, ||x-x*||=1.08e-04, iters=25, time=1.677s</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="summary-of-the-comparison" class="level5">
+<h5 class="anchored" data-anchor-id="summary-of-the-comparison">Summary of the comparison</h5>
+<hr>
+<p>The two algorithms both converge effectively toward the global minimum of the Rosenbrock function, but their behaviors differ slightly. The <strong>Speed Restart</strong> method achieves more precise solutions, with final errors on the order of <span class="math inline">\(10^{-9}\)</span> compared to <span class="math inline">\(10^{-6}\)</span> for the <strong>Vanishing Friction</strong> version, and an average distance to the optimum roughly ten times smaller.</p>
+<p>On average, both methods reach <strong>1 % of the initial error in about 25 to 27 iterations</strong>, but <strong>Speed Restart</strong> exhibits a smoother and better-damped convergence, particularly in the challenging regions of the Rosenbrock landscape — <em>steep slopes and narrow valleys</em> — where <strong>Vanishing Friction</strong> tends to oscillate more and sometimes requires more iterations (around 70 versus 60). In contrast, <strong>Speed Restart</strong> incurs a slightly higher computational cost (≈ 1.03 s vs.&nbsp;0.84 s).</p>
+<p>Overall, <strong>Speed Restart</strong> proves to be more efficient in terms of accuracy and stability of convergence, at the expense of a marginally higher execution time. This trade-off makes it preferable when solution quality is prioritized over speed.</p>
+<p>These observations apply to the specific set of initialization points considered. Nevertheless, they can be regarded as plausible given the diversity of the tested conditions (steep slopes, valleys, and flat regions), even though they are drawn from a limited number of cases.</p>
+<hr>
+<hr>
+</section>
+</section>
+<section id="i.3.-determining-the-best-algorithm-discussion-and-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="i.3.-determining-the-best-algorithm-discussion-and-interpretation">I.3. Determining the Best Algorithm: Discussion and Interpretation</h3>
+<hr>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>We observe that the <strong>Nesterov method with Speed Restart</strong> appears overall more effective than the <strong>Vanishing Friction</strong> variant.<br>
+It stands out for its <strong>greater stability</strong> and <strong>smoother convergence</strong>, while showing a <strong>relatively faster convergence rate in terms of iteration count</strong>.</p>
+<p>This behavior can be explained by the restart mechanism itself: when the update speed decreases, the algorithm resets its momentum, preventing the dynamics from entering an oscillatory regime.<br>
+The restart thus acts as an <strong>adaptive control of the momentum</strong>, leading to <strong>locally optimal damping</strong>.<br>
+Conversely, the vanishing friction version—lacking such regulation—sometimes retains too much inertia in regions of high curvature, <strong>which are characteristic of the Rosenbrock function’s structure</strong> (narrow valleys and steep slopes), leading to <strong>oscillations</strong> and slowing down effective descent.</p>
+<p>Although the Rosenbrock function is <strong>non-convex</strong>—and therefore lies outside the theoretical guarantees discussed in class—the observed behavior remains consistent with <strong>theoretical intuitions</strong>:<br>
+Speed Restart tends to achieve a <strong>more stable and better-damped convergence</strong>, with a <strong>relatively faster practical convergence speed</strong> in terms of iterations, at the cost of a <strong>slightly higher computational time. Overall, we can consider that this method is </strong>more robust** for complex and irregular landscapes such as Rosenbrock’s, while maintaining a <strong>comparable convergence rate</strong>.</p>
+<p>Again, as we said above, theses conclusions should nevertheless be interpreted with caution, as they are based on a limited number of initializations.<br>
+However, given the diversity of the tested configurations, the <strong>observed tendencies remain plausible</strong>.</p>
+<hr>
+<hr>
+</section>
+</section>
+<section id="ii.-a-scaling-law-for-the-stepsize-of-gradient-method" class="level1">
+<h1>II. A SCALING LAW FOR THE STEPSIZE OF GRADIENT METHOD</h1>
+<hr>
+<section id="context-1" class="level3">
+<h3 class="anchored" data-anchor-id="context-1">CONTEXT</h3>
+<p>This section aims to study how model size influences the choice of learning rate when training a simple neural network. Using synthetic data generated around a noisy sine function, we train a single-hidden-layer network to observe how convergence speed and optimization stability evolve as the hidden dimension increases. The goal is to provide practical recommendations for selecting the learning rate and to assess to what extent optimal hyperparameters can eventually transfer across models of different sizes.</p>
+<hr>
+<section id="ii.1-train-the-model-with-d-16-using-gradient-method.-determine-the-best-stepsize-according-to-the-criteria-seen-in-class" class="level4">
+<h4 class="anchored" data-anchor-id="ii.1-train-the-model-with-d-16-using-gradient-method.-determine-the-best-stepsize-according-to-the-criteria-seen-in-class">II.1 Train the model with d = 16 using gradient method. Determine the best stepsize according to the criteria seen in class</h4>
+<hr>
+<section id="experimental-procedure" class="level5">
+<h5 class="anchored" data-anchor-id="experimental-procedure">Experimental Procedure</h5>
+<p>To reduce experimental biases, we fix random seeds to ensure reproducibility, use identical data and training conditions for all experiments, and compare learning rates under the same iteration budget.</p>
+<p>The synthetic data are divided into two subsets:</p>
+<ul>
+<li><strong>Training set:</strong> used to fit the model parameters.<br>
+</li>
+<li><strong>Validation set:</strong> used to select the optimal learning rate.</li>
+</ul>
+<p>The learning rate <span class="math inline">\((\alpha)\)</span> is chosen by training the model on the training set for each candidate value of <span class="math inline">\(\alpha\)</span>, using the same initialization and number of epochs.<br>
+The <strong>best learning rate</strong> <span class="math inline">\((\alpha^*)\)</span> is the one that achieves the lowest validation mean squared error (MSE), while also demonstrating <strong>fast</strong> and <strong>stable</strong> convergence.</p>
+<p><strong>Convergence speed</strong> is measured by the number of epochs required to reach a target fraction (30% in our case) of the initial training loss, providing a quantitative estimate of how quickly the algorithm approaches a good solution.</p>
+<p><strong>Convergence stability</strong> is evaluated both qualitatively and quantitatively.<br>
+We first visualize the <strong>training loss curves</strong> over epochs for each learning rate to observe their overall dynamics.<br>
+Then, we compute a <strong>stability indicator</strong> based on the variability of the training loss over the <strong>last 100 iterations</strong>.<br>
+A stable model exhibits a <strong>smooth and monotonic decrease</strong> of the loss, with low variance in this final segment, indicating a well-damped and consistent convergence process.</p>
+<p>We tru with this protocol to ensure a fair and reproducible comparison between different learning-rate values, balancing <strong>accuracy</strong>, <strong>convergence speed</strong>, and <strong>stability</strong> to provide a comprehensive evaluation of the model’s optimization behavior.</p>
+<hr>
+<hr>
+</section>
+<section id="model-training" class="level5">
+<h5 class="anchored" data-anchor-id="model-training">Model training</h5>
+<div id="f582098f" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Data generation</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_data(n<span class="op">=</span><span class="dv">200</span>, T<span class="op">=</span><span class="dv">5</span>, sigma<span class="op">=</span><span class="fl">0.1</span>, seed<span class="op">=</span><span class="dv">42</span>):</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    torch.manual_seed(seed)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> torch.linspace(<span class="op">-</span>T, T, n).unsqueeze(<span class="dv">1</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> torch.sin(t) <span class="op">+</span> sigma <span class="op">*</span> torch.randn_like(t)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t, y</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Model definition</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SimpleNN(nn.Module):</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, d<span class="op">=</span><span class="dv">16</span>):</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(SimpleNN, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.hidden <span class="op">=</span> nn.Linear(<span class="dv">1</span>, d)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.relu <span class="op">=</span> nn.ReLU()</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.output <span class="op">=</span> nn.Linear(d, <span class="dv">1</span>)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, t):</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.output(<span class="va">self</span>.relu(<span class="va">self</span>.hidden(t)))</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------</span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Training loop with validation + metrics</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------------------</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_model(n<span class="op">=</span><span class="dv">200</span>, d<span class="op">=</span><span class="dv">16</span>, lr<span class="op">=</span><span class="fl">1e-2</span>, n_epochs<span class="op">=</span><span class="dv">2000</span>, val_size <span class="op">=</span> <span class="fl">0.2</span>, target_loss <span class="op">=</span> <span class="fl">0.3</span>,stability_param <span class="op">=</span><span class="dv">100</span>, seed<span class="op">=</span><span class="dv">0</span>):</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>    torch.manual_seed(seed)</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Data</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>    t, y <span class="op">=</span> generate_data(n)</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>    t_train, t_val, y_train, y_val <span class="op">=</span> train_test_split(</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>    t, y, test_size<span class="op">=</span> val_size, random_state<span class="op">=</span><span class="dv">42</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Model, loss, optimizer</span></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> SimpleNN(d<span class="op">=</span>d)</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>    criterion <span class="op">=</span> nn.MSELoss()</span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>    optimizer <span class="op">=</span> optim.SGD(model.parameters(), lr<span class="op">=</span>lr)</span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>    losses, val_losses <span class="op">=</span> [], []</span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(n_epochs): <span class="co"># We train the model only on train data</span></span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>        optimizer.zero_grad()</span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>        y_pred <span class="op">=</span> model(t_train)</span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> criterion(y_pred, y_train)</span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>        loss.backward()</span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>        optimizer.step()</span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>            val_pred <span class="op">=</span> model(t_val)</span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>            val_loss <span class="op">=</span> criterion(val_pred, y_val)</span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a>        losses.append(loss.item())</span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a>        val_losses.append(val_loss.item())</span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- Compute experimental metrics ---</span></span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a>    initial_loss <span class="op">=</span> losses[<span class="dv">0</span>]</span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>    target_loss <span class="op">=</span> target_loss<span class="op">*</span> initial_loss</span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a>    epochs_to_target <span class="op">=</span> <span class="bu">next</span>((i <span class="cf">for</span> i, l <span class="kw">in</span> <span class="bu">enumerate</span>(losses) <span class="cf">if</span> l <span class="op">&lt;</span> target_loss), n_epochs)</span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>    stability <span class="op">=</span> torch.std(torch.tensor(losses[<span class="op">-</span>stability_param:])).item()</span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model, t_train, t_val, y_train, y_val, losses, val_losses, epochs_to_target, stability</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<hr>
+</section>
+<section id="after-training-the-model" class="level5">
+<h5 class="anchored" data-anchor-id="after-training-the-model">After training the model :</h5>
+<hr>
+<div id="4972a2c7" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------------------------------------------------</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We evaluate several learning rates under identical experimental</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># conditions, print training/validation metrics, and return all</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># experiment results.</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------------------------------------------------</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="476ccfa2" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate_learning_rates(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    lr_grid, display_perf <span class="op">=</span> <span class="va">True</span>, n<span class="op">=</span><span class="dv">200</span>, d<span class="op">=</span><span class="dv">16</span>, n_epochs<span class="op">=</span><span class="dv">2000</span>, seed<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    val_size<span class="op">=</span><span class="fl">0.2</span>, target_loss<span class="op">=</span><span class="fl">0.3</span>, stability_param<span class="op">=</span><span class="dv">100</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> []</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">120</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"=== LEARNING RATE EVALUATION ==="</span>.center(<span class="dv">120</span>))</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">120</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> lr <span class="kw">in</span> lr_grid:</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (display_perf):</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>          <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Training with lr = </span><span class="sc">{</span>lr<span class="sc">}</span><span class="ss"> ..."</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>        model, t_train, t_val, y_train, y_val, losses, val_losses, epochs_to_target, stability <span class="op">=</span> train_model(</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>            n<span class="op">=</span>n, d<span class="op">=</span>d, lr<span class="op">=</span>lr, n_epochs<span class="op">=</span>n_epochs, seed<span class="op">=</span>seed,</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>            val_size<span class="op">=</span>val_size, target_loss<span class="op">=</span>target_loss,</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>            stability_param<span class="op">=</span>stability_param</span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>        final_train_loss, final_val_loss <span class="op">=</span> losses[<span class="op">-</span><span class="dv">1</span>], val_losses[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Store results (compact format)</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>        results.append({</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"lr"</span>: lr, <span class="st">"model"</span>: model,</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"t_train"</span>: t_train, <span class="st">"t_val"</span>: t_val,</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"y_train"</span>: y_train, <span class="st">"y_val"</span>: y_val,</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">"losses"</span>: losses, <span class="st">"val_losses"</span>: val_losses,</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"final_train_loss"</span>: final_train_loss,</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">"final_val_loss"</span>: final_val_loss,</span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"epochs_to_target"</span>: epochs_to_target,</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"stability"</span>: stability</span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- display of all key metrics ---</span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (display_perf):</span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>          <span class="bu">print</span>(</span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"lr=</span><span class="sc">{</span>lr<span class="sc">:&lt;8g}</span><span class="ss"> | "</span></span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"TrainLoss=</span><span class="sc">{</span>final_train_loss<span class="sc">:&lt;10.6f}</span><span class="ss"> | "</span></span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"ValLoss=</span><span class="sc">{</span>final_val_loss<span class="sc">:&lt;10.6f}</span><span class="ss"> | "</span></span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"Epochs_speed_30%=</span><span class="sc">{</span>epochs_to_target<span class="sc">:&lt;5d}</span><span class="ss"> | "</span></span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>              <span class="ss">f"Stability=</span><span class="sc">{</span>stability<span class="sc">:&lt;10.6f}</span><span class="ss">"</span></span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>          )</span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Identify best learning rate (lowest validation loss)</span></span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>    best <span class="op">=</span> <span class="bu">min</span>(results, key<span class="op">=</span><span class="kw">lambda</span> r: r[<span class="st">"final_val_loss"</span>])</span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">120</span>)</span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== BEST LEARNING RATE SELECTION ==="</span>.center(<span class="dv">120</span>))</span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">120</span>)</span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(</span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Best lr = </span><span class="sc">{</span>best[<span class="st">'lr'</span>]<span class="sc">}</span><span class="ss"> | "</span></span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"ValLoss=</span><span class="sc">{</span>best[<span class="st">'final_val_loss'</span>]<span class="sc">:.6f}</span><span class="ss"> | "</span></span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"TrainLoss=</span><span class="sc">{</span>best[<span class="st">'final_train_loss'</span>]<span class="sc">:.6f}</span><span class="ss"> | "</span></span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Epochs_speed_30%=</span><span class="sc">{</span>best[<span class="st">'epochs_to_target'</span>]<span class="sc">}</span><span class="ss"> | "</span></span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>        <span class="ss">f"Stability=</span><span class="sc">{</span>best[<span class="st">'stability'</span>]<span class="sc">:.6f}</span><span class="ss">"</span></span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> results, best</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="c00b56c6" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate_learning_rates(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    lr_grid, display_perf<span class="op">=</span><span class="va">True</span>,n<span class="op">=</span><span class="dv">200</span>, d<span class="op">=</span><span class="dv">16</span>, n_epochs<span class="op">=</span><span class="dv">2000</span>, seed<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    val_size<span class="op">=</span><span class="fl">0.2</span>, target_loss<span class="op">=</span><span class="fl">0.3</span>, stability_param<span class="op">=</span><span class="dv">100</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> []</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">120</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"=== LEARNING RATE EVALUATION ==="</span>.center(<span class="dv">120</span>))</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">120</span>)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> lr <span class="kw">in</span> lr_grid:</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> display_perf:</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Training with lr = </span><span class="sc">{</span>lr<span class="sc">}</span><span class="ss"> ..."</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>        model, t_train, t_val, y_train, y_val, losses, val_losses, epochs_to_target, stability <span class="op">=</span> train_model(</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>            d<span class="op">=</span>d, lr<span class="op">=</span>lr, n<span class="op">=</span>n, n_epochs<span class="op">=</span>n_epochs, seed<span class="op">=</span>seed,</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>            val_size<span class="op">=</span>val_size, target_loss<span class="op">=</span>target_loss,</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>            stability_param<span class="op">=</span>stability_param</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>        final_train_loss, final_val_loss <span class="op">=</span> losses[<span class="op">-</span><span class="dv">1</span>], val_losses[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>        results.append({</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>            <span class="st">"lr"</span>: lr, <span class="st">"model"</span>: model,</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>            <span class="st">"t_train"</span>: t_train, <span class="st">"t_val"</span>: t_val,</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>            <span class="st">"y_train"</span>: y_train, <span class="st">"y_val"</span>: y_val,</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>            <span class="st">"losses"</span>: losses, <span class="st">"val_losses"</span>: val_losses,</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>            <span class="st">"final_train_loss"</span>: final_train_loss,</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>            <span class="st">"final_val_loss"</span>: final_val_loss,</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>            <span class="st">"epochs_to_target"</span>: epochs_to_target,</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>            <span class="st">"stability"</span>: stability</span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> display_perf:</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"lr=</span><span class="sc">{</span>lr<span class="sc">:&lt;8g}</span><span class="ss"> | "</span></span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"TrainLoss=</span><span class="sc">{</span>final_train_loss<span class="sc">:&lt;10.6f}</span><span class="ss"> | "</span></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"ValLoss=</span><span class="sc">{</span>final_val_loss<span class="sc">:&lt;10.6f}</span><span class="ss"> | "</span></span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"Epochs_speed_30%=</span><span class="sc">{</span>epochs_to_target<span class="sc">:&lt;5d}</span><span class="ss"> | "</span></span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>                <span class="ss">f"Stability=</span><span class="sc">{</span>stability<span class="sc">:&lt;10.6f}</span><span class="ss">"</span></span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- Filtrer les NaN avant de chercher le meilleur lr ---</span></span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>    valid_results <span class="op">=</span> [r <span class="cf">for</span> r <span class="kw">in</span> results <span class="cf">if</span> <span class="kw">not</span> np.isnan(r[<span class="st">"final_val_loss"</span>])]</span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>    best <span class="op">=</span> <span class="va">None</span> <span class="cf">if</span> <span class="bu">len</span>(valid_results) <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> <span class="bu">min</span>(valid_results, key<span class="op">=</span><span class="kw">lambda</span> r: r[<span class="st">"final_val_loss"</span>])</span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> best <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span> <span class="op">+</span> <span class="st">"="</span> <span class="op">*</span> <span class="dv">120</span>)</span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== BEST LEARNING RATE SELECTION ==="</span>.center(<span class="dv">120</span>))</span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"="</span> <span class="op">*</span> <span class="dv">120</span>)</span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(</span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"Best lr = </span><span class="sc">{</span>best[<span class="st">'lr'</span>]<span class="sc">}</span><span class="ss"> | "</span></span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"ValLoss=</span><span class="sc">{</span>best[<span class="st">'final_val_loss'</span>]<span class="sc">:.6f}</span><span class="ss"> | "</span></span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"TrainLoss=</span><span class="sc">{</span>best[<span class="st">'final_train_loss'</span>]<span class="sc">:.6f}</span><span class="ss"> | "</span></span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"Epochs_speed_30%=</span><span class="sc">{</span>best[<span class="st">'epochs_to_target'</span>]<span class="sc">}</span><span class="ss"> | "</span></span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"Stability=</span><span class="sc">{</span>best[<span class="st">'stability'</span>]<span class="sc">:.6f}</span><span class="ss">"</span></span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> results, best</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="18a11733" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Définition explicite de la grille de learning rates</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>lr_grid <span class="op">=</span> [<span class="fl">0.1</span>, <span class="fl">0.05</span>,<span class="fl">0.02</span>, <span class="fl">0.01</span>, <span class="fl">0.005</span>, <span class="fl">0.002</span>, <span class="fl">0.001</span>, <span class="fl">0.0005</span>, <span class="fl">0.0002</span>, <span class="fl">0.0001</span>]</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Lancement de l’évaluation</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>results, best <span class="op">=</span> evaluate_learning_rates(lr_grid)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>========================================================================================================================
+                                            === LEARNING RATE EVALUATION ===                                            
+========================================================================================================================
+
+Training with lr = 0.1 ...
+lr=0.1      | TrainLoss=0.076973   | ValLoss=0.065942   | Epochs_speed_30%=41    | Stability=0.000153  
+
+Training with lr = 0.05 ...
+lr=0.05     | TrainLoss=0.020617   | ValLoss=0.015553   | Epochs_speed_30%=49    | Stability=0.000012  
+
+Training with lr = 0.02 ...
+lr=0.02     | TrainLoss=0.020840   | ValLoss=0.015217   | Epochs_speed_30%=122   | Stability=0.000008  
+
+Training with lr = 0.01 ...
+lr=0.01     | TrainLoss=0.022120   | ValLoss=0.016492   | Epochs_speed_30%=243   | Stability=0.000060  
+
+Training with lr = 0.005 ...
+lr=0.005    | TrainLoss=0.027652   | ValLoss=0.024215   | Epochs_speed_30%=486   | Stability=0.000272  
+
+Training with lr = 0.002 ...
+lr=0.002    | TrainLoss=0.096139   | ValLoss=0.132075   | Epochs_speed_30%=1214  | Stability=0.002422  
+
+Training with lr = 0.001 ...
+lr=0.001    | TrainLoss=0.226179   | ValLoss=0.330190   | Epochs_speed_30%=2000  | Stability=0.002805  
+
+Training with lr = 0.0005 ...
+lr=0.0005   | TrainLoss=0.339256   | ValLoss=0.498349   | Epochs_speed_30%=2000  | Stability=0.001959  
+
+Training with lr = 0.0002 ...
+lr=0.0002   | TrainLoss=0.430163   | ValLoss=0.633227   | Epochs_speed_30%=2000  | Stability=0.001013  
+
+Training with lr = 0.0001 ...
+lr=0.0001   | TrainLoss=0.466916   | ValLoss=0.688847   | Epochs_speed_30%=2000  | Stability=0.000571  
+
+========================================================================================================================
+                                         
+=== BEST LEARNING RATE SELECTION ===                                          
+========================================================================================================================
+Best lr = 0.02 | ValLoss=0.015217 | TrainLoss=0.020840 | Epochs_speed_30%=122 | Stability=0.000008</code></pre>
+</div>
+</div>
+<hr>
+<p>The selected learning rate α = 0.02 provides the best trade-off between convergence speed, accuracy, and stability. The training loss and validation loss are very close, indicating no signs of overfitting and a good generalization ability of the model. Higher learning rates tend to be less stable, while lower ones lead to slower convergence, which is consistent with the behavior of gradient descent optimization.</p>
+<p>To further support this conclusion, we present a visual analysis of the optimization process. The training loss curves show that large learning rates cause oscillations, while moderate values yield smoother and faster convergence. The validation loss plot exhibits a clear minimum around α ≈ 0.02, confirming the results obtained previously.</p>
+<hr>
+</section>
+<section id="visual-analysis" class="level5">
+<h5 class="anchored" data-anchor-id="visual-analysis">Visual analysis</h5>
+<hr>
+<p>In addition to the full training curves, we include a zoom on the first 500 epochs to closely examine the early convergence phase — where differences in learning rate have the strongest impact on stability and speed of learning.</p>
+<hr>
+<div id="13b71d8b" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_lr_analysis(results):</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    colors <span class="op">=</span> plt.cm.tab10(np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="bu">len</span>(results)))</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. Training loss vs epoch for different learning rates</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> r, c <span class="kw">in</span> <span class="bu">zip</span>(results, colors):</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        plt.plot(r[<span class="st">"losses"</span>], label<span class="op">=</span><span class="ss">f"lr=</span><span class="sc">{</span>r[<span class="st">'lr'</span>]<span class="sc">}</span><span class="ss">"</span>, color<span class="op">=</span>c)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Epoch"</span>)</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"MSE Loss"</span>)</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Training Loss for Different Learning Rates"</span>)</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. Zoom on the first 500 epochs (training loss)</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> r, c <span class="kw">in</span> <span class="bu">zip</span>(results, colors):</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>        plt.plot(r[<span class="st">"losses"</span>][:<span class="dv">500</span>], label<span class="op">=</span><span class="ss">f"lr=</span><span class="sc">{</span>r[<span class="st">'lr'</span>]<span class="sc">}</span><span class="ss">"</span>, color<span class="op">=</span>c)</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Epoch (first 500)"</span>)</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"MSE Loss"</span>)</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Training Loss (Zoom on First 500 Epochs)"</span>)</span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Validation loss vs learning rate (linear scale)</span></span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>    lrs <span class="op">=</span> [r[<span class="st">"lr"</span>] <span class="cf">for</span> r <span class="kw">in</span> results]</span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>    val_losses <span class="op">=</span> [r[<span class="st">"final_val_loss"</span>] <span class="cf">for</span> r <span class="kw">in</span> results]</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>,<span class="dv">6</span>))</span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>    plt.plot(lrs, val_losses, marker<span class="op">=</span><span class="st">"o"</span>, color<span class="op">=</span><span class="st">"steelblue"</span>, label<span class="op">=</span><span class="st">"Validation loss"</span>)</span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Learning rate α"</span>)</span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Validation loss"</span>)</span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Validation Loss as a Function of Learning Rate"</span>)</span>
+<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4. Print optimal learning rate</span></span>
+<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a>    best <span class="op">=</span> <span class="bu">min</span>(results, key<span class="op">=</span><span class="kw">lambda</span> r: r[<span class="st">"final_val_loss"</span>])</span>
+<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Optimal learning rate: </span><span class="sc">{</span>best[<span class="st">'lr'</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-48"><a href="#cb22-48" aria-hidden="true" tabindex="-1"></a>plot_lr_analysis(results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Optimization_for_machine_learning_clean_files/figure-html/cell-19-output-1.png" width="651" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Optimization_for_machine_learning_clean_files/figure-html/cell-19-output-2.png" width="651" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Optimization_for_machine_learning_clean_files/figure-html/cell-19-output-3.png" width="663" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Optimal learning rate: 0.0200</code></pre>
+</div>
+</div>
+<hr>
+<p>The predictive capability of our retained model, quantitatively assessed through the MSE values, is further highlighted visually by comparing the true data and the model predictions on both the training and validation sets.</p>
+<hr>
+<p><strong>Predictive capacity visualisation</strong></p>
+<hr>
+<div id="3c9047b3" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_best_model_fit(results):</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    best <span class="op">=</span> <span class="bu">min</span>(results, key<span class="op">=</span><span class="kw">lambda</span> r: r[<span class="st">"final_val_loss"</span>])</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    model, lr <span class="op">=</span> best[<span class="st">"model"</span>], best[<span class="st">"lr"</span>]</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    sets <span class="op">=</span> [</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"Training"</span>, best[<span class="st">"t_train"</span>], best[<span class="st">"y_train"</span>], <span class="st">"blue"</span>),</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>        (<span class="st">"Validation"</span>, best[<span class="st">"t_val"</span>], best[<span class="st">"y_val"</span>], <span class="st">"green"</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>), sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> ax, (name, t, y, color) <span class="kw">in</span> <span class="bu">zip</span>(axes, sets):</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>        t_sorted, idx <span class="op">=</span> torch.sort(t.squeeze())</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>            y_pred <span class="op">=</span> model(t_sorted.unsqueeze(<span class="dv">1</span>))</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>        ax.scatter(t_sorted, y[idx], color<span class="op">=</span>color, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> Data"</span>)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>        ax.plot(t_sorted, y_pred, color<span class="op">=</span><span class="st">"red"</span>, label<span class="op">=</span><span class="st">"Model Prediction"</span>)</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>        ax.set_title(<span class="ss">f"Fit on </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> Data"</span>)</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>        ax.set_xlabel(<span class="st">"t"</span>)</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>        ax.set_ylabel(<span class="st">"y"</span>)</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>        ax.legend()</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    fig.suptitle(<span class="ss">f"Best Model (α = </span><span class="sc">{</span>lr<span class="sc">}</span><span class="ss">)"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout(rect<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.95</span>])</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Best lr: </span><span class="sc">{</span>lr<span class="sc">:.4f}</span><span class="ss"> | Train loss: </span><span class="sc">{</span>best[<span class="st">'final_train_loss'</span>]<span class="sc">:.6f}</span><span class="ss"> | Val loss: </span><span class="sc">{</span>best[<span class="st">'final_val_loss'</span>]<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>plot_best_model_fit(results)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Optimization_for_machine_learning_clean_files/figure-html/cell-20-output-1.png" width="950" height="381" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Best lr: 0.0200 | Train loss: 0.020840 | Val loss: 0.015217</code></pre>
+</div>
+</div>
+<p>The model accurately captures the sinusoidal trend of the data on both the training and validation sets. The close alignment between the predicted (red curve) and true values (validation set) indicates good generalization and confirms that the model has learned the underlying function without overfitting.</p>
+<hr>
+<hr>
+</section>
+</section>
+<section id="ii.2-scaling-law-for-the-optimal-learning-rate" class="level4">
+<h4 class="anchored" data-anchor-id="ii.2-scaling-law-for-the-optimal-learning-rate">II.2 Scaling law for the optimal learning rate</h4>
+<hr>
+<p>Let’s repeat the experiment for several values of the hidden layer size ( d ) and propose a <strong>scaling law</strong> for the best stepsize as a function of ( d ):</p>
+<p>$ (d) , d^{} $</p>
+<p>where <span class="math inline">\(( \nu )\)</span> and <span class="math inline">\(( \gamma)\)</span> will be determined <strong>numerically</strong>.</p>
+<hr>
+<section id="justification-of-the-approach-adopted" class="level5">
+<h5 class="anchored" data-anchor-id="justification-of-the-approach-adopted">Justification of the approach adopted</h5>
+<hr>
+<p>To identify the parameters <span class="math inline">\(\nu\)</span> and <span class="math inline">\(\gamma\)</span> of the proposed scaling law, the <strong>first natural approach we considered</strong> was to find the pair <span class="math inline">\((\nu, \gamma)\)</span> that minimizes the objective function:</p>
+<p><span class="math display">\[
+J(\nu, \gamma) = \frac{1}{n} \sum_{i=1}^{n} [\alpha^*(d_i) - \nu\, d_i^{\gamma}]^2
+\]</span></p>
+<p>This formulation <strong>has no analytical solution</strong>, and therefore requires the use of <strong>numerical optimization methods</strong> (such as gradient descent…).<br>
+However, even in this case, the task remains challenging since the cost function is <strong>non-convex</strong> in <span class="math inline">\((\nu, \gamma)\)</span>.<br>
+Furthermore, this approach would require selecting an appropriate <strong>iteration step size</strong>, which would be paradoxical since the <strong>very core of the exercise lies precisely in determining the step size itself</strong>. This would amount to <strong>chasing our own tail</strong>.</p>
+<p>To avoid this difficulty, we adopt a second strategy that consists of <strong>linearizing</strong> the relationship through a logarithmic transformation:</p>
+<p><span class="math display">\[
+\log \alpha^*(d) = \log \nu + \gamma \log d + \varepsilon
+\]</span></p>
+<p>This transformation reformulates the problem as a simple <strong>linear model</strong>, which can be solved analytically using <strong>ordinary least squares regression</strong>.<br>
+Nevertheless, this approach has a limitation: the error term <span class="math inline">\(\varepsilon\)</span> is <strong>not necessarily centered</strong> after transformation, since taking logarithms alters the noise distribution. This constitutes a <strong>partial violation of the classical assumptions</strong> of the linear model.<br>
+Despite this limitation, we consider it the <strong>most reasonable and pragmatic compromise</strong> for estimating the parameters <span class="math inline">\(\nu\)</span> and <span class="math inline">\(\gamma\)</span>.</p>
+<hr>
+</section>
+<section id="implementation" class="level5">
+<h5 class="anchored" data-anchor-id="implementation">Implementation</h5>
+<hr>
+<div id="dc94c11e" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># =====================================================</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1 — Determine the best learning rate α*(d) for each d</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># =====================================================</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_best_lr_per_d(d_values, lr_grid, n<span class="op">=</span><span class="dv">200</span>, display_perf <span class="op">=</span> <span class="va">False</span>, n_epochs<span class="op">=</span><span class="dv">2000</span>, seed<span class="op">=</span><span class="dv">0</span>):</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    best_alphas <span class="op">=</span> []</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> d <span class="kw">in</span> d_values:</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">=== Searching best learning rate for d = </span><span class="sc">{</span>d<span class="sc">}</span><span class="ss"> ==="</span>)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>        results, best <span class="op">=</span> evaluate_learning_rates(</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>            lr_grid<span class="op">=</span>lr_grid,</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>            display_perf <span class="op">=</span> display_perf,</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>            n<span class="op">=</span>n,</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>            d<span class="op">=</span>d,</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>            n_epochs<span class="op">=</span>n_epochs,</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>            seed<span class="op">=</span>seed,</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>            val_size<span class="op">=</span><span class="fl">0.2</span>,</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>            target_loss<span class="op">=</span><span class="fl">0.3</span>,</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>            stability_param<span class="op">=</span><span class="dv">100</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>        best_alphas.append(best[<span class="st">"lr"</span>])</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Best α*(d=</span><span class="sc">{</span>d<span class="sc">}</span><span class="ss">) = </span><span class="sc">{</span>best[<span class="st">'lr'</span>]<span class="sc">:.5f}</span><span class="ss">"</span>)</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(d_values), np.array(best_alphas)</span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a><span class="co"># =====================================================</span></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2 — Fit scaling law: log α* = log ν + γ log d</span></span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a><span class="co"># =====================================================</span></span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fit_scaling_law(d_values, alphas):</span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>    log_d <span class="op">=</span> np.log(d_values).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>    log_alpha <span class="op">=</span> np.log(alphas)</span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> LinearRegression()</span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>    model.fit(log_d, log_alpha)</span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>    gamma <span class="op">=</span> model.coef_[<span class="dv">0</span>]</span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>    log_nu <span class="op">=</span> model.intercept_</span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>    nu <span class="op">=</span> np.exp(log_nu)</span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Estimated parameters:"</span>)</span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  ν = </span><span class="sc">{</span>nu<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  γ = </span><span class="sc">{</span>gamma<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> nu, gamma, model</span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a>d_values <span class="op">=</span> [ <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">16</span>, <span class="dv">32</span>, <span class="dv">64</span>]</span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a>d_vals, best_alphas <span class="op">=</span> find_best_lr_per_d(d_values, lr_grid)</span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a>nu, gamma, model <span class="op">=</span> fit_scaling_law(d_vals, best_alphas)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== Searching best learning rate for d = 2 ===
+========================================================================================================================
+                                            === LEARNING RATE EVALUATION ===                                            
+========================================================================================================================
+
+========================================================================================================================
+                                         
+=== BEST LEARNING RATE SELECTION ===                                          
+========================================================================================================================
+Best lr = 0.05 | ValLoss=0.491311 | TrainLoss=0.404082 | Epochs_speed_30%=2000 | Stability=0.000000
+Best α*(d=2) = 0.05000
+
+=== Searching best learning rate for d = 8 ===
+========================================================================================================================
+                                            === LEARNING RATE EVALUATION ===                                            
+========================================================================================================================
+
+========================================================================================================================
+                                         
+=== BEST LEARNING RATE SELECTION ===                                          
+========================================================================================================================
+Best lr = 0.05 | ValLoss=0.014245 | TrainLoss=0.020353 | Epochs_speed_30%=63 | Stability=0.000017
+Best α*(d=8) = 0.05000
+
+=== Searching best learning rate for d = 16 ===
+========================================================================================================================
+                                            === LEARNING RATE EVALUATION ===                                            
+========================================================================================================================
+
+========================================================================================================================
+                                         
+=== BEST LEARNING RATE SELECTION ===                                          
+========================================================================================================================
+Best lr = 0.02 | ValLoss=0.015217 | TrainLoss=0.020840 | Epochs_speed_30%=122 | Stability=0.000008
+Best α*(d=16) = 0.02000
+
+=== Searching best learning rate for d = 32 ===
+========================================================================================================================
+                                            === LEARNING RATE EVALUATION ===                                            
+========================================================================================================================
+
+========================================================================================================================
+                                         
+=== BEST LEARNING RATE SELECTION ===                                          
+========================================================================================================================
+Best lr = 0.02 | ValLoss=0.015334 | TrainLoss=0.020124 | Epochs_speed_30%=22 | Stability=0.000022
+Best α*(d=32) = 0.02000
+
+=== Searching best learning rate for d = 64 ===
+========================================================================================================================
+                                            === LEARNING RATE EVALUATION ===                                            
+========================================================================================================================
+
+========================================================================================================================
+                                         
+=== BEST LEARNING RATE SELECTION ===                                          
+========================================================================================================================
+Best lr = 0.01 | ValLoss=0.014743 | TrainLoss=0.019707 | Epochs_speed_30%=65 | Stability=0.000042
+Best α*(d=64) = 0.01000
+
+Estimated parameters:
+  ν = 0.086670
+  γ = -0.470199</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="interpretation-and-analysis-of-the-results" class="level5">
+<h5 class="anchored" data-anchor-id="interpretation-and-analysis-of-the-results">Interpretation and Analysis of the Results</h5>
+<hr>
+<p>The experiments conducted allowed us to estimate the scaling law linking the optimal learning rate to the hidden-layer size:</p>
+<p><span class="math display">\[
+\alpha^*(d) \approx \nu \, d^{\gamma}, \quad
+\nu \approx 0.087, \ \gamma \approx -0.47.
+\]</span></p>
+<p>The negative value of <span class="math inline">\(\gamma\)</span> indicates that the <strong>optimal learning rate decreases as the network size <span class="math inline">\(d\)</span> increases</strong>.<br>
+This trend can be explained by several complementary factors related to the structure of the optimization problem:</p>
+<hr>
+<ul>
+<li><p><strong>Increasing model complexity</strong>:<br>
+As <span class="math inline">\(d\)</span> grows, the number of parameters to optimize increases, expanding the parameter space.<br>
+This leads to a situation known as the <strong>curse of dimensionality</strong>, where the loss surface becomes <strong>possibly ill-conditioned</strong>, making gradient-based optimization harder to stabilize.</p></li>
+<li><p><strong>Non-convex nature of the objective function</strong>:<br>
+Our learning problem here is inherently <strong>non-convex</strong> due to the ReLU activation and parameter interactions.<br>
+The loss surface therefore contains multiple <strong>local minima</strong>, <strong>saddle points</strong>, and regions of <strong>high curvature</strong>.<br>
+As <span class="math inline">\(d\)</span> increases, these effects become more pronounced, making the optimization process more sensitive to the choice of learning rate.</p></li>
+<li><p><strong>Practical consequence</strong>:</p>
+<p>In such irregular loss landscapes, gradients can fluctuate strongly and point in inconsistent directions, sometimes taking <strong>large magnitudes</strong>.<br>
+Combined with a large learning rate, this can produce <strong>strong oscillations</strong> in the updates, <strong>slowing down convergence</strong> or even causing <strong>divergence</strong>.<br>
+As a consequence, a smaller step size helps maintain a more <strong>stable and controlled convergence</strong>, which explains the observed empirical relationship:<br>
+<span class="math display">\[
+\alpha^*(d) \propto d^{\gamma}, \quad \gamma &lt; 0.
+\]</span></p></li>
+</ul>
+<hr>
+<p>In summary, the decrease of the optimal learning rate with network size can be interpreted as a <strong>natural stabilization mechanism</strong> of gradient-based learning in higher-dimensional, non-convex parameter spaces.<br>
+This behavior is consistent with theoretical expectations for gradient descent and common empirical practices in deep learning.</p>
+<hr>
+</section>
+<section id="empirical-validation-of-the-scaled-relation" class="level5">
+<h5 class="anchored" data-anchor-id="empirical-validation-of-the-scaled-relation">Empirical validation of the scaled relation</h5>
+<hr>
+<p>Having estimated the parameters <span class="math inline">\(\nu\)</span> and <span class="math inline">\(\gamma\)</span>, we now aim to <strong>empirically assess</strong> the plausibility of the obtained relationship.<br>
+In our case, besides assuming that the error terms have zero expectation, we only have five data points, which prevents performing any <strong>reliable statistical tests</strong>.</p>
+<p>We therefore select a set of new values of <span class="math inline">\(d\)</span>, different from those used for parameter estimation, and train the corresponding models using the learning rates predicted by <strong>our relationship</strong>.</p>
+<p>We then examine the <strong>loss curves over epochs</strong> to asses the stability of the fitted models and the <strong>results on the training and validation sets</strong> to evaluate the predictive and generalizing capacities of the obtained model.</p>
+<hr>
+<hr>
+<div id="488372ec" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> validate_scaling_relation(nu, gamma, d_test_values, n_epochs<span class="op">=</span><span class="dv">2000</span>, seed<span class="op">=</span><span class="dv">0</span>, val_size<span class="op">=</span><span class="fl">0.2</span>):</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> []</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Train models for each value of d</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> d <span class="kw">in</span> d_test_values:</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>        lr_pred <span class="op">=</span> nu <span class="op">*</span> (d <span class="op">**</span> gamma)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">=== d = </span><span class="sc">{</span>d<span class="sc">}</span><span class="ss"> | lr = </span><span class="sc">{</span>lr_pred<span class="sc">:.6f}</span><span class="ss"> ==="</span>)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>        model, t_train, t_test, y_train, y_test, losses, _, _, _ <span class="op">=</span> train_model(</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>            d<span class="op">=</span>d, lr<span class="op">=</span>lr_pred, n_epochs<span class="op">=</span>n_epochs, seed<span class="op">=</span>seed,</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>            val_size<span class="op">=</span>val_size, target_loss<span class="op">=</span><span class="fl">0.3</span>, stability_param<span class="op">=</span><span class="dv">100</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>        results.append({</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">"d"</span>: d, <span class="st">"lr"</span>: lr_pred, <span class="st">"model"</span>: model,</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"t_train"</span>: t_train, <span class="st">"y_train"</span>: y_train,</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"t_test"</span>: t_test, <span class="st">"y_test"</span>: y_test,</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>            <span class="st">"losses"</span>: losses</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Training loss curves</span></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> r <span class="kw">in</span> results:</span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>        plt.plot(r[<span class="st">"losses"</span>], label<span class="op">=</span><span class="ss">f"d=</span><span class="sc">{</span>r[<span class="st">'d'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Epoch"</span>)</span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Training Loss (MSE)"</span>)</span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Training Loss Curves for Predicted Learning Rates"</span>)</span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a>    plt.grid(<span class="va">True</span>)</span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Visualisation of predictions on train and test sets</span></span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ----------------------------------------------------------</span></span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> r <span class="kw">in</span> results:</span>
+<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a>        model <span class="op">=</span> r[<span class="st">"model"</span>]</span>
+<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a>            y_pred_train <span class="op">=</span> model(r[<span class="st">"t_train"</span>])</span>
+<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a>            y_pred_test <span class="op">=</span> model(r[<span class="st">"t_test"</span>])</span>
+<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a>        fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>), sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a>        data <span class="op">=</span> [</span>
+<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Training"</span>, r[<span class="st">"t_train"</span>], r[<span class="st">"y_train"</span>], y_pred_train, <span class="st">"blue"</span>),</span>
+<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a>            (<span class="st">"Test"</span>, r[<span class="st">"t_test"</span>], r[<span class="st">"y_test"</span>], y_pred_test, <span class="st">"orange"</span>)</span>
+<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a>        ]</span>
+<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> ax, (title, t, y, y_pred, color) <span class="kw">in</span> <span class="bu">zip</span>(axes, data):</span>
+<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a>            idx <span class="op">=</span> torch.argsort(t.squeeze())</span>
+<span id="cb28-53"><a href="#cb28-53" aria-hidden="true" tabindex="-1"></a>            ax.scatter(t[idx], y[idx], color<span class="op">=</span>color, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="ss">f"</span><span class="sc">{</span>title<span class="sc">}</span><span class="ss"> data"</span>)</span>
+<span id="cb28-54"><a href="#cb28-54" aria-hidden="true" tabindex="-1"></a>            ax.plot(t[idx], y_pred[idx], color<span class="op">=</span><span class="st">"red"</span>, label<span class="op">=</span><span class="st">"Model prediction"</span>)</span>
+<span id="cb28-55"><a href="#cb28-55" aria-hidden="true" tabindex="-1"></a>            ax.set_title(<span class="ss">f"</span><span class="sc">{</span>title<span class="sc">}</span><span class="ss"> set (d=</span><span class="sc">{</span>r[<span class="st">'d'</span>]<span class="sc">}</span><span class="ss">, lr=</span><span class="sc">{</span>r[<span class="st">'lr'</span>]<span class="sc">:.4f}</span><span class="ss">)"</span>)</span>
+<span id="cb28-56"><a href="#cb28-56" aria-hidden="true" tabindex="-1"></a>            ax.set_xlabel(<span class="st">"t"</span>)</span>
+<span id="cb28-57"><a href="#cb28-57" aria-hidden="true" tabindex="-1"></a>            ax.set_ylabel(<span class="st">"y"</span>)</span>
+<span id="cb28-58"><a href="#cb28-58" aria-hidden="true" tabindex="-1"></a>            ax.legend()</span>
+<span id="cb28-59"><a href="#cb28-59" aria-hidden="true" tabindex="-1"></a>            ax.grid(<span class="va">True</span>)</span>
+<span id="cb28-60"><a href="#cb28-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-61"><a href="#cb28-61" aria-hidden="true" tabindex="-1"></a>        plt.suptitle(<span class="ss">f"Model Fit for d=</span><span class="sc">{</span>r[<span class="st">'d'</span>]<span class="sc">}</span><span class="ss"> (Predicted lr=</span><span class="sc">{</span>r[<span class="st">'lr'</span>]<span class="sc">:.4f}</span><span class="ss">)"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb28-62"><a href="#cb28-62" aria-hidden="true" tabindex="-1"></a>        plt.tight_layout(rect<span class="op">=</span>[<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.95</span>])</span>
+<span id="cb28-63"><a href="#cb28-63" aria-hidden="true" tabindex="-1"></a>        plt.show()</span>
+<span id="cb28-64"><a href="#cb28-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-65"><a href="#cb28-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="95758005" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>d_test_values <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">50</span>,<span class="dv">100</span>]</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> validate_scaling_relation(nu, gamma, d_test_values)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+=== d = 10 | lr = 0.029354 ===
+
+=== d = 50 | lr = 0.013773 ===
+
+=== d = 100 | lr = 0.009942 ===</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Optimization_for_machine_learning_clean_files/figure-html/cell-23-output-2.png" width="821" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Optimization_for_machine_learning_clean_files/figure-html/cell-23-output-3.png" width="950" height="381" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Optimization_for_machine_learning_clean_files/figure-html/cell-23-output-4.png" width="950" height="381" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Optimization_for_machine_learning_clean_files/figure-html/cell-23-output-5.png" width="950" height="381" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+<p>For each model dimension <span class="math inline">\(d\)</span>, the learning rate predicted by the scaling law $ (d) , d^{} $ was used to train the model. The training loss curves show smooth convergence for all tested values of <span class="math inline">\(d\)</span>, while the train/test fits demonstrate that the models trained with the predicted learning rates reach comparable accuracy and stability, supporting the validity of the proposed scaling relation.</p>
+<hr>
+<hr>
+</section>
+<section id="summary-of-the-exercise" class="level5">
+<h5 class="anchored" data-anchor-id="summary-of-the-exercise">Summary of the exercise</h5>
+<p>This exercise was carried out in an academic setting. The main lesson we draw from it is that, in high-dimensional settings, gradient descent algorithms tend to be more cautious in choosing the learning rate, especially when the objective function is irregular, in order to avoid oscillations and ensure more stable convergence.</p>
+<p>It is also important to note that the relationship we found is obviously not optimal, mainly because of the limitations arising from the assumptions made in our case. It however provides an order of magnitude for a relevant learning rate to use. Even then, this relationship is likely valid only under the specific conditions of our experiment — in particular, the initialization setup, the dataset used, and the sample size.</p>
+<hr>
+
+
+</section>
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
