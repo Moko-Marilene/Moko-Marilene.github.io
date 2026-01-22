@@ -46,7 +46,7 @@ format:
   <img src="Images/courbe de taux.png" class="project-img">
   <h3>Courbe de taux & modèle de Hull–White</h3>
   <p>Bootstrapping, valorisation caplets/swap­tion, calibration Hull–White</p>
-  <a href="finance_quant/projets/projet_courbe_taux.qmd" class="btn">Lire</a>
+  <a href="finance_quant/projets/Projet_courbe_taux.html" class="btn">Lire</a>
 </div>
 
 <div class="project-card">

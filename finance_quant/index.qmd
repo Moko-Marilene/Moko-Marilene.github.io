@@ -35,7 +35,7 @@ Vous trouverez ci après des ressources bibliographiques que je vous suggère :[
   <img src="../Images/courbe de taux.png" class="project-img">
   <h3>Courbe de taux & modèle de Hull–White</h3>
   <p>Bootstrapping, valorisation caplets/swap­tion, calibration Hull–White</p>
-  <a href="projets/projet_courbe_taux.qmd" class="btn">Lire</a>
+  <a href="projets/Projet_courbe_taux.html" class="btn">Lire</a>
 </div>
 
 <div class="project-card">
