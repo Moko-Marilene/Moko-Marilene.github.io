@@ -13,12 +13,12 @@ about:
     - icon: envelope
       text: Email
       href: mailto:marilenemoko@gmail.com
-    - icon: file-person
-      text: CV (Français)
-      href: cv_fr.pdf
+    #- icon: file-person
+    #  text: CV (Français)
+    #  href: cv_fr.pdf
     - icon: file-person
       text: CV (English)
-      href: cv_en.pdf
+      href: KOUGOUM_RESUME_.pdf
 ---
 
 Je suis Marilene KOUGOUM, récemment diplômée de l’ENSAI Rennes en tant qu’ingénieure en data science et gestion des risques.
